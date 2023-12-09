@@ -21,7 +21,7 @@ void startGame(GLFWwindow* window) {
 
     Simplemesh terrain = terrainSetup(dshader);
     Simplemesh box(convertToVertexglmVector(square.vertices, square.vertices.size()),square.indices, texts );
-
+    camera.fps = true;
     while (!glfwWindowShouldClose(window))
     {
         refreshTime();
@@ -38,6 +38,18 @@ void startGame(GLFWwindow* window) {
         transform = glm::scale(transform, glm::vec3(4.0f, 4.0f ,4.0f));
         dshader.setMat4("model", transform);
         box.Draw(dshader);
+
+        float x = 4.0f;
+        for (size_t i = 0; i < 10; i++)
+        {
+            transform = glm::mat4(1.0f);
+            transform = glm::translate(transform, glm::vec3(0 + x, 2.0f, 0));
+            transform = glm::scale(transform, glm::vec3(4.0f, 4.0f, 4.0f));
+            dshader.setMat4("model", transform);
+            box.Draw(dshader);
+            x += 4.0f;
+        }
+
         drawSkyBox(skyboxShader, skybox, skyboxTex);
         glfwSwapBuffers(window);
         glfwPollEvents();
