@@ -13,7 +13,7 @@ void startGame(GLFWwindow* window) {
  
     Shader dshader("shaders/try.vs", "shaders/try.fs");
     Shader skyboxShader("shaders/6.1.skybox.vs", "shaders/6.1.skybox.fs");
-    texture text("res/textures/container.jpg", GL_RGB,"material.diffuse");
+    texture text("res/textures/1.png", GL_RGBA,"material.diffuse");
     vector<sTexture> texts = {text.info};
 
     unsigned int skybox = setupSkyBox();
