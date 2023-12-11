@@ -145,6 +145,7 @@
     <ClCompile Include="glad.c" />
     <ClCompile Include="imageloader.cpp" />
     <ClCompile Include="InputHandle.cpp" />
+    <ClCompile Include="lighting.cpp" />
     <ClCompile Include="MainProj.cpp" />
     <ClCompile Include="PreRender.cpp" />
     <ClCompile Include="skybox.cpp" />
@@ -154,9 +155,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h" />
+    <ClInclude Include="cube.h" />
     <ClInclude Include="GameLoop.h" />
     <ClInclude Include="imageloader.h" />
     <ClInclude Include="InputHandle.h" />
+    <ClInclude Include="lighting.h" />
     <ClInclude Include="PreRender.h" />
     <ClInclude Include="prism.h" />
     <ClInclude Include="shape.h" />

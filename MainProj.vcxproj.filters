@@ -57,6 +57,9 @@
     <ClCompile Include="skybox.cpp">
       <Filter>App</Filter>
     </ClCompile>
+    <ClCompile Include="lighting.cpp">
+      <Filter>App</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h">
@@ -96,6 +99,12 @@
       <Filter>meshes</Filter>
     </ClInclude>
     <ClInclude Include="skybox.h">
+      <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="cube.h">
+      <Filter>meshes</Filter>
+    </ClInclude>
+    <ClInclude Include="lighting.h">
       <Filter>App</Filter>
     </ClInclude>
   </ItemGroup>

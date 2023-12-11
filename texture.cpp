@@ -3,7 +3,7 @@
 #include "imageloader.h"
 
 
-texture::texture(std::string path, GLenum format,std::string type, bool generatMipMapflag)
+texture::texture(std::string path,std::string type, bool generatMipMapflag, GLenum format)
 {
 	this->info.path = path;
 	this->format = format;
@@ -19,12 +19,14 @@ void texture::make() {
 	glBindTexture(GL_TEXTURE_2D, info.id);
 	int width, height, nrChannels;
 	unsigned char* data = loadImage(info.path, &width, &height, &nrChannels);
-	if (nrChannels == 1)
-		format = GL_RED;
-	else if (nrChannels == 3)
-		format = GL_RGB;
-	else if (nrChannels == 4)
-		format = GL_RGBA;
+	if (format == GL_NONE) {
+		if (nrChannels == 1)
+			format = GL_RED;
+		else if (nrChannels == 3)
+			format = GL_RGB;
+		else if (nrChannels == 4)
+			format = GL_RGBA;
+	}
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, format, GL_UNSIGNED_BYTE, data);
 	if (generatMipMapflag)
 	{
