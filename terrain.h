@@ -6,6 +6,7 @@
 #include "lighting.h"
 
 
+
 shape terrain;
 
 
@@ -20,8 +21,8 @@ void generateTerrain(std::vector<sVertex>& vertices, std::vector<unsigned int>& 
         for (int x = 0; x < width; ++x) {
             float xPos = (static_cast<float>(x) - halfWidth) * scale;
             float zPos = (static_cast<float>(z) - halfHeight) * scale;
-
-            float elevation = glm::simplex(glm::vec2(xPos, zPos)) * 0.15f;
+           
+            float elevation = glm::perlin(glm::vec2(xPos * 0.2f, zPos * 0.2f)) * 0.30f;
             vertices.push_back({{ xPos, elevation, zPos }, { 0.0f, 1.0f, 0.0f }, { xPos / 6 , zPos / 6}
         });
         }
@@ -54,7 +55,8 @@ Simplemesh terrainSetup(Shader shader) {
     texture Text3("res/textures/rocky_trail_spec.jpg", "material.specular");
     texture Text4("res/textures/rocky_trail_nor.jpg","material.normal");
     texture Text5("res/textures/rocky_trail_ao.jpg","material.ambient");
-    vector<sTexture> texts2 = { Text2.info , Text3.info, Text4.info , Text5.info };
+    texture Text6("res/textures/rocky_trail_disp.jpg", "material.height");
+    vector<sTexture> texts2 = { Text2.info , Text3.info, Text4.info , Text5.info, Text6.info };
 
     generateTerrain(terrain.sVertices, terrain.indices, 150, 200, 1.0f);
 

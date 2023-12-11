@@ -51,6 +51,49 @@ void main()
     //lightDirection = vec3(-light.direction.x, light.direction.y, -light.direction.z);
     vec3 camPos = geoViewPos;
 
+
+
+    vec3 viewDirection = normalize(camPos - FragPos);
+	
+	// Variables that control parallax occlusion mapping quality
+	float heightScale = 0.05f;
+	const float minLayers = 8.0f;
+    const float maxLayers = 64.0f;
+    float numLayers = mix(maxLayers, minLayers, abs(dot(vec3(0.0f, 0.0f, 1.0f), viewDirection)));
+	float layerDepth = 1.0f / numLayers;
+	float currentLayerDepth = 0.0f;
+	
+	// Remove the z division if you want less aberated results
+	vec2 S = viewDirection.xy / viewDirection.z * heightScale; 
+    vec2 deltaUVs = S / numLayers;
+	
+	vec2 UVs = TexCoords;
+	float currentDepthMapValue = 1.0f - texture(material.height1, UVs).r;
+	
+	// Loop till the point on the heightmap is "hit"
+	while(currentLayerDepth < currentDepthMapValue)
+    {
+        UVs -= deltaUVs;
+        currentDepthMapValue = 1.0f - texture(material.height1, UVs).r;
+        currentLayerDepth += layerDepth;
+    }
+
+	// Apply Occlusion (interpolation with prev value)
+	vec2 prevTexCoords = UVs + deltaUVs;
+	float afterDepth  = currentDepthMapValue - currentLayerDepth;
+	float beforeDepth = 1.0f - texture(material.height1, prevTexCoords).r - currentLayerDepth + layerDepth;
+	float weight = afterDepth / (afterDepth - beforeDepth);
+	UVs = prevTexCoords * weight + UVs * (1.0f - weight);
+
+	// Get rid of anything outside the normal range
+	//if(UVs.x > 1.0 || UVs.y > 1.0 || UVs.x < 0.0 || UVs.y < 0.0)
+	//	discard;
+
+
+
+
+
+
     // ambient
     float aoValue = texture(material.ambient1, TexCoords).r;
     vec3 ambient = aoValue * light.ambient * texture(material.diffuse1, TexCoords).rgb;
@@ -59,13 +102,13 @@ void main()
     // vec3 lightDir = normalize(light.position - FragPos);
     vec3 lightDir = normalize(-lightDirection);  
     float diff = max(dot(norm, lightDir), 0.0);
-    vec3 diffuse = light.diffuse * diff * texture(material.diffuse1, TexCoords).rgb;  
+    vec3 diffuse = light.diffuse * diff * texture(material.diffuse1, UVs).rgb;  
     
     // specular
     vec3 viewDir = normalize(camPos - FragPos);
     vec3 reflectDir = reflect(-lightDir, norm);  
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
-    vec3 t = texture(material.specular1, TexCoords).rgb;
+    vec3 t = texture(material.specular1, UVs).rgb;
     vec3 specular = light.specular * spec * vec3(t.x,t.x,t.x);  
         
     vec3 result = ambient + diffuse + specular;
