@@ -8,7 +8,8 @@ public:
 	sTexture info;
 	GLenum format;
 	bool generatMipMapflag;
-	texture(std::string path, std::string type, bool generatMipMapflag = true, GLenum format = GL_NONE);
+	GLenum gamma;
+	texture(std::string path, std::string type, bool generatMipMapflag = true, GLenum format = GL_NONE, GLenum gamma = GL_RGB);
 
 	void make();
 

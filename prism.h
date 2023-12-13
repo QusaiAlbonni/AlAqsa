@@ -16,11 +16,11 @@ void generateOctagonalPrism(std::vector<sVertex>& vertices, std::vector<unsigned
         float z = radius * std::sin(angle);
 
         // Top face vertex
-        vertices.push_back({{ x, height / 2.0f, z }, { 0.0f, 1.0f, 0.0f }, {  i % 2 == 0? 1.0f : 0.0f, 1.0f }
+        vertices.push_back({{ x, height / 2.0f, z }, { 0.0f, 1.0f, 0.0f }, {  (x + 1.0f) / 2.0f, (z + 1.0f) / 2.0f }
     });
 
         // Bottom face vertex
-        vertices.push_back({ { x, -height / 2.0f, z}, {0.0f, -1.0f, 0.0f},{i % 2 == 0 ? 1.0f : 0, 0.0f} });
+        vertices.push_back({ { x, -height / 2.0f, z}, {0.0f, -1.0f, 0.0f},{(x + 1.0f) / 2.0f, (z + 1.0f) / 2.0f} });
     }
 
     // Generate indices for the sides

@@ -50,6 +50,8 @@ bool setupOpengl()
     // configure global opengl state
     // -----------------------------
     glEnable(GL_DEPTH_TEST);
+    //glEnable(GL_CULL_FACE);
+    //glFrontFace(GL_CCW);
     return true;
 }
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)

@@ -36,14 +36,15 @@ void generateTerrain(std::vector<sVertex>& vertices, std::vector<unsigned int>& 
             int bottomRight = bottomLeft + 1;
 
             // Triangle 1
-            indices.push_back(topRight);
-            indices.push_back(bottomLeft);
             indices.push_back(topLeft);
+            indices.push_back(bottomLeft);
+            indices.push_back(topRight);
 
             // Triangle 2
-            indices.push_back(bottomRight);
-            indices.push_back(bottomLeft);
             indices.push_back(topRight);
+            indices.push_back(bottomLeft);
+            indices.push_back(bottomRight);
+
         }
     }
     
@@ -53,7 +54,7 @@ Simplemesh terrainSetup(Shader shader) {
 
     texture Text2("res/textures/rocky_trail_diff.jpg",  "material.diffuse");
     texture Text3("res/textures/rocky_trail_spec.jpg", "material.specular");
-    texture Text4("res/textures/rocky_trail_nor.jpg","material.normal");
+    texture Text4("res/textures/rocky_trail_nor.jpg","material.normal", true);
     texture Text5("res/textures/rocky_trail_ao.jpg","material.ambient");
     texture Text6("res/textures/rocky_trail_disp.jpg", "material.height");
     vector<sTexture> texts2 = { Text2.info , Text3.info, Text4.info , Text5.info, Text6.info };

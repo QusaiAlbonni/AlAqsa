@@ -32,7 +32,8 @@ void startGame(GLFWwindow* window) {
 
     initcube();
     Simplemesh cubes(cube.sVertices, cube.indices, cubeTexts);
-    
+
+
     //camera.fps = true;
     while (!glfwWindowShouldClose(window))
     {

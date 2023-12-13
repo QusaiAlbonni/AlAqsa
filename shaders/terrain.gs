@@ -49,6 +49,8 @@ vec3 GetNormal()
 void main() {
 
 
+    
+
     vec3 edge0 = gl_in[1].gl_Position.xyz - gl_in[0].gl_Position.xyz;
     vec3 edge1 = gl_in[2].gl_Position.xyz - gl_in[0].gl_Position.xyz;
     // Lengths of UV differences
@@ -63,7 +65,7 @@ void main() {
 
     vec3 T = normalize(vec3(data_in[0].model * vec4(tangent, 0.0f)));
     vec3 B = normalize(vec3(data_in[0].model * vec4(bitangent, 0.0f)));
-    vec3 N = normalize(vec3(data_in[0].model * vec4(cross(edge1, edge0), 0.0f)));
+    vec3 N = normalize(vec3(data_in[0].model * vec4(cross(edge0, edge1), 0.0f)));
 
     mat3 TBN = mat3(T, B, N);
     // TBN is an orthogonal matrix and so its inverse is equal to its transpose
@@ -73,7 +75,7 @@ void main() {
 
 
     Normal = mat3(transpose(inverse(model))) * GetNormal();
-    for (int i = 0; i < gl_in.length(); ++i)
+    for (int i = 0; i < gl_in.length(); i++)
     {
         TexCoords = data_in[i].texCoord;
         FragPos = TBN * fragPos[i];

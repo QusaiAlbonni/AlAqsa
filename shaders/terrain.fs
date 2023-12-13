@@ -64,7 +64,7 @@ void main()
 	float currentLayerDepth = 0.0f;
 	
 	// Remove the z division if you want less aberated results
-	vec2 S = viewDirection.xy / viewDirection.z * heightScale; 
+	vec2 S = viewDirection.xy /  heightScale; 
     vec2 deltaUVs = S / numLayers;
 	
 	vec2 UVs = TexCoords;

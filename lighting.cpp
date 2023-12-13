@@ -8,5 +8,5 @@ void addDirectionalLight(Shader shader) {
     // light properties
     shader.setVec3("light.ambient", 0.5f, 0.5f, 0.5f);
     shader.setVec3("light.diffuse", 0.8f, 0.8f, 0.8f);
-    shader.setVec3("light.specular", 0.6f, 0.6f, 0.6f);
+    shader.setVec3("light.specular", 0.7f, 0.7f, 0.7f);
 }
