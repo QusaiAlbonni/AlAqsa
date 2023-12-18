@@ -123,11 +123,12 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;sfml-audio.lib;%(AdditionalDependencies);opengl32.lib;glfw3.lib</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;sfml-audio.lib;assimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -139,24 +140,27 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;sfml-audio.lib;%(AdditionalDependencies);opengl32.lib;glfw3.lib</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;sfml-audio.lib;assimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="app.h" />
     <ClCompile Include="common.cpp" />
+    <ClCompile Include="Dome.cpp" />
     <ClCompile Include="GameLoop.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="imageloader.cpp" />
     <ClCompile Include="InputHandle.cpp" />
     <ClCompile Include="lighting.cpp" />
     <ClCompile Include="MainProj.cpp" />
+    <ClCompile Include="object_.cpp" />
     <ClCompile Include="PreRender.cpp" />
     <ClCompile Include="skybox.cpp" />
     <ClCompile Include="texture.cpp" />
@@ -166,14 +170,18 @@
   <ItemGroup>
     <ClInclude Include="common.h" />
     <ClInclude Include="cube.h" />
+    <ClInclude Include="Dome.h" />
     <ClInclude Include="GameLoop.h" />
     <ClInclude Include="imageloader.h" />
     <ClInclude Include="InputHandle.h" />
     <ClInclude Include="lighting.h" />
+    <ClInclude Include="object_.h" />
     <ClInclude Include="PreRender.h" />
     <ClInclude Include="prism.h" />
+    <ClInclude Include="rectangle.h" />
     <ClInclude Include="shape.h" />
     <ClInclude Include="skybox.h" />
+    <ClInclude Include="sphere.h" />
     <ClInclude Include="square.h" />
     <ClInclude Include="terrain.h" />
     <ClInclude Include="texture.h" />

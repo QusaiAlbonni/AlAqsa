@@ -40,3 +40,15 @@ void calculateNormalsSmooth(std::vector<sVertex>& vertices, const std::vector<un
     }
 
 }
+
+glm::mat4 setMVP(Shader shader, glm::mat4 transform){
+    glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 150.0f);
+    shader.setMat4("projection", projection);
+
+    glm::mat4 view = camera.GetViewMatrix();
+    shader.setMat4("view", view);
+
+    shader.setMat4("model", transform);
+
+    return projection * view * transform;
+}

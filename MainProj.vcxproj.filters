@@ -19,6 +19,9 @@
     <Filter Include="meshes">
       <UniqueIdentifier>{cfb3e8ad-25a1-4518-a6c3-c3615991370b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="objects">
+      <UniqueIdentifier>{c88979a6-733d-45da-bc7b-cd6d15e4427d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainProj.cpp">
@@ -26,9 +29,6 @@
     </ClCompile>
     <ClCompile Include="glad.c">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="app.h">
-      <Filter>App</Filter>
     </ClCompile>
     <ClCompile Include="GameLoop.cpp">
       <Filter>App</Filter>
@@ -60,32 +60,17 @@
     <ClCompile Include="lighting.cpp">
       <Filter>App</Filter>
     </ClCompile>
+    <ClCompile Include="object_.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="app.h">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Dome.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="common.h">
-      <Filter>App</Filter>
-    </ClInclude>
-    <ClInclude Include="PreRender.h">
-      <Filter>App</Filter>
-    </ClInclude>
-    <ClInclude Include="InputHandle.h">
-      <Filter>App</Filter>
-    </ClInclude>
-    <ClInclude Include="GameLoop.h">
-      <Filter>App</Filter>
-    </ClInclude>
-    <ClInclude Include="texture.h">
-      <Filter>App</Filter>
-    </ClInclude>
-    <ClInclude Include="utils.h">
-      <Filter>App</Filter>
-    </ClInclude>
-    <ClInclude Include="imageloader.h">
-      <Filter>App</Filter>
-    </ClInclude>
-    <ClInclude Include="Time.h">
-      <Filter>App</Filter>
-    </ClInclude>
     <ClInclude Include="shape.h">
       <Filter>meshes</Filter>
     </ClInclude>
@@ -98,14 +83,50 @@
     <ClInclude Include="terrain.h">
       <Filter>meshes</Filter>
     </ClInclude>
-    <ClInclude Include="skybox.h">
-      <Filter>App</Filter>
-    </ClInclude>
     <ClInclude Include="cube.h">
       <Filter>meshes</Filter>
     </ClInclude>
+    <ClInclude Include="object_.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Time.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="skybox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PreRender.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="lighting.h">
-      <Filter>App</Filter>
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="InputHandle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="imageloader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLoop.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dome.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rectangle.h">
+      <Filter>meshes</Filter>
+    </ClInclude>
+    <ClInclude Include="sphere.h">
+      <Filter>meshes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

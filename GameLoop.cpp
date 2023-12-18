@@ -3,16 +3,18 @@
 #include "imageloader.h"
 #include <vector>
 #include "square.h"
-#include "prism.h"
 #include "terrain.h"
 #include "skybox.h"
 #include "cube.h"
+#include "Dome.h"
+#include <learnopengl/model.h>
 
 
 void startGame(GLFWwindow* window) {
 
  
     Shader dshader("shaders/terrain.vs", "shaders/terrain.fs", "shaders/terrain.gs" );
+    Shader mshader("shaders/model.vs", "shaders/model.fs", "shaders/model.gs");
     Shader lshader("shaders/default.vs", "shaders/default.fs", "shaders/default.gs");
     Shader skyboxShader("shaders/skyboxday.vs", "shaders/skyboxday.fs");
     texture text("res/textures/container.jpg","material.diffuse");
@@ -33,8 +35,12 @@ void startGame(GLFWwindow* window) {
     initcube();
     Simplemesh cubes(cube.sVertices, cube.indices, cubeTexts);
 
+    Dome dome(dshader);
+    
 
-    //camera.fps = true;
+    Model ourModel("res/models/backpack/backpack.obj");
+
+    camera.fps = true;
     while (!glfwWindowShouldClose(window))
     {
         refreshTime();
@@ -80,6 +86,16 @@ void startGame(GLFWwindow* window) {
         cubes.Draw(lshader);
 
 
+        dome.Draw();
+
+
+
+        addDirectionalLight(mshader);
+        mshader.setFloat("shininess", 32.0f);
+        mshader.setBool("noparallax", true);
+        setMVP(mshader, glm::translate(glm::mat4(1), glm::vec3(2.0f,2.0f,2.0f)));
+        ourModel.Draw(mshader);
+
 
 
         drawSkyBox(skyboxShader, skybox, skyboxTex);
@@ -97,15 +113,3 @@ void startGame(GLFWwindow* window) {
 
 
 
-
-glm::mat4 setMVP(Shader shader, glm::mat4 transform) {
-    glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-    shader.setMat4("projection", projection);
-
-    glm::mat4 view = camera.GetViewMatrix();
-    shader.setMat4("view", view);
-
-    shader.setMat4("model", transform);
-
-    return projection * view * transform;
-}

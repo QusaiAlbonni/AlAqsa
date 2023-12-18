@@ -1,8 +1,8 @@
 #include "lighting.h"
 
-void addDirectionalLight(Shader shader) {
+void addDirectionalLight(Shader shader, glm::vec3 lightDirection) {
     shader.use();
-    shader.setVec3("light.direction", 10.2f, -10.0f, 10.3f);
+    shader.setVec3("light.direction", lightDirection);
     shader.setVec3("viewPos", camera.Position);
 
     // light properties

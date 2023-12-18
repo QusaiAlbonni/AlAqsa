@@ -37,6 +37,8 @@ public:
     unsigned int VAO;
 
     // constructor
+    Simplemesh() {};
+
     Simplemesh(vector<sVertex> vertices, vector<unsigned int> indices, vector<sTexture> textures)
     {
         this->vertices = vertices;
@@ -48,7 +50,7 @@ public:
     }
 
     // render the mesh
-    void Draw(Shader& shader)
+    void Draw(Shader& shader, GLenum primitive = GL_TRIANGLES)
     {
 
         
@@ -57,6 +59,7 @@ public:
         unsigned int specularNr = 1;
         unsigned int normalNr = 1;
         unsigned int heightNr = 1;
+        unsigned int ambientNr = 1;
         for (unsigned int i = 0; i < textures.size(); i++)
         {
             glActiveTexture(GL_TEXTURE0 + i); // active proper texture unit before binding
@@ -72,7 +75,7 @@ public:
             else if (name == "material.height")
                 number = std::to_string(heightNr++); // transfer unsigned int to string
             else if (name == "material.ambient")
-                number = std::to_string(heightNr++); // transfer unsigned int to string
+                number = std::to_string(ambientNr++); // transfer unsigned int to string
 
             // now set the sampler to the correct texture unit
             glUniform1i(glGetUniformLocation(shader.ID, (name + number).c_str()), i);
@@ -82,7 +85,7 @@ public:
         }
         // draw mesh
         glBindVertexArray(VAO);
-        glDrawElements(GL_TRIANGLES, static_cast<unsigned int>(indices.size()), GL_UNSIGNED_INT, 0);
+        glDrawElements(primitive, static_cast<unsigned int>(indices.size()), GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
 
         // always good practice to set everything back to defaults once configured.
@@ -123,6 +126,9 @@ private:
         glEnableVertexAttribArray(2);
         glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(sVertex), (void*)offsetof(sVertex, TexCoords));
         glBindVertexArray(0);
+
+        
+
     }
 };
 #endif

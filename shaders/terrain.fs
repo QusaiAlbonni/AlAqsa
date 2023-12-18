@@ -30,6 +30,8 @@ in mat3 tbn;
 uniform vec3 viewPos;
 uniform Material material;
 uniform Light light;
+uniform mat4 model;
+uniform bool noparallax;
 
 void main()
 {
@@ -64,12 +66,12 @@ void main()
 	float currentLayerDepth = 0.0f;
 	
 	// Remove the z division if you want less aberated results
-	vec2 S = viewDirection.xy /  heightScale; 
+	vec2 S = viewDirection.xy / viewDirection.z *   heightScale; 
     vec2 deltaUVs = S / numLayers;
 	
 	vec2 UVs = TexCoords;
 	float currentDepthMapValue = 1.0f - texture(material.height1, UVs).r;
-	
+	if(!noparallax){
 	// Loop till the point on the heightmap is "hit"
 	while(currentLayerDepth < currentDepthMapValue)
     {
@@ -88,7 +90,7 @@ void main()
 	// Get rid of anything outside the normal range
 	//if(UVs.x > 1.0 || UVs.y > 1.0 || UVs.x < 0.0 || UVs.y < 0.0)
 	//	discard;
-
+    }
 
 
 

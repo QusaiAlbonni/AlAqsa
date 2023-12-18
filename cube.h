@@ -1,7 +1,6 @@
 #pragma once
 #include "shape.h"
 #include <learnopengl/simplemesh.h>
-#include "utils.h"
 
 shape cube({
     -0.5f, 0.5f, -0.5f,0.0f, 1.0f, 0.0f ,0.0f, 1.0f,
