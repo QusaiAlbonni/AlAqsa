@@ -115,4 +115,7 @@ void main()
         
     vec3 result = ambient + diffuse + specular;
     FragColor = vec4(result, 1.0);
+    //float gamma = 2.2;
+    //FragColor.rgb = pow(FragColor.rgb, vec3(1.0/gamma));
+    
 } 

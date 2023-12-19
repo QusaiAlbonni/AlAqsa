@@ -3,7 +3,7 @@
 #include "imageloader.h"
 
 
-texture::texture(std::string path,std::string type, bool generatMipMapflag, GLenum format, GLenum gamma)
+texture::texture(std::string path,std::string type, GLenum format, GLenum gamma, bool generatMipMapflag)
 {
 	this->info.path = path;
 	this->format = format;

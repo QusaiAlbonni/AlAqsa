@@ -11,8 +11,8 @@ bool firstMouse = true;
 GLFWwindow* setupWindow()
 {
     glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 #ifdef __APPLE__
@@ -47,9 +47,14 @@ bool setupOpengl()
         return false;
     }
 
+    const char* glVersion = reinterpret_cast<const char*>(glGetString(GL_VERSION));
+
+    if (glVersion)
+        std::cout << "OpenGL Version: " << glVersion << std::endl;
     // configure global opengl state
     // -----------------------------
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_FRAMEBUFFER_SRGB);
     //glEnable(GL_CULL_FACE);
     //glFrontFace(GL_CCW);
     return true;

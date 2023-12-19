@@ -8,7 +8,7 @@ Dome::Dome(Shader shader) : object_(shader) {
 }
 void Dome::init(){
 	createRectangle(2.0f, 1.0f, face.sVertices, face.indices);
-	texture faceDiffuse("res/textures/domeWall/domeWall_diffuse.jpg", "material.diffuse");
+	texture faceDiffuse("res/textures/domeWall/domeWall_diffuse.jpg", "material.diffuse", GL_NONE, GL_SRGB_ALPHA);
 	texture faceSpecular("res/textures/domeWall/domeWall_rough.jpg", "material.specular");
 	texture faceAmbient("res/textures/domeWall/domeWall_ao.jpg", "material.ambient");
 	texture faceNormal("res/textures/domeWall/domeWall_nor.jpg", "material.normal");
@@ -25,7 +25,7 @@ void Dome::init(){
 	faceMesh = Simplemesh(face.sVertices, face.indices, faceTextures);
 	
 	buildCircle(base.sVertices, base.indices, 2.613f, 8);
-	texture baseDiffuse("res/textures/domeWall/base_diffuse.jpg", "material.diffuse");
+	texture baseDiffuse("res/textures/domeWall/base_diffuse.jpg", "material.diffuse", GL_RGB, GL_SRGB);
 	texture baseSpecular("res/textures/domeWall/base_rough.jpg", "material.specular");
 	texture baseAmbient("res/textures/domeWall/base_ao.jpg", "material.ambient");
 	texture baseNormal("res/textures/domeWall/base_nor.jpg", "material.normal");
@@ -41,7 +41,7 @@ void Dome::init(){
 	baseMesh = Simplemesh(base.sVertices,base.indices, baseTextures);
 	
 	buildSphere(sphere.sVertices, sphere.indices, true);
-	texture domeDiffuse("res/textures/domeWall/dome/dome_diffuse.jpg", "material.diffuse");
+	texture domeDiffuse("res/textures/domeWall/dome/dome_diffuse.jpg", "material.diffuse", GL_RGB, GL_SRGB);
 	texture domeSpecular("res/textures/domeWall/dome/dome_spec.jpg", "material.specular");
 	texture domeAmbient("res/textures/domeWall/dome/dome_ao.jpg", "material.ambient");
 	texture domeNormal("res/textures/domeWall/dome/dome_nor.jpg", "material.normal");
@@ -52,7 +52,7 @@ void Dome::init(){
 
 
 	generateCylinder(1.0f, 0.3f, 50, 20, domeBase.sVertices, domeBase.indices);
-	texture domebaseDiffuse("res/textures/domeWall/domeBase_diffuse.jpg", "material.diffuse");
+	texture domebaseDiffuse("res/textures/domeWall/domeBase_diffuse.jpg", "material.diffuse", GL_RGB, GL_SRGB);
 	texture domebaseSpecular("res/textures/domeWall/domeBase_spec.jpg", "material.specular");
 	texture domebaseAmbient("res/textures/domeWall/domeBase_ao.jpg", "material.ambient");
 	texture domebaseNormal("res/textures/domeWall/domeBase_nor.jpg", "material.normal");

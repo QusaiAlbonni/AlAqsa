@@ -58,7 +58,7 @@ void generateTerrain(std::vector<sVertex>& vertices, std::vector<unsigned int>& 
 
 Simplemesh terrainSetup(Shader shader) {
 
-    texture Text2("res/textures/rocky_trail_diff.jpg",  "material.diffuse");
+    texture Text2("res/textures/rocky_trail_diff.jpg",  "material.diffuse", GL_RGB, GL_SRGB);
     texture Text3("res/textures/rocky_trail_spec.jpg", "material.specular");
     texture Text4("res/textures/rocky_trail_nor.jpg","material.normal");
     texture Text5("res/textures/rocky_trail_ao.jpg","material.ambient");
