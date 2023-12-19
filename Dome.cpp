@@ -69,15 +69,24 @@ void Dome::init(){
 }
 
 
+
+//draw final scene that will be drawn for viewer
 void Dome::Draw() {
 	glm::mat4 transform(1);
 	transform = glm::translate(transform, glm::vec3(-40.0f, 0.0f, -40.0f));
 	addDirectionalLight(shader, {-10.0f, -60.0f, 10.0f});
 	shader.setFloat("material.shininess", 32.0f);
+	setMVP(shader);
 	drawMeshes(transform);
 }
 
+//This is to draw scene for depth map (shadow map)
+void Dome::DrawDepth(Shader depthShader, bool ortho)
+{
+}
 
+
+//This is a function that draws the scene at 0,0,0 world position DO NOT setMVP here this is just to render the scene 
 void Dome::drawMeshes(glm::mat4 transform, glm::mat4 scaleMat) {
 	using namespace glm;
 	shader.use();
@@ -97,7 +106,7 @@ void Dome::drawMeshes(glm::mat4 transform, glm::mat4 scaleMat) {
 		faceTransform = glm::translate(faceTransform, glm::vec3(x, 0.5f, z));
 		faceTransform = glm::rotate(faceTransform, glm::radians(angle), glm::vec3(0.0f, 1.0f, 0.0f));
 		shader.setBool("noparallax", true);
-		setMVP(shader, faceTransform);
+		shader.setMat4("model", faceTransform);
 		faceMesh.Draw(shader);
 	}
 	
@@ -110,7 +119,7 @@ void Dome::drawMeshes(glm::mat4 transform, glm::mat4 scaleMat) {
 	baseTransform = translate(baseTransform, vec3(0.0f, 0.9f, 0.0f));
 	baseTransform = rotate(baseTransform, radians(90.0f), vec3(1.0f, 0.0f, 0.0f));
 	//shader.setBool("noparallax", false);
-	setMVP(shader, baseTransform);
+	shader.setMat4("model", baseTransform);
 	baseMesh.Draw(shader, GL_TRIANGLE_FAN);
 
 	mat4 sphereTransform(1);
@@ -118,7 +127,7 @@ void Dome::drawMeshes(glm::mat4 transform, glm::mat4 scaleMat) {
 	sphereTransform = scale(sphereTransform, vec3(12.0f, 13.5f, 12.0f));
 	sphereTransform = sphereTransform * scaleMat;
 	sphereTransform = translate(sphereTransform, vec3(0.0f, 1.0f, 0.0f));
-	setMVP(shader, sphereTransform);
+	shader.setMat4("model", sphereTransform);
 	addDirectionalLight(shader, { 10.0f, -60.0f, -10.0f });
 	sphereMesh.Draw(shader, GL_TRIANGLE_STRIP);
 
@@ -129,7 +138,7 @@ void Dome::drawMeshes(glm::mat4 transform, glm::mat4 scaleMat) {
 	domeBaseTransform = domeBaseTransform * scaleMat;
 	domeBaseTransform = translate(domeBaseTransform, vec3(0.0f, 1.104599f, 0.0f));
 	domeBaseTransform = rotate(domeBaseTransform, radians(180.0f), vec3(1.0f, 0.0f, 0.0f));
-	setMVP(shader, domeBaseTransform);
+	shader.setMat4("model", domeBaseTransform);
 	addDirectionalLight(shader, { 10.0f, -60.0f, -10.0f });
 	domeBaseMesh.Draw(shader); 
 
@@ -148,8 +157,10 @@ void Dome::drawMeshes(glm::mat4 transform, glm::mat4 scaleMat) {
 		faceTransform = glm::translate(faceTransform, glm::vec3(x, 0.5f, z));
 		faceTransform = glm::rotate(faceTransform, glm::radians(angle), glm::vec3(0.0f, 1.0f, 0.0f));
 		shader.setBool("noparallax", true);
-		setMVP(shader, faceTransform);
+		shader.setMat4("model", faceTransform);
 		faceMesh.Draw(shader);
 	}
 
 }
+
+
