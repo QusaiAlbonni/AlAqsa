@@ -15,6 +15,8 @@ extern const unsigned int SCR_WIDTH;
 extern const unsigned int SCR_HEIGHT;
 
 
+
+extern glm::vec3 lightPos;
 extern Camera camera;
 
 

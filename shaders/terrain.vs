@@ -13,6 +13,7 @@ out DATA
 	mat4 model;
     vec3 lightPos;
 	vec3 camPos;
+    vec4 FragPosLightSpace;
 } data_out;
 
 struct Light {
@@ -31,6 +32,7 @@ uniform vec3 viewPos;
 uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
+uniform mat4 lightSpaceMatrix;
 
 
 void main()
@@ -44,6 +46,7 @@ void main()
 	data_out.model = model;
     data_out.lightPos = light.direction;
 	data_out.camPos = viewPos;
+    data_out.FragPosLightSpace = lightSpaceMatrix * vec4(fragPos, 1.0);
     
     gl_Position = vec4(fragPos, 1.0);
 }

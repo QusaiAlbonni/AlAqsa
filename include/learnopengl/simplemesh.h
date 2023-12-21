@@ -35,6 +35,7 @@ public:
     vector<unsigned int> indices;
     vector<sTexture>      textures;
     unsigned int VAO;
+    bool depth = false;
 
     // constructor
     Simplemesh() {};
@@ -49,6 +50,21 @@ public:
         setupMesh();
     }
 
+    void addDepthTexture(sTexture texture) {
+        if (!depth)
+        {
+            textures.push_back(texture);
+            depth = true;
+        }
+        else
+        {
+            for (size_t i = 0; i < textures.size(); i++)
+            {
+                if (textures[i].type == "shadowMap")
+                    textures[i] = texture;
+            }
+        }
+    }
     // render the mesh
     void Draw(Shader& shader, GLenum primitive = GL_TRIANGLES)
     {
@@ -60,6 +76,7 @@ public:
         unsigned int normalNr = 1;
         unsigned int heightNr = 1;
         unsigned int ambientNr = 1;
+        unsigned int depth = 1;
         for (unsigned int i = 0; i < textures.size(); i++)
         {
             glActiveTexture(GL_TEXTURE0 + i); // active proper texture unit before binding
@@ -76,6 +93,8 @@ public:
                 number = std::to_string(heightNr++); // transfer unsigned int to string
             else if (name == "material.ambient")
                 number = std::to_string(ambientNr++); // transfer unsigned int to string
+            else if (name == "shadowMap")
+                number = std::to_string(depth++); // transfer unsigned int to string
 
             // now set the sampler to the correct texture unit
             glUniform1i(glGetUniformLocation(shader.ID, (name + number).c_str()), i);

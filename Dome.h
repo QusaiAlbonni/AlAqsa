@@ -2,6 +2,8 @@
 #include "object_.h"
 #include "lighting.h"
 #include "utils.h"
+#include <learnopengl/shape.h>
+
 
 class Dome :
     public object_

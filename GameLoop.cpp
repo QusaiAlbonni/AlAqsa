@@ -2,12 +2,11 @@
 #include "texture.h"
 #include "imageloader.h"
 #include <vector>
-#include "square.h"
 #include "terrain.h"
 #include "skybox.h"
-#include "cube.h"
 #include "Dome.h"
 #include <learnopengl/model.h>
+#include "DepthMap.h"
 
 
 void startGame(GLFWwindow* window) {
@@ -29,18 +28,21 @@ void startGame(GLFWwindow* window) {
 
 
 
-    square.sVertices = convertToVertexglmVector(square.vertices);
-    Simplemesh box(square.sVertices,square.indices, texts );
 
-    initcube();
-    Simplemesh cubes(cube.sVertices, cube.indices, cubeTexts);
 
     Dome dome(dshader);
     
 
     Model ourModel("res/models/backpack/backpack.obj");
 
-    camera.fps = true;
+
+
+    Shader depthShader("shaders/depth.vs", "shaders/depth.fs");
+    DepthMap depthmap(depthShader);
+    dshader.use();
+    dshader.setMat4("lightSpaceMatrix", depthmap.lightSpaceMatrix);
+
+    //camera.fps = true;
     while (!glfwWindowShouldClose(window))
     {
         refreshTime();
@@ -48,32 +50,21 @@ void startGame(GLFWwindow* window) {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    
+        sTexture depthMapTex = { depthmap.render({dome}, terrain), "shadowMap", "" };
 
+        terrain.addDepthTexture(depthMapTex);
         drawTerrain(terrain, dshader);
         dshader.use();
         glm::mat4 transform = glm::mat4(1);
         transform = glm::translate(transform, glm::vec3(0, 2.0f, 0));
         transform = glm::scale(transform, glm::vec3(4.0f, 4.0f ,4.0f));
         dshader.setMat4("model", transform);
-        box.Draw(dshader);
 
 
 
 
 
 
-
-        float x = 4.0f;
-        for (size_t i = 0; i < 10; i++)
-        {
-            transform = glm::mat4(1.0f);
-            transform = glm::translate(transform, glm::vec3(0 + x, 2.0f, 0));
-            transform = glm::scale(transform, glm::vec3(4.0f, 4.0f, 4.0f));
-            dshader.setMat4("model", transform);
-            box.Draw(dshader);
-            x += 4.0f;
-        }
 
 
 
@@ -83,7 +74,6 @@ void startGame(GLFWwindow* window) {
         addDirectionalLight(lshader);
         setMVP(lshader, cubeTrasform);
         lshader.setFloat("material.shininess",  32.0f);
-        cubes.Draw(lshader);
 
 
         dome.Draw();
@@ -99,6 +89,9 @@ void startGame(GLFWwindow* window) {
 
 
         drawSkyBox(skyboxShader, skybox, skyboxTex);
+
+
+        //depthmap.renderQuad();
         glfwSwapBuffers(window);
         glfwPollEvents();
     }

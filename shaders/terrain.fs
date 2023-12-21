@@ -26,12 +26,55 @@ in vec3 geoViewPos;
 in vec3 Normal;  
 in vec2 TexCoords;
 in mat3 tbn;
+in vec4 FragPosLightSpace;
   
 uniform vec3 viewPos;
 uniform Material material;
 uniform Light light;
 uniform mat4 model;
 uniform bool noparallax;
+uniform sampler2D shadowMap1;
+
+
+
+float ShadowCalculation(vec4 fragPosLightSpace, vec3 norm)
+{
+    vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
+    // transform to [0,1] range
+    projCoords = projCoords * 0.5 + 0.5;
+    // get closest depth value from light's perspective (using [0,1] range fragPosLight as coords)
+    float closestDepth = texture(shadowMap1, projCoords.xy).r; 
+    // get depth of current fragment from light's perspective
+    float currentDepth = projCoords.z;
+    // calculate bias (based on depth map resolution and slope)
+    vec3 normal = normalize(norm);
+    vec3 lightDir = normalize(geoDir - FragPos);
+    float bias = max(0.005 * (1.0 - dot(normal, lightDir)), 0.005);
+    // check whether current frag pos is in shadow
+    // float shadow = currentDepth - bias > closestDepth  ? 1.0 : 0.0;
+    // PCF
+    float shadow = 0.0;
+    int sampleRadius = 5;
+    vec2 texelSize = 1.0 / textureSize(shadowMap1, 0);
+    for(int x = -sampleRadius; x <= sampleRadius; ++x)
+    {
+        for(int y = -sampleRadius; y <= sampleRadius; ++y)
+        {
+            float pcfDepth = texture(shadowMap1, projCoords.xy + vec2(x, y) * texelSize).r; 
+            shadow += currentDepth - bias > pcfDepth  ? 1.0 : 0.0;        
+        }    
+    }
+    shadow /= pow((sampleRadius * 2 + 1), 2);
+    
+    // keep the shadow at 0.0 when outside the far_plane region of the light's frustum.
+    if(projCoords.z > 1.0)
+        shadow = 0.0;
+        
+    return shadow;
+}
+
+
+
 
 void main()
 {
@@ -102,7 +145,7 @@ void main()
   	
     // diffuse 
     // vec3 lightDir = normalize(light.position - FragPos);
-    vec3 lightDir = normalize(-lightDirection);  
+    vec3 lightDir = normalize(lightDirection);  
     float diff = max(dot(norm, lightDir), 0.0);
     vec3 diffuse = light.diffuse * diff * texture(material.diffuse1, UVs).rgb;  
     
@@ -112,8 +155,10 @@ void main()
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
     vec3 t = texture(material.specular1, UVs).rgb;
     vec3 specular = light.specular * spec * vec3(t.x,t.x,t.x);  
-        
-    vec3 result = ambient + diffuse + specular;
+    
+    float shadow = ShadowCalculation(FragPosLightSpace, norm);
+    vec3 result = (ambient + (diffuse + specular)* (1.0 - shadow));
+    //vec3 result = texture(shadowMap1, UVs).rgb;
     FragColor = vec4(result, 1.0);
     //float gamma = 2.2;
     //FragColor.rgb = pow(FragColor.rgb, vec3(1.0/gamma));

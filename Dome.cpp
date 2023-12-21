@@ -1,13 +1,13 @@
 #include "Dome.h"
-#include "rectangle.h"
-#include "prism.h"
-#include "sphere.h"
+#include "texture.h"
+
+
 
 Dome::Dome(Shader shader) : object_(shader) {
 	init();
 }
 void Dome::init(){
-	createRectangle(2.0f, 1.0f, face.sVertices, face.indices);
+	shapeUtils::createRectangle(2.0f, 1.0f, face.sVertices, face.indices);
 	texture faceDiffuse("res/textures/domeWall/domeWall_diffuse.jpg", "material.diffuse", GL_NONE, GL_SRGB_ALPHA);
 	texture faceSpecular("res/textures/domeWall/domeWall_rough.jpg", "material.specular");
 	texture faceAmbient("res/textures/domeWall/domeWall_ao.jpg", "material.ambient");
@@ -24,7 +24,7 @@ void Dome::init(){
 
 	faceMesh = Simplemesh(face.sVertices, face.indices, faceTextures);
 	
-	buildCircle(base.sVertices, base.indices, 2.613f, 8);
+	shapeUtils::buildCircle(base.sVertices, base.indices, 2.613f, 8);
 	texture baseDiffuse("res/textures/domeWall/base_diffuse.jpg", "material.diffuse", GL_RGB, GL_SRGB);
 	texture baseSpecular("res/textures/domeWall/base_rough.jpg", "material.specular");
 	texture baseAmbient("res/textures/domeWall/base_ao.jpg", "material.ambient");
@@ -40,7 +40,7 @@ void Dome::init(){
 	};
 	baseMesh = Simplemesh(base.sVertices,base.indices, baseTextures);
 	
-	buildSphere(sphere.sVertices, sphere.indices, true);
+	shapeUtils::buildSphere(sphere.sVertices, sphere.indices, true);
 	texture domeDiffuse("res/textures/domeWall/dome/dome_diffuse.jpg", "material.diffuse", GL_RGB, GL_SRGB);
 	texture domeSpecular("res/textures/domeWall/dome/dome_spec.jpg", "material.specular");
 	texture domeAmbient("res/textures/domeWall/dome/dome_ao.jpg", "material.ambient");
@@ -51,7 +51,7 @@ void Dome::init(){
 
 
 
-	generateCylinder(1.0f, 0.3f, 50, 20, domeBase.sVertices, domeBase.indices);
+	shapeUtils::generateCylinder(1.0f, 0.3f, 50, 20, domeBase.sVertices, domeBase.indices);
 	texture domebaseDiffuse("res/textures/domeWall/domeBase_diffuse.jpg", "material.diffuse", GL_RGB, GL_SRGB);
 	texture domebaseSpecular("res/textures/domeWall/domeBase_spec.jpg", "material.specular");
 	texture domebaseAmbient("res/textures/domeWall/domeBase_ao.jpg", "material.ambient");
@@ -83,6 +83,12 @@ void Dome::Draw() {
 //This is to draw scene for depth map (shadow map)
 void Dome::DrawDepth(Shader depthShader, bool ortho)
 {
+	Shader temp = shader;
+	shader = depthShader;
+	glm::mat4 transform(1);
+	transform = glm::translate(transform, glm::vec3(-40.0f, 0.0f, -40.0f));
+	drawMeshes(transform);
+	shader = temp;
 }
 
 
@@ -128,9 +134,10 @@ void Dome::drawMeshes(glm::mat4 transform, glm::mat4 scaleMat) {
 	sphereTransform = sphereTransform * scaleMat;
 	sphereTransform = translate(sphereTransform, vec3(0.0f, 1.0f, 0.0f));
 	shader.setMat4("model", sphereTransform);
-	addDirectionalLight(shader, { 10.0f, -60.0f, -10.0f });
+	addDirectionalLight(shader);
+	shader.setFloat("material.shininess", 64.0f);
 	sphereMesh.Draw(shader, GL_TRIANGLE_STRIP);
-
+	shader.setFloat("material.shininess", 32.0f);
 
 	mat4 domeBaseTransform(1);
 	domeBaseTransform = domeBaseTransform * transform;
@@ -139,7 +146,7 @@ void Dome::drawMeshes(glm::mat4 transform, glm::mat4 scaleMat) {
 	domeBaseTransform = translate(domeBaseTransform, vec3(0.0f, 1.104599f, 0.0f));
 	domeBaseTransform = rotate(domeBaseTransform, radians(180.0f), vec3(1.0f, 0.0f, 0.0f));
 	shader.setMat4("model", domeBaseTransform);
-	addDirectionalLight(shader, { 10.0f, -60.0f, -10.0f });
+	addDirectionalLight(shader);
 	domeBaseMesh.Draw(shader); 
 
 

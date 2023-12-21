@@ -1,6 +1,6 @@
 #pragma once
 
-#include "shape.h"
+#include <learnopengl/shape.h>
 #include <learnopengl/simplemesh.h>
 #include <glm/gtc/noise.hpp>
 #include "lighting.h"

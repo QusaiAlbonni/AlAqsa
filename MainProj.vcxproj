@@ -153,6 +153,7 @@
   <ItemGroup>
     <ClCompile Include="app.h" />
     <ClCompile Include="common.cpp" />
+    <ClCompile Include="DepthMap.cpp" />
     <ClCompile Include="Dome.cpp" />
     <ClCompile Include="GameLoop.cpp" />
     <ClCompile Include="glad.c" />
@@ -169,7 +170,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h" />
-    <ClInclude Include="cube.h" />
+    <ClInclude Include="DepthMap.h" />
     <ClInclude Include="Dome.h" />
     <ClInclude Include="GameLoop.h" />
     <ClInclude Include="imageloader.h" />
@@ -177,12 +178,7 @@
     <ClInclude Include="lighting.h" />
     <ClInclude Include="object_.h" />
     <ClInclude Include="PreRender.h" />
-    <ClInclude Include="prism.h" />
-    <ClInclude Include="rectangle.h" />
-    <ClInclude Include="shape.h" />
     <ClInclude Include="skybox.h" />
-    <ClInclude Include="sphere.h" />
-    <ClInclude Include="square.h" />
     <ClInclude Include="terrain.h" />
     <ClInclude Include="texture.h" />
     <ClInclude Include="Time.h" />

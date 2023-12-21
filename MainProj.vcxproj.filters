@@ -69,21 +69,12 @@
     <ClCompile Include="Dome.cpp">
       <Filter>objects</Filter>
     </ClCompile>
+    <ClCompile Include="DepthMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="shape.h">
-      <Filter>meshes</Filter>
-    </ClInclude>
-    <ClInclude Include="square.h">
-      <Filter>meshes</Filter>
-    </ClInclude>
-    <ClInclude Include="prism.h">
-      <Filter>meshes</Filter>
-    </ClInclude>
     <ClInclude Include="terrain.h">
-      <Filter>meshes</Filter>
-    </ClInclude>
-    <ClInclude Include="cube.h">
       <Filter>meshes</Filter>
     </ClInclude>
     <ClInclude Include="object_.h">
@@ -122,11 +113,8 @@
     <ClInclude Include="Dome.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="rectangle.h">
-      <Filter>meshes</Filter>
-    </ClInclude>
-    <ClInclude Include="sphere.h">
-      <Filter>meshes</Filter>
+    <ClInclude Include="DepthMap.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

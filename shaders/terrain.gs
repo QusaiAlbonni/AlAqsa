@@ -20,6 +20,7 @@ in DATA
     mat4 model;
     vec3 lightPos;
 	vec3 camPos;
+    vec4 FragPosLightSpace;
 } data_in[];
 
 
@@ -32,6 +33,7 @@ out vec2 TexCoords;
 out vec3 FragPos;  
 out vec3 Normal;
 out mat3 tbn; 
+out vec4 FragPosLightSpace;
 
 uniform float time;
 uniform vec3 viewPos;
@@ -81,7 +83,7 @@ void main() {
         FragPos = TBN * fragPos[i];
         geoDir = TBN * data_in[i].lightPos;
         geoViewPos = TBN * data_in[i].camPos;
-
+        FragPosLightSpace = data_in[i].FragPosLightSpace;
         gl_Position = data_in[i].projection * gl_in[i].gl_Position;
         EmitVertex();
        

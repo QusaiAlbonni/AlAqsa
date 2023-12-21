@@ -1,6 +1,5 @@
 #pragma once
 #include "common.h"
-#include "shape.h"
 #include <vector>
 #include <learnopengl/shader.h>
 #include "common.h"
@@ -15,6 +14,6 @@ public:
 	virtual void Draw();
 	virtual void drawMeshes(glm::mat4 transform, glm::mat4 scaleMat);
 	virtual void DrawDepth(Shader depthShader, bool ortho = true);
-	virtual void init() = 0;
+	virtual void init();
 };
 
