@@ -45,5 +45,5 @@ void main()
     data_out.lightPos = light.direction;
 	data_out.camPos = viewPos;
     
-    gl_Position = vec4(fragPos, 1.0);
+    gl_Position = vec4(aPos, 1.0);
 }

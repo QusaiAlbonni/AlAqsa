@@ -45,7 +45,7 @@ vec3 GetNormal()
 {
     vec3 a = vec3(gl_in[0].gl_Position) - vec3(gl_in[1].gl_Position);
     vec3 b = vec3(gl_in[2].gl_Position) - vec3(gl_in[1].gl_Position);
-    return normalize(cross(a, b));
+    return normalize(cross(b, a));
 }
 
 void main() {
@@ -55,6 +55,7 @@ void main() {
 
     vec3 edge0 = gl_in[1].gl_Position.xyz - gl_in[0].gl_Position.xyz;
     vec3 edge1 = gl_in[2].gl_Position.xyz - gl_in[0].gl_Position.xyz;
+
     // Lengths of UV differences
     vec2 deltaUV0 = data_in[1].texCoord - data_in[0].texCoord;
     vec2 deltaUV1 = data_in[2].texCoord - data_in[0].texCoord;
@@ -67,12 +68,12 @@ void main() {
 
     vec3 T = normalize(vec3(data_in[0].model * vec4(tangent, 0.0f)));
     vec3 B = normalize(vec3(data_in[0].model * vec4(bitangent, 0.0f)));
-    vec3 N = normalize(vec3(data_in[0].model * vec4(cross(edge0, edge1), 0.0f)));
+    vec3 N = normalize(vec3(data_in[0].model * vec4(GetNormal(), 0.0f)));
 
     mat3 TBN = mat3(T, B, N);
+    tbn = TBN;
     // TBN is an orthogonal matrix and so its inverse is equal to its transpose
     TBN = transpose(TBN);
-    tbn = TBN;
 
 
 
@@ -81,10 +82,10 @@ void main() {
     {
         TexCoords = data_in[i].texCoord;
         FragPos = TBN * fragPos[i];
-        geoDir = TBN * data_in[i].lightPos;
+        geoDir = TBN * normalize(data_in[i].lightPos);
         geoViewPos = TBN * data_in[i].camPos;
         FragPosLightSpace = data_in[i].FragPosLightSpace;
-        gl_Position = data_in[i].projection * gl_in[i].gl_Position;
+        gl_Position = data_in[i].projection * model * gl_in[i].gl_Position;
         EmitVertex();
        
     }

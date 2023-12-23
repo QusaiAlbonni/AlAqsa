@@ -33,7 +33,7 @@ void startGame(GLFWwindow* window) {
     Dome dome(dshader);
     
 
-    Model ourModel("res/models/backpack/backpack.obj");
+    //Model ourModel("res/models/backpack/backpack.obj");
 
 
 
@@ -41,8 +41,12 @@ void startGame(GLFWwindow* window) {
     DepthMap depthmap(depthShader);
     dshader.use();
     dshader.setMat4("lightSpaceMatrix", depthmap.lightSpaceMatrix);
-
     //camera.fps = true;
+    sTexture depthMapTex = { depthmap.render(
+            {
+                dome,
+
+            }), "shadowMap", "" };
     while (!glfwWindowShouldClose(window))
     {
         refreshTime();
@@ -50,7 +54,7 @@ void startGame(GLFWwindow* window) {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        sTexture depthMapTex = { depthmap.render({dome}, terrain), "shadowMap", "" };
+        
 
         terrain.addDepthTexture(depthMapTex);
         drawTerrain(terrain, dshader);
@@ -61,10 +65,9 @@ void startGame(GLFWwindow* window) {
         dshader.setMat4("model", transform);
 
 
-
-
-
-
+        //xs -= (deltaTime * 0.000001f);
+        //lightPos.x += xs;
+        //lightPos.z += xs;
 
 
 
@@ -84,7 +87,7 @@ void startGame(GLFWwindow* window) {
         mshader.setFloat("shininess", 32.0f);
         mshader.setBool("noparallax", true);
         setMVP(mshader, glm::translate(glm::mat4(1), glm::vec3(2.0f,2.0f,2.0f)));
-        ourModel.Draw(mshader);
+        //ourModel.Draw(mshader);
 
 
 

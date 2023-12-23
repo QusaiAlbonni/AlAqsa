@@ -54,7 +54,7 @@ float ShadowCalculation(vec4 fragPosLightSpace, vec3 norm)
     // float shadow = currentDepth - bias > closestDepth  ? 1.0 : 0.0;
     // PCF
     float shadow = 0.0;
-    int sampleRadius = 5;
+    int sampleRadius = 2;
     vec2 texelSize = 1.0 / textureSize(shadowMap1, 0);
     for(int x = -sampleRadius; x <= sampleRadius; ++x)
     {
@@ -80,7 +80,8 @@ void main()
 {
 
 
-
+    if(texture(material.diffuse1, TexCoords).a < 0.1)
+        discard;
     //vec3 normalMapValue = texture(material.normal1, TexCoords).rgb ;
     //vec3 norm = normalize(Normal + normalMapValue);
 
@@ -135,7 +136,9 @@ void main()
 	//	discard;
     }
 
-
+    //vec3 dx = dFdx(FragPos);
+    //vec3 dy = dFdy(FragPos);
+    //vec3 norm = normalize(cross(dx, dy));
 
 
 
@@ -158,9 +161,9 @@ void main()
     
     float shadow = ShadowCalculation(FragPosLightSpace, norm);
     vec3 result = (ambient + (diffuse + specular)* (1.0 - shadow));
-    //vec3 result = texture(shadowMap1, UVs).rgb;
+    if(!gl_FrontFacing){
+        result = result * 0.1;
+    }
     FragColor = vec4(result, 1.0);
-    //float gamma = 2.2;
-    //FragColor.rgb = pow(FragColor.rgb, vec3(1.0/gamma));
     
 } 

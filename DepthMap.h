@@ -17,8 +17,8 @@ public:
 	DepthMap(Shader shader);
 	void init();
 	void renderQuad();
-	unsigned int render(std::vector<std::reference_wrapper<object_>> objects, Simplemesh terrain);
+	unsigned int render(std::vector<std::reference_wrapper<object_>> objects);
 private:
-	const unsigned int SHADOW_WIDTH = 3160, SHADOW_HEIGHT = 3160;
+	const unsigned int SHADOW_WIDTH = 6000, SHADOW_HEIGHT = 6000;
 };
 

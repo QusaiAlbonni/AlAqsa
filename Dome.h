@@ -19,6 +19,15 @@ public:
     Simplemesh domeBaseMesh;
     shape cone;
     Simplemesh coneMesh;
+    Simplemesh frontFaceMesh;
+    shape innerSideWall;
+    Simplemesh innerSideWallMesh;
+    shape halfCylinder;
+    Simplemesh halfCylinderMesh;
+    shape halfCircle;
+    Simplemesh halfCircleMesh;
+    shape column;
+    Simplemesh columnMesh;
 
     void init() override;
     Dome(Shader shader);

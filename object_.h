@@ -2,7 +2,6 @@
 #include "common.h"
 #include <vector>
 #include <learnopengl/shader.h>
-#include "common.h"
 
 
 class object_

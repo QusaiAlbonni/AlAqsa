@@ -67,18 +67,18 @@ public:
             indices.push_back(i * 2 + sides * 2);
         }
     }
-    void static buildCircle(vector<sVertex>& vertices, vector<unsigned int>& indices, float radius, int vCount)
+    void static generateCircle(vector<sVertex>& vertices, vector<unsigned int>& indices, float radius, int vCount, glm::vec3 center = glm::vec3(0.0f, 0.0f, 0.0f), bool halfCircle = false)
     {
         float angle = 360.0f / vCount;
 
         int triangleCount = vCount - 2;
 
 
-        vertices.push_back({ glm::vec3(0, 0.0f, -0.5f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec2(0.5f, 1.0f) });
+        vertices.push_back({ center, glm::vec3(0.0f, 0.0f, 1.0f), glm::vec2(0.5f, 1.0f) });
         // vertices
         for (int i = 0; i < vCount + 1; i++)
         {
-            float currentAngle = angle * i;
+            float currentAngle = -angle * i;
             float x = radius * cos(glm::radians(currentAngle));
             float y = radius * sin(glm::radians(currentAngle));
             float z = 0.0f;
@@ -87,7 +87,7 @@ public:
         }
         // indices
         int i = 0;
-        for (i = 0; i < vCount + 2; i++)
+        for (i = 0; i < ((vCount) / (halfCircle ? 2 : 1) + 2); i++)
         {
             indices.push_back(i);
         }
@@ -95,7 +95,7 @@ public:
 
 
     void static generateCylinder(float radius, float height, int sectors, int stacks,
-        std::vector<sVertex>& vertices, std::vector<unsigned int>& indices) {
+        std::vector<sVertex>& vertices, std::vector<unsigned int>& indices, bool halfCylinder = false) {
         float sectorStep = 2 * PI / sectors;
         float stackStep = height / stacks;
 
@@ -119,7 +119,7 @@ public:
         }
 
         for (int i = 0; i < stacks; ++i) {
-            for (int j = 0; j < sectors; ++j) {
+            for (int j = 0; j < sectors / (halfCylinder ? 2 : 1); ++j) {
                 int k1 = i * (sectors + 1) + j;
                 int k2 = k1 + 1;
                 int k3 = (i + 1) * (sectors + 1) + j;
@@ -136,7 +136,7 @@ public:
         }
     }
 
-    void static createRectangle(float length, float width,
+    void static generateRectangle(float length, float width,
         std::vector<sVertex>& vertices,
         std::vector<unsigned int>& indices) {
 
@@ -153,7 +153,7 @@ public:
         // Define indices
         indices = { 0, 1, 3, 1, 2, 3 };
     }
-    void static buildSphere(vector<sVertex>& vertices, vector<unsigned int>& indices, bool hemisphereFlag = false)
+    void static generateSphere(vector<sVertex>& vertices, vector<unsigned int>& indices, bool hemisphereFlag = false)
     {
         const unsigned int X_SEGMENTS = 64;
         const unsigned int Y_SEGMENTS = 64;

@@ -32,23 +32,27 @@ void DepthMap::init()
 
 }
 
-unsigned int DepthMap::render(std::vector<std::reference_wrapper<object_>> objects, Simplemesh terrain)
+unsigned int DepthMap::render(std::vector<std::reference_wrapper<object_>> objects)
 {
+    glm::mat4 lightProjection, lightView;
+    lightProjection = glm::ortho(-300.0f, 300.0f, -197.0f, 200.0f, near_plane, far_plane);
+    lightView = glm::lookAt(lightPos, glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
+    lightSpaceMatrix = lightProjection * lightView;
     depthShader.use();
     depthShader.setMat4("lightSpaceMatrix", lightSpaceMatrix);
 
     glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
     glBindFramebuffer(GL_FRAMEBUFFER, FBO);
     //glEnable(GL_CULL_FACE);
-    glCullFace(GL_FRONT);
+    //glCullFace(GL_FRONT);
         glClear(GL_DEPTH_BUFFER_BIT);
         for (size_t i = 0; i < objects.size(); i++)
         {
             objects[i].get().DrawDepth(depthShader);
             //terrain.Draw(depthShader);
         }
-    glCullFace(GL_BACK);
-    glDisable(GL_CULL_FACE);
+    //glCullFace(GL_BACK);
+    //glDisable(GL_CULL_FACE);
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
     glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);

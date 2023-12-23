@@ -48,5 +48,5 @@ void main()
 	data_out.camPos = viewPos;
     data_out.FragPosLightSpace = lightSpaceMatrix * vec4(fragPos, 1.0);
     
-    gl_Position = vec4(fragPos, 1.0);
+    gl_Position = vec4(aPos, 1.0);
 }

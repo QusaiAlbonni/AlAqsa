@@ -55,6 +55,8 @@ bool setupOpengl()
     // -----------------------------
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_FRAMEBUFFER_SRGB);
+    //glEnable(GL_BLEND);
+    //glCullFace(GL_FRONT);
     //glEnable(GL_CULL_FACE);
     //glFrontFace(GL_CCW);
     return true;

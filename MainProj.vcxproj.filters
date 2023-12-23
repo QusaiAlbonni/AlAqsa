@@ -70,7 +70,7 @@
       <Filter>objects</Filter>
     </ClCompile>
     <ClCompile Include="DepthMap.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>App</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

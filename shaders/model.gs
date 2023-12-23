@@ -82,7 +82,7 @@ void main() {
         geoDir = TBN * data_in[i].lightPos;
         geoViewPos = TBN * data_in[i].camPos;
 
-        gl_Position = data_in[i].projection * gl_in[i].gl_Position;
+        gl_Position = data_in[i].projection * model * gl_in[i].gl_Position;
         EmitVertex();
        
     }
