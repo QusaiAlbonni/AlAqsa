@@ -28,6 +28,8 @@ public:
     Simplemesh halfCircleMesh;
     shape column;
     Simplemesh columnMesh;
+    shape cylBase;
+    Simplemesh cylBaseMesh;
 
     void init() override;
     Dome(Shader shader);

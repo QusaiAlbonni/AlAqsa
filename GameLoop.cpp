@@ -7,6 +7,7 @@
 #include "Dome.h"
 #include <learnopengl/model.h>
 #include "DepthMap.h"
+#include "audio.h"
 
 
 void startGame(GLFWwindow* window) {
@@ -26,9 +27,14 @@ void startGame(GLFWwindow* window) {
 
     Simplemesh terrain = terrainSetup(dshader);
 
+ 
+    sf::SoundBuffer sb;
+    sb.loadFromFile("res/audio/whoosh.wav");
+    sf::Sound lala(sb);
 
 
 
+    AudioManager::init();
 
     Dome dome(dshader);
     
@@ -54,9 +60,11 @@ void startGame(GLFWwindow* window) {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        
+        //AudioManager::stepsSounds[0]->play();
+        //lala.play();
 
         terrain.addDepthTexture(depthMapTex);
+        dshader.setBool("noparallax", false);
         drawTerrain(terrain, dshader);
         dshader.use();
         glm::mat4 transform = glm::mat4(1);

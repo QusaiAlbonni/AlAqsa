@@ -1,4 +1,5 @@
 #include "InputHandle.h"
+#include "audio.h"
 
 void processInput(GLFWwindow* window)
 {
@@ -16,5 +17,14 @@ void processInput(GLFWwindow* window)
         camera.ProcessKeyboard(LEFT, deltaTime * moveSpeed);
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
         camera.ProcessKeyboard(RIGHT,deltaTime * moveSpeed);
+    if ((glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) ||
+        (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) ||
+        (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) ||
+        (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS))
+    {
+        float delay = (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_RIGHT_SHIFT) == GLFW_PRESS) ? 0.3f : 0.35f;
+        if((glfwGetTime() - AudioManager::lastFootstep > delay) && camera.fps)
+            AudioManager::playFootSteps();
+    }
 
 }

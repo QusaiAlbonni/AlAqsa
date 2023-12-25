@@ -9,6 +9,7 @@
 
 #include <iostream>
 #include <learnopengl/camera.h>
+#include <SFML/Audio.hpp>
 #include "Time.h"
 
 extern const unsigned int SCR_WIDTH;

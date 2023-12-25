@@ -103,6 +103,9 @@ void Dome::init(){
 	
 	shapeUtils::generateCylinder(0.05f, 0.7f, 100, 200, column.sVertices, column.indices);
 	columnMesh = Simplemesh(column.sVertices, column.indices, wallTexts);
+
+	shapeUtils::generateRectangle(0.5f, 0.6f, cylBase.sVertices, cylBase.indices);
+	cylBaseMesh = Simplemesh(cylBase.sVertices, cylBase.indices, wallTexts);
 }
 
 
@@ -159,8 +162,19 @@ void Dome::drawMeshes(glm::mat4 transform, glm::mat4 scaleMat) {
 			frontFaceMesh.Draw(shader);
 			break;
 		}
-		faceMesh.Draw(shader);
+		else if (i == 1)
+		{
+			frontFaceMesh.Draw(shader);
+		}
+		else
+			faceMesh.Draw(shader);
+
 	}
+
+
+
+	// 1
+
 	glm::mat4 innerWallTrans(1);
 	innerWallTrans = innerWallTrans * transform;
 	innerWallTrans = glm::scale(innerWallTrans, glm::vec3(10.0f, 10.0f, 10.0f));
@@ -176,6 +190,7 @@ void Dome::drawMeshes(glm::mat4 transform, glm::mat4 scaleMat) {
 	innerWallTrans = innerWallTrans * scaleMat;
 	innerWallTrans = glm::rotate(innerWallTrans, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	innerWallTrans = glm::translate(innerWallTrans, glm::vec3(doorX - 0.048f, 0.5f, doorZ - 0.275f));
+	innerWallTrans = glm::rotate(innerWallTrans, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	shader.setMat4("model", innerWallTrans);
 	innerSideWallMesh.Draw(shader);
 
@@ -189,6 +204,39 @@ void Dome::drawMeshes(glm::mat4 transform, glm::mat4 scaleMat) {
 	shader.setMat4("model", innerWallTrans);
 	innerSideWallMesh.Draw(shader);
 	
+	
+	//
+
+	// 2
+
+	innerWallTrans = glm::mat4(1);
+	innerWallTrans = innerWallTrans * transform;
+	innerWallTrans = glm::scale(innerWallTrans, glm::vec3(10.0f, 10.0f, 10.0f));
+	innerWallTrans = innerWallTrans * scaleMat;
+	innerWallTrans = glm::translate(innerWallTrans, glm::vec3(doorX - 0.048f, 0.5f, doorZ + 0.284f));
+	shader.setMat4("model", innerWallTrans);
+	innerSideWallMesh.Draw(shader);
+
+	innerWallTrans = glm::mat4(1);
+	innerWallTrans = innerWallTrans * transform;
+	innerWallTrans = glm::scale(innerWallTrans, glm::vec3(10.0f, 10.0f, 10.0f));
+	innerWallTrans = innerWallTrans * scaleMat;
+	innerWallTrans = glm::translate(innerWallTrans, glm::vec3(doorX - 0.048f, 0.5f, doorZ - 0.275f));
+	innerWallTrans = glm::rotate(innerWallTrans, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", innerWallTrans);
+	innerSideWallMesh.Draw(shader);
+
+	innerWallTrans = glm::mat4(1);
+	innerWallTrans = innerWallTrans * transform;
+	innerWallTrans = glm::scale(innerWallTrans, glm::vec3(10.0f, 10.0f, 10.0f));
+	innerWallTrans = innerWallTrans * scaleMat;
+	innerWallTrans = glm::rotate(innerWallTrans, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	innerWallTrans = glm::translate(innerWallTrans, glm::vec3(doorX - 0.048f, 0.0f, doorZ + 0.4f));
+	shader.setMat4("model", innerWallTrans);
+	innerSideWallMesh.Draw(shader);
+
+	//
+
 
 	mat4 baseTransform(1);
 	baseTransform = baseTransform * transform;
@@ -232,7 +280,17 @@ void Dome::drawMeshes(glm::mat4 transform, glm::mat4 scaleMat) {
 		float x = apothem * std::cos(glm::radians(directionOfFace));
 		float z = -apothem * std::sin(glm::radians(directionOfFace));
 		faceTransform = faceTransform * transform;
-		faceTransform = glm::scale(faceTransform, glm::vec3(9.99f, 10.0f, 9.6f));
+		if (i == 7)
+		{
+			faceTransform = glm::scale(faceTransform, glm::vec3(10.2f, 10.0f, 9.6f));
+			faceTransform = glm::translate(faceTransform, glm::vec3(-0.015f, 0, 0.0f));
+		}
+		else if (i == 1) {
+			faceTransform = glm::scale(faceTransform, glm::vec3(9.6f, 10.0f, 10.2f));
+			faceTransform = glm::translate(faceTransform, glm::vec3(0, 0, 0.01f));
+		}
+		else
+			faceTransform = glm::scale(faceTransform, glm::vec3(9.6f, 10.0f, 9.6f));
 		faceTransform = faceTransform * scaleMat;
 		faceTransform = glm::rotate(faceTransform, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		faceTransform = glm::translate(faceTransform, glm::vec3(x, 0.5f, z));
@@ -247,7 +305,12 @@ void Dome::drawMeshes(glm::mat4 transform, glm::mat4 scaleMat) {
 			frontFaceMesh.Draw(shader);
 			break;
 		}
-		faceMesh.Draw(shader);
+		else if(i == 1)
+		{
+			frontFaceMesh.Draw(shader);
+		}
+		else
+			faceMesh.Draw(shader);
 	}
 	//addDirectionalLight(shader, glm::vec3(lightPos.x, lightPos.y, -lightPos.z));
 	glm::mat4 cylTransform(1);
@@ -287,7 +350,17 @@ void Dome::drawMeshes(glm::mat4 transform, glm::mat4 scaleMat) {
 	shader.setMat4("model", columnTrans);
 	columnMesh.Draw(shader);
 
-	addDirectionalLight(shader);
+
+
+	glm::mat4 lastTrans(1);
+	lastTrans = lastTrans * transform;
+	lastTrans = glm::scale(lastTrans, glm::vec3(10.0f, 10.0f, 10.0f));
+	lastTrans = glm::rotate(lastTrans, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	lastTrans = glm::translate(lastTrans, glm::vec3(doorX + 0.2f, 0.5f, doorZ));
+	lastTrans = glm::rotate(lastTrans, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	lastTrans = glm::rotate(lastTrans, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", lastTrans);
+	cylBaseMesh.Draw(shader);
 }
 
 

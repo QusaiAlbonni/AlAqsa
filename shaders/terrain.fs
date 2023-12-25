@@ -132,8 +132,8 @@ void main()
 	UVs = prevTexCoords * weight + UVs * (1.0f - weight);
 
 	// Get rid of anything outside the normal range
-	//if(UVs.x > 1.0 || UVs.y > 1.0 || UVs.x < 0.0 || UVs.y < 0.0)
-	//	discard;
+	if(UVs.x > 1.0 || UVs.y > 1.0 || UVs.x < 0.0 || UVs.y < 0.0)
+		discard;
     }
 
     //vec3 dx = dFdx(FragPos);
