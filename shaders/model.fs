@@ -35,7 +35,8 @@ void main()
 {
 
 
-
+	if(texture(texture_diffuse1, TexCoords).a < 0.1)
+		discard;	
     //vec3 normalMapValue = texture(material.normal1, TexCoords).rgb ;
     //vec3 norm = normalize(Normal + normalMapValue);
 
