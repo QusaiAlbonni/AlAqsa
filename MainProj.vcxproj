@@ -141,7 +141,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
@@ -155,6 +155,8 @@
   <ItemGroup>
     <ClCompile Include="app.h" />
     <ClCompile Include="audio.cpp" />
+    <ClCompile Include="backpack.cpp" />
+    <ClCompile Include="Collision.cpp" />
     <ClCompile Include="common.cpp" />
     <ClCompile Include="DepthMap.cpp" />
     <ClCompile Include="Dome.cpp" />
@@ -173,6 +175,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="audio.h" />
+    <ClInclude Include="backpack.h" />
+    <ClInclude Include="Collision.h" />
     <ClInclude Include="common.h" />
     <ClInclude Include="DepthMap.h" />
     <ClInclude Include="Dome.h" />

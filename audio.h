@@ -13,8 +13,10 @@ public:
 	static int stepind;
 	static double lastFootstep;
 	static std::vector<std::shared_ptr<sf::Sound>> stepsSounds;
+	static std::vector<std::shared_ptr<sf::Sound>> stepsConcreteSounds;
 	static std::queue<std::shared_ptr<sf::Sound>> stepsQueue;
 	static std::vector<sf::SoundBuffer> stepsBuffers;
+	static std::vector<sf::SoundBuffer> stepsConcreteBuffers;
 	static void init();
 	static void playFootSteps();
 

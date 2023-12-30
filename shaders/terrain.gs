@@ -11,16 +11,43 @@ struct Light {
     vec3 specular;
 };
 
+struct pointLight {
+    vec3 position;  
+  
+    vec3 ambient;
+    vec3 diffuse;
+    vec3 specular;
+	
+    float constant;
+    float linear;
+    float quadratic;
+};
+struct SpotLight {
+    vec3 position;
+    vec3 direction;
+    float cutOff;
+    float outerCutOff;
+  
+    float constant;
+    float linear;
+    float quadratic;
+  
+    vec3 ambient;
+    vec3 diffuse;
+    vec3 specular;       
+};
+
 
 in DATA
 {
     vec3 Normal;
 	vec2 texCoord;
     mat4 projection;
-    mat4 model;
+	mat4 model;
     vec3 lightPos;
 	vec3 camPos;
     vec4 FragPosLightSpace;
+    vec4 FragPosLightSpace2;
 } data_in[];
 
 
@@ -29,17 +56,23 @@ in vec3 fragPos[];
 
 out vec3 geoDir;
 out vec3 geoViewPos;  
+out vec3 geoPointPos;
+out vec3 geoSpotPos;
+out vec3 geoSpotDir;
 out vec2 TexCoords;
 out vec3 FragPos;  
+out vec3 normalFragPos;
 out vec3 Normal;
 out mat3 tbn; 
 out vec4 FragPosLightSpace;
+out vec4 FragPosLightSpace2;
 
 uniform float time;
 uniform vec3 viewPos;
 uniform mat4 model;
 uniform Light light;
-
+uniform pointLight point;
+uniform SpotLight spotLight;
 
 vec3 GetNormal()
 {
@@ -82,9 +115,15 @@ void main() {
     {
         TexCoords = data_in[i].texCoord;
         FragPos = TBN * fragPos[i];
+        normalFragPos = fragPos[i];
         geoDir = TBN * normalize(data_in[i].lightPos);
         geoViewPos = TBN * data_in[i].camPos;
+        geoPointPos = TBN * point.position;
+        geoSpotPos = TBN * spotLight.position;
+        geoSpotDir = TBN * spotLight.direction;
         FragPosLightSpace = data_in[i].FragPosLightSpace;
+        FragPosLightSpace2 = data_in[i].FragPosLightSpace2;
+        Normal = normalize(GetNormal());
         gl_Position = data_in[i].projection * model * gl_in[i].gl_Position;
         EmitVertex();
        

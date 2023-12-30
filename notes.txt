@@ -1,0 +1,8 @@
+day light 
+shader.setVec3("light.ambient", 0.14f, 0.14f, 0.14f);
+shader.setVec3("light.diffuse", 0.9f, 0.9f, 0.9f);
+shader.setVec3("light.specular", 0.3f, 0.3f, 0.2f);
+night light
+shader.setVec3("light.ambient", 0.0028f, 0.0028f, 0.028f);
+shader.setVec3("light.diffuse", 0.04f, 0.04f, 0.1f);
+shader.setVec3("light.specular", 0.06f, 0.06f, 0.06f);

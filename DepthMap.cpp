@@ -1,12 +1,17 @@
 #include "DepthMap.h"
 
 
-DepthMap::DepthMap(Shader shader) : depthShader(shader), debugDepthQuad("shaders/3.1.3.debug_quad.vs", "shaders/3.1.3.debug_quad_depth.fs")
+DepthMap::DepthMap(Shader shader, string type) : type(type), depthShader(shader), debugDepthQuad("shaders/3.1.3.debug_quad.vs", "shaders/3.1.3.debug_quad_depth.fs")
 {
-	init();
+    if (type == "direc")
+        initDirec();
+    else if (type == "point")
+        std::cout << "FATAL ERROR::SPECIFIED DEPTH MAP TYPE UNSUPPORTED" << "\n";
+    else if (type == "spot")
+        initDirec();
 }
 
-void DepthMap::init()
+void DepthMap::initDirec()
 {
     glGenFramebuffers(1, &FBO);
     // create depth texture
@@ -25,40 +30,56 @@ void DepthMap::init()
     glDrawBuffer(GL_NONE);
     glReadBuffer(GL_NONE);
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    near_plane = 1.0f;
+    far_plane = 350.0f;
     glm::mat4 lightProjection, lightView;
-    lightProjection = glm::ortho(-300.0f, 300.0f, -200.0f, 200.0f, near_plane, far_plane);
+    lightProjection = glm::ortho(left, right, bottom, top, near_plane, far_plane);
     lightView = glm::lookAt(lightPos, glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
     lightSpaceMatrix = lightProjection * lightView;
 
 }
 
-unsigned int DepthMap::render(std::vector<std::reference_wrapper<object_>> objects)
+unsigned int DepthMap::render(std::vector<std::reference_wrapper<object_>> objects, glm::vec3 plightPos)
 {
-    glm::mat4 lightProjection, lightView;
-    lightProjection = glm::ortho(-300.0f, 300.0f, -197.0f, 200.0f, near_plane, far_plane);
-    lightView = glm::lookAt(lightPos, glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
-    lightSpaceMatrix = lightProjection * lightView;
-    depthShader.use();
-    depthShader.setMat4("lightSpaceMatrix", lightSpaceMatrix);
 
-    glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
-    glBindFramebuffer(GL_FRAMEBUFFER, FBO);
-    //glEnable(GL_CULL_FACE);
-    //glCullFace(GL_FRONT);
+        glm::mat4 lightProjection, lightView;
+        if (type == "direc") {
+            near_plane = 1.0f;
+            far_plane = 350.0f;
+            lightProjection = glm::ortho(left, right, bottom, top, near_plane, far_plane);
+            lightView = glm::lookAt(lightPos, glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
+        }
+        else if (type == "spot") {
+            near_plane = 0.2f;
+            far_plane = 200.0f;
+            lightProjection = glm::perspective(glm::radians(camera.Zoom), (GLfloat)SHADOW_WIDTH / (GLfloat)SHADOW_HEIGHT, near_plane, far_plane);
+            lightView = glm::lookAt(domePointlightPos, glm::vec3(domePointlightPos.x, 0.0f,domePointlightPos.z), camera.Up);
+        }
+        lightSpaceMatrix = lightProjection * lightView;
+        depthShader.use();
+        depthShader.setMat4("lightSpaceMatrix", lightSpaceMatrix);
+
+        glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
+        glBindFramebuffer(GL_FRAMEBUFFER, FBO);
+        //glEnable(GL_CULL_FACE);
+        //glCullFace(GL_FRONT);
         glClear(GL_DEPTH_BUFFER_BIT);
         for (size_t i = 0; i < objects.size(); i++)
         {
             objects[i].get().DrawDepth(depthShader);
             //terrain.Draw(depthShader);
         }
-    //glCullFace(GL_BACK);
-    //glDisable(GL_CULL_FACE);
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        //glCullFace(GL_BACK);
+        //glDisable(GL_CULL_FACE);
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-    glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    return depthMap;
+        glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        return depthMap;
+
 }
+
+
 
 unsigned int quadVAO = 0;
 unsigned int quadVBO;

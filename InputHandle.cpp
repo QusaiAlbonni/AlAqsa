@@ -1,6 +1,10 @@
 #include "InputHandle.h"
 #include "audio.h"
 
+
+bool spotLightKeyPressed = false;
+bool nightKeyPressed = false;
+
 void processInput(GLFWwindow* window)
 {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
@@ -25,6 +29,24 @@ void processInput(GLFWwindow* window)
         float delay = (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_RIGHT_SHIFT) == GLFW_PRESS) ? 0.3f : 0.35f;
         if((glfwGetTime() - AudioManager::lastFootstep > delay) && camera.fps)
             AudioManager::playFootSteps();
+    }
+    if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS && !spotLightKeyPressed)
+    {
+        spotLight = !spotLight;
+        spotLightKeyPressed = true;
+    }
+    if (glfwGetKey(window, GLFW_KEY_F) == GLFW_RELEASE)
+    {
+        spotLightKeyPressed = false;
+    }
+    if (glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS && !nightKeyPressed)
+    {
+        night = !night;
+        nightKeyPressed = true;
+    }
+    if (glfwGetKey(window, GLFW_KEY_N) == GLFW_RELEASE)
+    {
+        nightKeyPressed = false;
     }
 
 }

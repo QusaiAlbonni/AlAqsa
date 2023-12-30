@@ -5,9 +5,10 @@
 #include "terrain.h"
 #include "skybox.h"
 #include "Dome.h"
-#include <learnopengl/model.h>
 #include "DepthMap.h"
 #include "audio.h"
+#include "InputHandle.h"
+#include "backpack.h"
 
 
 void startGame(GLFWwindow* window) {
@@ -39,20 +40,27 @@ void startGame(GLFWwindow* window) {
     Dome dome(dshader);
     
 
-    //Model ourModel("res/models/backpack/backpack.obj");
+   // Model ourModel("res/models/backpack/backpack.obj");
 
-
+    backpack lili(dshader);
+    
 
     Shader depthShader("shaders/depth.vs", "shaders/depth.fs");
-    DepthMap depthmap(depthShader);
+    DepthMap depthmap(depthShader, "direc");
+    DepthMap depthmapSpot(depthShader, "spot");
     dshader.use();
     dshader.setMat4("lightSpaceMatrix", depthmap.lightSpaceMatrix);
-    //camera.fps = true;
+    camera.fps = true;
+
+
     sTexture depthMapTex = { depthmap.render(
             {
                 dome,
+                lili
 
             }), "shadowMap", "" };
+
+
     while (!glfwWindowShouldClose(window))
     {
         refreshTime();
@@ -60,24 +68,25 @@ void startGame(GLFWwindow* window) {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+        Collision::CollisionDetector::check();
+
         //AudioManager::stepsSounds[0]->play();
         //lala.play();
-
-        terrain.addDepthTexture(depthMapTex);
-        dshader.setBool("noparallax", false);
-        drawTerrain(terrain, dshader);
+        unsigned int depthmapspotTex = depthmapSpot.render({ dome, lili });
         dshader.use();
-        glm::mat4 transform = glm::mat4(1);
-        transform = glm::translate(transform, glm::vec3(0, 2.0f, 0));
-        transform = glm::scale(transform, glm::vec3(4.0f, 4.0f ,4.0f));
-        dshader.setMat4("model", transform);
+        dshader.setMat4("lightSpaceMatrix2", depthmapSpot.lightSpaceMatrix);
+        dshader.setInt("spotOn", spotLight);
+        dshader.setBool("noparallax", true);
+        drawTerrain(terrain, dshader, depthMapTex.id, depthmapspotTex);
+ 
 
 
         //xs -= (deltaTime * 0.000001f);
         //lightPos.x += xs;
         //lightPos.z += xs;
-
-
+        mshader.setFloat("shininess", 32.0f);
+        lili.Draw();
+        
 
         lshader.use();
         glm::mat4 cubeTrasform = glm::rotate(glm::mat4(1), glm::radians(45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
@@ -89,10 +98,8 @@ void startGame(GLFWwindow* window) {
 
         dome.Draw();
 
-
-
         addDirectionalLight(mshader);
-        mshader.setFloat("shininess", 32.0f);
+        mshader.setFloat("material.shininess", 32.0f);
         mshader.setBool("noparallax", true);
         setMVP(mshader, glm::translate(glm::mat4(1), glm::vec3(2.0f,2.0f,2.0f)));
         //ourModel.Draw(mshader);
@@ -103,6 +110,7 @@ void startGame(GLFWwindow* window) {
 
 
         //depthmap.renderQuad();
+        //depthmapSpot.renderQuad();
         glfwSwapBuffers(window);
         glfwPollEvents();
     }

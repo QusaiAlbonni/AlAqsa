@@ -23,7 +23,7 @@ void generateTerrain(std::vector<sVertex>& vertices, std::vector<unsigned int>& 
             float xPos = (static_cast<float>(x) - halfWidth) * scale;
             float zPos = (static_cast<float>(z) - halfHeight) * scale;
             float elevation;
-            if ((zPos < -10 && zPos > -100 ) && (xPos < -10 && xPos > -100))
+            if ((zPos < 20 && zPos > -90 ) && (xPos < 20 && xPos > -90))
             {
                 elevation = 0;
             }
@@ -71,14 +71,18 @@ Simplemesh terrainSetup(Shader shader) {
     terrain.clearData();
     return myterrain;
 }
-void drawTerrain(Simplemesh terrain, Shader dshader) {
+void drawTerrain(Simplemesh terrain, Shader dshader, unsigned int depthmap, unsigned int depth2) {
     
     addDirectionalLight(dshader);
+    addPointLight(dshader, domePointlightPos);
+    glm::vec3 spot(45.0f, 10.0f, 40.0f);
+    glm::vec3 tar(35.0f, 10.0f, 40.0f);
+    addSpotLight(dshader);
     // material properties
     dshader.setFloat("material.shininess", 32.0f);
     glm::mat4 transform = glm::mat4(1.0f);
     transform = glm::translate(transform, glm::vec3(0.0f, 0.0f, 0.0f));
     setMVP(dshader, transform);
-    terrain.Draw(dshader);
+    terrain.Draw(dshader, GL_TRIANGLES, depthmap, depth2);
 }
 

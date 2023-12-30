@@ -116,6 +116,9 @@ void Dome::Draw() {
 	transform = glm::translate(transform, glm::vec3(-40.0f, 0.0f, -40.0f));
 	addDirectionalLight(shader);
 	shader.setFloat("material.shininess", 32.0f);
+	addPointLight(shader, domePointlightPos);
+	shader.setBool("hasPointLight", true);
+	shader.setFloat("material.shininess", 32.0f);
 	setMVP(shader);
 	drawMeshes(transform);
 }
@@ -255,7 +258,6 @@ void Dome::drawMeshes(glm::mat4 transform, glm::mat4 scaleMat) {
 	sphereTransform = sphereTransform * scaleMat;
 	sphereTransform = translate(sphereTransform, vec3(0.0f, 1.0f, 0.0f));
 	shader.setMat4("model", sphereTransform);
-	addDirectionalLight(shader);
 	shader.setFloat("material.shininess", 64.0f);
 	sphereMesh.Draw(shader, GL_TRIANGLE_STRIP);
 	shader.setFloat("material.shininess", 32.0f);
@@ -267,7 +269,6 @@ void Dome::drawMeshes(glm::mat4 transform, glm::mat4 scaleMat) {
 	domeBaseTransform = translate(domeBaseTransform, vec3(0.0f, 1.104599f, 0.0f));
 	domeBaseTransform = rotate(domeBaseTransform, radians(180.0f), vec3(1.0f, 0.0f, 0.0f));
 	shader.setMat4("model", domeBaseTransform);
-	addDirectionalLight(shader);
 	domeBaseMesh.Draw(shader); 
 
 

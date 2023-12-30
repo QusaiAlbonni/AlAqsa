@@ -87,6 +87,7 @@ void drawSkyBox(Shader shader, unsigned int VAO, unsigned int texture)
     glDrawArrays(GL_TRIANGLES, 0, 36);
     glBindVertexArray(0);
     glDepthFunc(GL_LESS);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
 }
 
 unsigned int loadCubemap(std::vector<std::string> faces)
@@ -101,7 +102,7 @@ unsigned int loadCubemap(std::vector<std::string> faces)
         unsigned char* data = loadImage(faces[i].c_str(), &width, &height, &nrChannels, false);
         if (data)
         {
-            glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+            glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_SRGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
             freeImageData(data);
         }
         else
