@@ -22,9 +22,9 @@ void addDirectionalLight(Shader shader, glm::vec3 lightDirection) {
 void addPointLight(Shader lightingShader, glm::vec3 lightPos) {
     lightingShader.setVec3("point.position", lightPos);
     lightingShader.setVec3("viewPos", camera.Position);
-    lightingShader.setVec3("point.ambient", 0.0f, 0.0f, 0.0f);
-    lightingShader.setVec3("point.diffuse", 1.0f, 1.0f, 0.7f);
-    lightingShader.setVec3("point.specular", 0.5f, 0.5f, 0.5f);
+    lightingShader.setVec3("point.ambient", 0.3f, 0.3f, 0.3f);
+    lightingShader.setVec3("point.diffuse", 0.9f, 0.9f, 0.7f);
+    lightingShader.setVec3("point.specular", 0.2f, 0.2f, 0.2f);
     lightingShader.setFloat("point.constant", 1.0f);
     lightingShader.setFloat("point.linear", 0.0000014f);
     lightingShader.setFloat("point.quadratic", 0.014f);
@@ -35,8 +35,8 @@ void addSpotLight(Shader lightingShader, glm::vec3 lightPos, glm::vec3 direction
     lightingShader.setVec3("viewPos", camera.Position);
     lightingShader.setVec3("spotLight.direction", direction);
     lightingShader.setVec3("spotLight.ambient", 0.0f, 0.0f, 0.0f);
-    lightingShader.setVec3("spotLight.diffuse", 0.8f, 0.8f, 0.8f);
-    lightingShader.setVec3("spotLight.specular", 0.7f, 0.7f, 0.7f);
+    lightingShader.setVec3("spotLight.diffuse", 0.7f, 0.7f, 0.7f);
+    lightingShader.setVec3("spotLight.specular", 0.4f, 0.4f, 0.4f);
     lightingShader.setFloat("spotLight.constant", 1.0f);
     lightingShader.setFloat("spotLight.linear", 0.09f);
     lightingShader.setFloat("spotLight.quadratic", 0.032f);
