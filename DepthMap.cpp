@@ -53,7 +53,7 @@ unsigned int DepthMap::render(std::vector<std::reference_wrapper<object_>> objec
             near_plane = 0.2f;
             far_plane = 200.0f;
             lightProjection = glm::perspective(glm::radians(camera.Zoom), (GLfloat)SHADOW_WIDTH / (GLfloat)SHADOW_HEIGHT, near_plane, far_plane);
-            lightView = glm::lookAt(domePointlightPos, glm::vec3(domePointlightPos.x, 0.0f,domePointlightPos.z), camera.Up);
+            lightView = glm::lookAt(glm::vec3(camera.Position.x, camera.Position.y - 0.3f, camera.Position.z), glm::vec3(camera.Position.x, camera.Position.y - 0.3f, camera.Position.z) + camera.Front, camera.Up);
         }
         lightSpaceMatrix = lightProjection * lightView;
         depthShader.use();

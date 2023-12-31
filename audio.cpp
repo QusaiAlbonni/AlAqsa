@@ -1,13 +1,20 @@
 #include "audio.h"
 #include <random>
+#include "Collision.h"
 
 std::vector<std::shared_ptr<sf::Sound>> AudioManager::stepsSounds;
 std::vector<std::shared_ptr<sf::Sound>> AudioManager::stepsConcreteSounds;
 std::vector<sf::SoundBuffer> AudioManager::stepsBuffers;
 std::vector<sf::SoundBuffer> AudioManager::stepsConcreteBuffers;
 std::queue<std::shared_ptr<sf::Sound>> AudioManager::stepsQueue;
+
+std::shared_ptr<sf::Music> AudioManager::nightAmbient = std::make_shared<sf::Music>();
+std::shared_ptr<sf::Music> AudioManager::dayAmbient = std::make_shared<sf::Music>();
+
 int AudioManager::stepind = 0;
 double AudioManager::lastFootstep = 0;
+
+bool AudioManager::inDome = false;
 
 
 void AudioManager::init(){
@@ -70,16 +77,65 @@ void AudioManager::init(){
 	{
 		stepsQueue.push(stepsSounds[i]);
 	}
+
+
+
+	if (!nightAmbient->openFromFile("res/audio/nightScape.wav")) {
+		std::cout << "ERROR:: sfml audio couldnt be loaded " << "nightScape.wav";
+	}
+	else
+	{
+		nightAmbient->setLoop(1);
+	}
+	if (!dayAmbient->openFromFile("res/audio/dayScape.mp3")) {
+		std::cout << "ERROR:: sfml audio couldnt be loaded " << "dayScape.mp3";
+	}
+	else
+	{
+		dayAmbient->setLoop(1);
+	}
+
 }
 
 void AudioManager::playFootSteps()
 {
 		stepind++;
 		lastFootstep = glfwGetTime();
-		if ((camera.Position.z < 20 && camera.Position.z > -90) && (camera.Position.x < 20 && camera.Position.x > -90))
-			stepsConcreteSounds[getRandomIntBetween(0, 3)]->play();
-		else
-			stepsSounds[getRandomIntBetween(0, 3)]->play();
+		if ((camera.Position.z < 20 && camera.Position.z > -90) && (camera.Position.x < 25 && camera.Position.x > -85)) {
+			int rand = getRandomIntBetween(0, 3);
+			stepsConcreteSounds[rand]->setVolume(20.0f);
+			stepsConcreteSounds[rand]->play();
+
+		}
+		else {
+			int rand = getRandomIntBetween(0, 3);
+			stepsSounds[rand]->play();
+
+		}
+}
+
+void AudioManager::playBackGround()
+{
+	nightAmbient->setAttenuation(0.0);
+	dayAmbient->setAttenuation(0.0);
+	nightAmbient->setVolume(100.f);
+	dayAmbient->setVolume(150.f);
+	if (night)
+	{
+		dayAmbient->stop();
+		if (nightAmbient->getStatus() == sf::Music::Stopped)
+		{
+			nightAmbient->play();
+		}
+		
+	}
+	else {
+		nightAmbient->stop();
+		if (dayAmbient->getStatus() == sf::Music::Stopped)
+		{
+			dayAmbient->play();
+		}
+	}
 }
 
 

@@ -5,6 +5,7 @@
 #include "terrain.h"
 #include "skybox.h"
 #include "Dome.h"
+#include "floor.h"
 #include "DepthMap.h"
 #include "audio.h"
 #include "InputHandle.h"
@@ -26,6 +27,10 @@ void startGame(GLFWwindow* window) {
     unsigned int skybox = setupSkyBox();
     unsigned int skyboxTex = initSkyBoxTextures();
 
+
+    unsigned int skyboxNight = setupSkyBoxNight();
+    unsigned int skyboxTexNight = initSkyBoxTexturesNight();
+
     Simplemesh terrain = terrainSetup(dshader);
 
  
@@ -39,6 +44,7 @@ void startGame(GLFWwindow* window) {
 
     Dome dome(dshader);
     
+    square floor(dshader);
 
    // Model ourModel("res/models/backpack/backpack.obj");
 
@@ -69,9 +75,10 @@ void startGame(GLFWwindow* window) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         //Collision::CollisionDetector::check();
-
+        Collision::CollisionDetector::updateCamPos();
         //AudioManager::stepsSounds[0]->play();
         //lala.play();
+        AudioManager::playBackGround();
         unsigned int depthmapspotTex = depthmapSpot.render({ dome, lili });
         dshader.use();
         dshader.setMat4("lightSpaceMatrix2", depthmapSpot.lightSpaceMatrix);
@@ -98,6 +105,8 @@ void startGame(GLFWwindow* window) {
 
         dome.Draw();
 
+        floor.Draw();
+
         addDirectionalLight(mshader);
         mshader.setFloat("material.shininess", 32.0f);
         mshader.setBool("noparallax", true);
@@ -105,8 +114,11 @@ void startGame(GLFWwindow* window) {
         //ourModel.Draw(mshader);
 
 
-
-        drawSkyBox(skyboxShader, skybox, skyboxTex);
+        if (night) {
+            drawSkyBoxNight(skyboxShader, skyboxNight, skyboxTexNight);
+        }
+        else
+            drawSkyBox(skyboxShader, skybox, skyboxTex);
 
 
         //depthmap.renderQuad();

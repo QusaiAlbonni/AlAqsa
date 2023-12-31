@@ -113,7 +113,7 @@ void Dome::init(){
 //draw final scene that will be drawn for viewer
 void Dome::Draw() {
 	glm::mat4 transform(1);
-	transform = glm::translate(transform, glm::vec3(-40.0f, 0.0f, -40.0f));
+	transform = glm::translate(transform, glm::vec3(-40.0f, 1.0f, -40.0f));
 	addDirectionalLight(shader);
 	shader.setFloat("material.shininess", 32.0f);
 	addPointLight(shader, domePointlightPos);
@@ -129,7 +129,7 @@ void Dome::DrawDepth(Shader depthShader, bool ortho)
 	Shader temp = shader;
 	shader = depthShader;
 	glm::mat4 transform(1);
-	transform = glm::translate(transform, glm::vec3(-40.0f, 0.0f, -40.0f));
+	transform = glm::translate(transform, glm::vec3(-40.0f, 1.0f, -40.0f));
 	drawMeshes(transform);
 	shader = temp;
 }
@@ -173,7 +173,6 @@ void Dome::drawMeshes(glm::mat4 transform, glm::mat4 scaleMat) {
 			faceMesh.Draw(shader);
 
 	}
-
 
 
 	// 1
@@ -313,6 +312,13 @@ void Dome::drawMeshes(glm::mat4 transform, glm::mat4 scaleMat) {
 		else
 			faceMesh.Draw(shader);
 	}
+
+
+
+	
+
+
+
 	//addDirectionalLight(shader, glm::vec3(lightPos.x, lightPos.y, -lightPos.z));
 	glm::mat4 cylTransform(1);
 	cylTransform = cylTransform * transform;

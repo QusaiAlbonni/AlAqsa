@@ -57,8 +57,8 @@ public:
         glBindTexture(GL_TEXTURE_2D, d);
     };
     void addDepthTexture2(Shader shader, unsigned int d) {
-        glActiveTexture(GL_TEXTURE25);
-        shader.setInt("shadowMap2", 25);
+        glActiveTexture(GL_TEXTURE21);
+        shader.setInt("shadowMap2", 21);
         glBindTexture(GL_TEXTURE_2D, d);
     }
     // render the mesh
