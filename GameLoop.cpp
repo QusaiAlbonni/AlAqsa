@@ -76,6 +76,7 @@ void startGame(GLFWwindow* window) {
 
         //Collision::CollisionDetector::check();
         Collision::CollisionDetector::updateCamPos();
+        std::cout << camera.Position.x << " " << camera.Position.y << " " << camera.Position.z << "\n";
         //AudioManager::stepsSounds[0]->play();
         //lala.play();
         AudioManager::playBackGround();

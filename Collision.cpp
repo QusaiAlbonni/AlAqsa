@@ -79,19 +79,23 @@ bool Collision::CollisionDetector::updateCamPos()
     if (camera.fps)
     {
         AABB box1 = { {-85.0f, 0, -90.01f},{25.0f,1.0f, 20.0f} };
-        AABB box2 =
+        AABB cam =
         {
             glm::vec3(camera.Position.x - 0.4f, 0, camera.Position.z - 0.4f),
              glm::vec3(camera.Position.x + 0.4f, 1.8f, camera.Position.z + 0.4f)
         };
         glm::vec3 inormal;
         float idepth;
-
-        if (checkAABBCollision(box1, box2, inormal, idepth))
+        AABB box2 = { {-32.0f, 0, 16.0f} , {-27.0f,1.0f, 17.0f} };
+        if (checkAABBCollision(box2, cam, inormal, idepth))
+        {
+            camera.Position.y = 2.0f;
+        }
+        else if (checkAABBCollision(box1, cam, inormal, idepth))
         {
             camera.Position.y = 2.5f;
         }
-        else {
+        else{
             camera.Position.y = 1.5f;
         }
         return true;
