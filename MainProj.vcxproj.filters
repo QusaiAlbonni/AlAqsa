@@ -84,6 +84,9 @@
     <ClCompile Include="floor.cpp">
       <Filter>objects</Filter>
     </ClCompile>
+    <ClCompile Include="Wall.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="terrain.h">
@@ -138,6 +141,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="floor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Wall.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

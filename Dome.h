@@ -30,6 +30,14 @@ public:
     Simplemesh columnMesh;
     shape cylBase;
     Simplemesh cylBaseMesh;
+    shape roofWall;
+    Simplemesh roofWallmesh;
+    shape DoorCylinder;
+    Simplemesh DoorCylindermesh;
+    shape halfcylinder;
+    Simplemesh halfcylindermesh;
+    shape square;
+    Simplemesh squaremesh;
 
     void init() override;
     Dome(Shader shader);
