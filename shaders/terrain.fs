@@ -63,7 +63,7 @@ vec4 FragPosLightSpace2;
 in vec3 normalFragPos;
 
 
-uniform int spotOn;
+uniform bool spotOn;
 uniform vec3 viewPos;
 uniform Material material;
 uniform Light light;

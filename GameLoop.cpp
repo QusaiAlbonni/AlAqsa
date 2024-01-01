@@ -83,7 +83,7 @@ void startGame(GLFWwindow* window) {
         unsigned int depthmapspotTex = depthmapSpot.render({ dome, lili });
         dshader.use();
         dshader.setMat4("lightSpaceMatrix2", depthmapSpot.lightSpaceMatrix);
-        dshader.setInt("spotOn", spotLight);
+        dshader.setBool("spotOn", spotLight);
         dshader.setBool("noparallax", true);
         drawTerrain(terrain, dshader, depthMapTex.id, depthmapspotTex);
  

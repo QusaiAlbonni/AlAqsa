@@ -140,10 +140,10 @@ void AudioManager::playBackGround()
 
 
 int AudioManager::getRandomIntBetween(int a, int b) {
-	// Seed the random number generator (use a different seed for each run)
-	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+
+
 	std::random_device rd;
-	std::mt19937 gen(seed);
+	std::mt19937 gen(rd());
 
 	// Define the range [a, b]
 	std::uniform_int_distribution<int> distribution(a, b);
