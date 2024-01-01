@@ -72,6 +72,21 @@
     <ClCompile Include="DepthMap.cpp">
       <Filter>App</Filter>
     </ClCompile>
+    <ClCompile Include="audio.cpp">
+      <Filter>App</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>App</Filter>
+    </ClCompile>
+    <ClCompile Include="Wall.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="backpack.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
+    <ClCompile Include="floor.cpp">
+      <Filter>objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="terrain.h">
@@ -114,6 +129,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DepthMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="audio.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="backpack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="floor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Wall.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

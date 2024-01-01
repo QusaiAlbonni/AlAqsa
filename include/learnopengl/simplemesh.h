@@ -36,6 +36,7 @@ public:
     vector<sTexture>      textures;
     unsigned int VAO;
     bool depth = false;
+    bool depthCube = false;
 
     // constructor
     Simplemesh() {};
@@ -50,23 +51,18 @@ public:
         setupMesh();
     }
 
-    void addDepthTexture(sTexture texture) {
-        if (!depth)
-        {
-            textures.push_back(texture);
-            depth = true;
-        }
-        else
-        {
-            for (size_t i = 0; i < textures.size(); i++)
-            {
-                if (textures[i].type == "shadowMap")
-                    textures[i] = texture;
-            }
-        }
+    void addDepthTexture(Shader shader, unsigned int d) {
+        glActiveTexture(GL_TEXTURE0 + textures.size() + 1);
+        shader.setInt("shadowMap1", textures.size() + 1);
+        glBindTexture(GL_TEXTURE_2D, d);
+    };
+    void addDepthTexture2(Shader shader, unsigned int d) {
+        glActiveTexture(GL_TEXTURE0 + textures.size() + 2);
+        shader.setInt("shadowMap2", textures.size() + 2);
+        glBindTexture(GL_TEXTURE_2D, d);
     }
     // render the mesh
-    void Draw(Shader& shader, GLenum primitive = GL_TRIANGLES)
+    void Draw(Shader& shader, GLenum primitive = GL_TRIANGLES, unsigned int d = 0, unsigned int c = 0)
     {
 
         
@@ -76,7 +72,6 @@ public:
         unsigned int normalNr = 1;
         unsigned int heightNr = 1;
         unsigned int ambientNr = 1;
-        unsigned int depth = 1;
         for (unsigned int i = 0; i < textures.size(); i++)
         {
             glActiveTexture(GL_TEXTURE0 + i); // active proper texture unit before binding
@@ -93,15 +88,18 @@ public:
                 number = std::to_string(heightNr++); // transfer unsigned int to string
             else if (name == "material.ambient")
                 number = std::to_string(ambientNr++); // transfer unsigned int to string
-            else if (name == "shadowMap")
-                number = std::to_string(depth++); // transfer unsigned int to string
 
             // now set the sampler to the correct texture unit
             glUniform1i(glGetUniformLocation(shader.ID, (name + number).c_str()), i);
-            // and finally bind the texture
+       
             glBindTexture(GL_TEXTURE_2D, textures[i].id);
-
+            
         }
+        if(d != 0)
+            addDepthTexture(shader, d);
+        if (c != 0)
+            addDepthTexture2(shader, c);
+ 
         // draw mesh
         glBindVertexArray(VAO);
         glDrawElements(primitive, static_cast<unsigned int>(indices.size()), GL_UNSIGNED_INT, 0);

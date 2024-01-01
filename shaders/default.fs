@@ -55,7 +55,7 @@ void main()
   	
     // diffuse 
     // vec3 lightDir = normalize(light.position - FragPos);
-    vec3 lightDir = normalize(-lightDirection);  
+    vec3 lightDir = normalize(lightDirection);  
     float diff = max(dot(norm, lightDir), 0.0);
     vec3 diffuse = light.diffuse * diff * texture(material.diffuse1, TexCoords).rgb;  
     
