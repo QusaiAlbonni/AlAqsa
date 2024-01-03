@@ -30,9 +30,10 @@ public:
     vector<Mesh>    meshes;
     string directory;
     bool gammaCorrection;
+    bool noTextures;
 
     // constructor, expects a filepath to a 3D model.
-    Model(string const &path, bool gamma = false) : gammaCorrection(gamma)
+    Model(string const &path,bool noTextures = false, bool gamma = false) : gammaCorrection(gamma), noTextures(noTextures)
     {
         loadModel(path);
     }
@@ -150,22 +151,28 @@ private:
         // specular: texture_specularN
         // normal: texture_normalN
 
-        // 1. diffuse maps
-        vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
-        textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-        // 2. specular maps
-        vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
-        textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
-        // 3. normal maps
-        std::vector<Texture> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
-        textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
-        // 4. height maps
-        std::vector<Texture> heightMaps = loadMaterialTextures(material, aiTextureType_HEIGHT, "texture_height");
-        textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
-        // 5. ambient maps
-        std::vector<Texture> ambientMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_ambient");
-        textures.insert(textures.end(), ambientMaps.begin(), ambientMaps.end());
+        if (!noTextures)
+        {
+            // 1. diffuse maps
+            vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
+            textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
+            vector<Texture> baseMaps = loadMaterialTextures(material, aiTextureType_BASE_COLOR, "texture_diffuse");
+            textures.insert(textures.end(), baseMaps.begin(), baseMaps.end());
+            // 2. specular maps
+            vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
+            textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
+            // 3. normal maps
+            std::vector<Texture> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
+            textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
+            // 4. height maps
+            std::vector<Texture> heightMaps = loadMaterialTextures(material, aiTextureType_HEIGHT, "texture_height");
+            textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
+            // 5. ambient maps
+            std::vector<Texture> ambientMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_ambient");
+            textures.insert(textures.end(), ambientMaps.begin(), ambientMaps.end());
+        }
         
+
         // return a mesh object created from the extracted mesh data
         return Mesh(vertices, indices, textures);
     }

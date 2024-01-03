@@ -9,6 +9,7 @@
 #include "DepthMap.h"
 #include "audio.h"
 #include "InputHandle.h"
+#include "customModelTexts.h"
 #include "backpack.h"
 
 
@@ -49,7 +50,9 @@ void startGame(GLFWwindow* window) {
    // Model ourModel("res/models/backpack/backpack.obj");
 
     backpack lili(dshader);
-    
+
+    Model ourModel("C:/Users/Lenovo/Downloads/dsa/source/Stairs.fbx", true);
+
 
     Shader depthShader("shaders/depth.vs", "shaders/depth.fs");
     DepthMap depthmap(depthShader, "direc");
@@ -76,12 +79,12 @@ void startGame(GLFWwindow* window) {
 
         //Collision::CollisionDetector::check();
         Collision::CollisionDetector::updateCamPos();
-        std::cout << camera.Position.x << " " << camera.Position.y << " " << camera.Position.z << "\n";
         //AudioManager::stepsSounds[0]->play();
         //lala.play();
         AudioManager::playBackGround();
         unsigned int depthmapspotTex = depthmapSpot.render({ dome, lili });
         dshader.use();
+        dshader.setBool("isModel", false);
         dshader.setMat4("lightSpaceMatrix2", depthmapSpot.lightSpaceMatrix);
         dshader.setBool("spotOn", spotLight);
         dshader.setBool("noparallax", true);
@@ -92,8 +95,7 @@ void startGame(GLFWwindow* window) {
         //xs -= (deltaTime * 0.000001f);
         //lightPos.x += xs;
         //lightPos.z += xs;
-        mshader.setFloat("shininess", 32.0f);
-        lili.Draw();
+        
         
 
         lshader.use();
@@ -108,11 +110,12 @@ void startGame(GLFWwindow* window) {
 
         floor.Draw();
 
-        addDirectionalLight(mshader);
-        mshader.setFloat("material.shininess", 32.0f);
-        mshader.setBool("noparallax", true);
-        setMVP(mshader, glm::translate(glm::mat4(1), glm::vec3(2.0f,2.0f,2.0f)));
-        //ourModel.Draw(mshader);
+
+
+
+        mshader.setFloat("shininess", 32.0f);
+        lili.Draw();
+
 
 
         if (night) {

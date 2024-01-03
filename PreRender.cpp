@@ -5,7 +5,7 @@
 float lastX = SCR_WIDTH / 2.0f;
 float lastY = SCR_HEIGHT / 2.0f;
 bool firstMouse = true;
-
+//#define DEBUG
 
 
 GLFWwindow* setupWindow()
@@ -18,7 +18,12 @@ GLFWwindow* setupWindow()
 #ifdef __APPLE__
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
+#ifdef DEBUG
     glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
+#else
+    glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_FALSE);
+#endif 
+    // DEBUG
     // glfw window creation
     // --------------------
     GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "AL Aqsa", NULL, NULL);
@@ -59,9 +64,9 @@ bool setupOpengl()
     //glCullFace(GL_FRONT);
     //glEnable(GL_CULL_FACE);
     //glFrontFace(GL_CCW);
-    glEnable(GL_DEBUG_OUTPUT);
-    glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
-    glDebugMessageCallback(MessageCallback, 0);
+    //glEnable(GL_DEBUG_OUTPUT);
+    //glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+    //glDebugMessageCallback(MessageCallback, 0);
     return true;
 }
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)

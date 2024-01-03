@@ -104,7 +104,7 @@ bool Collision::CollisionDetector::updateCamPos()
         return false;
 }
 
-bool Collision::CollisionDetector::checkPlayerCol(glm::vec3& normal, float& depth)
+bool Collision::CollisionDetector::checkPlayerCol(glm::vec3& normal, float& depth, bool &obb)
 {
     bool col = false;
 
@@ -160,7 +160,53 @@ bool Collision::CollisionDetector::checkPlayerCol(glm::vec3& normal, float& dept
     {
         col = true;
     }
+    AABB box9 = { {-50.0f, 0, -64.1f},{-30.0f,2.0f, -63.0f} };
+    if (checkAABBCollision(box9, cam, normal, depth))
+    {
+        col = true;
+    }
 
+    AABB box10 = { {-64.0f, 0, -50.1f},{-63.0f,2.0f, -30.0f} };
+    if (checkAABBCollision(box10, cam, normal, depth))
+    {
+        col = true;
+    }
+    AABB box11 = { {-17.0f, 0, -50.1f},{-16.0f,2.0f, -43.0f} };
+    if (checkAABBCollision(box11, cam, normal, depth))
+    {
+        col = true;
+    }
+    AABB box12 = { {-17.0f, 0, -37.1f},{-16.0f,2.0f, -30.0f} };
+    if (checkAABBCollision(box12, cam, normal, depth))
+    {
+        col = true;
+    }
+    OBB camOBB(camera.Position, glm::vec3(0.2,1.0f,0.2), glm::quat(1.0f, 0.0f, 0.0f, 0.0f));
+    OBB nyaOBB(glm::vec3(-23.0f, 1.0f, -23.0f), glm::vec3(10.0f, 0.5f, 1.0f), glm::angleAxis(glm::radians(45.0f), glm::vec3(0.0f, 1.0f, 0.0f)));
+    if (camOBB.checkCollision(nyaOBB))
+    {
+        obb = true;
+        col = true;
+    }
+    OBB nyaOBB2(glm::vec3(-56.0f, 1.0f, -23.0f), glm::vec3(10.0f, 0.5f, 1.0f), glm::angleAxis(glm::radians(-45.0f), glm::vec3(0.0f, 1.0f, 0.0f)));
+    if (camOBB.checkCollision(nyaOBB2))
+    {
+        obb = true;
+        col = true;
+    }
+
+    OBB nyaOBB3(glm::vec3(-57.0f, 1.0f, -56.0f), glm::vec3(10.0f, 0.5f, 1.0f), glm::angleAxis(glm::radians(45.0f), glm::vec3(0.0f, 1.0f, 0.0f)));
+    if (camOBB.checkCollision(nyaOBB3))
+    {
+        obb = true;
+        col = true;
+    }
+    OBB nyaOBB4(glm::vec3(-23.0f, 1.0f, -56.0f), glm::vec3(10.0f, 0.5f, 1.0f), glm::angleAxis(glm::radians(-45.0f), glm::vec3(0.0f, 1.0f, 0.0f)));
+    if (camOBB.checkCollision(nyaOBB4))
+    {
+        obb = true;
+        col = true;
+    }
     
     return col;
 

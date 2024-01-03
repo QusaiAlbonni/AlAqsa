@@ -52,13 +52,13 @@ public:
     }
 
     void addDepthTexture(Shader shader, unsigned int d) {
-        glActiveTexture(GL_TEXTURE0 + textures.size() + 1);
-        shader.setInt("shadowMap1", textures.size() + 1);
+        glActiveTexture(GL_TEXTURE0 + textures.size() + 21);
+        shader.setInt("shadowMap1", textures.size() + 21);
         glBindTexture(GL_TEXTURE_2D, d);
     };
     void addDepthTexture2(Shader shader, unsigned int d) {
-        glActiveTexture(GL_TEXTURE0 + textures.size() + 2);
-        shader.setInt("shadowMap2", textures.size() + 2);
+        glActiveTexture(GL_TEXTURE0 + textures.size() + 20);
+        shader.setInt("shadowMap2", textures.size() + 20);
         glBindTexture(GL_TEXTURE_2D, d);
     }
     // render the mesh

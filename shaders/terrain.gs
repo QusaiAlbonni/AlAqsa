@@ -70,6 +70,7 @@ out vec4 FragPosLightSpace2;
 uniform float time;
 uniform vec3 viewPos;
 uniform mat4 model;
+uniform bool isModel;
 uniform Light light;
 uniform pointLight point;
 uniform SpotLight spotLight;
@@ -101,7 +102,7 @@ void main() {
 
     vec3 T = normalize(vec3(data_in[0].model * vec4(tangent, 0.0f)));
     vec3 B = normalize(vec3(data_in[0].model * vec4(bitangent, 0.0f)));
-    vec3 N = normalize(vec3(data_in[0].model * vec4(GetNormal(), 0.0f)));
+    vec3 N = normalize(vec3(data_in[0].model * vec4(isModel ? data_in[0].Normal : GetNormal(), 0.0f)));
 
     mat3 TBN = mat3(T, B, N);
     tbn = TBN;
@@ -110,7 +111,6 @@ void main() {
 
 
 
-    Normal = mat3(transpose(inverse(model))) * GetNormal();
     for (int i = 0; i < gl_in.length(); i++)
     {
         TexCoords = data_in[i].texCoord;
@@ -123,7 +123,7 @@ void main() {
         geoSpotDir = TBN * spotLight.direction;
         FragPosLightSpace = data_in[i].FragPosLightSpace;
         FragPosLightSpace2 = data_in[i].FragPosLightSpace2;
-        Normal = normalize(GetNormal());
+        Normal = normalize(mat3(transpose(inverse(model))) *(isModel ? data_in[i].Normal : GetNormal()));
         gl_Position = data_in[i].projection * model * gl_in[i].gl_Position;
         EmitVertex();
        

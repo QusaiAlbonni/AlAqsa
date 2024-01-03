@@ -6,6 +6,7 @@
 bool spotLightKeyPressed = false;
 bool nightKeyPressed = false;
 bool noclipKeyPressed = false;
+bool camPosKeyPressed = false;
 
 void processInput(GLFWwindow* window)
 {
@@ -25,10 +26,23 @@ void processInput(GLFWwindow* window)
         
         
         
-        glm::vec3 colnorm;
-        float coldepth;
-        if (Collision::CollisionDetector::checkPlayerCol(colnorm, coldepth) && camera.fps)
+        glm::vec3 colnorm = glm::vec3(0);
+        float coldepth = 0;
+        bool obb = false;
+        if (Collision::CollisionDetector::checkPlayerCol(colnorm, coldepth, obb) && camera.fps)
         {
+            if (obb)
+            {
+                if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+                    camera.ProcessKeyboard(FORWARD,-1.0f * deltaTime * moveSpeed);
+                if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+                    camera.ProcessKeyboard(BACKWARD,-1.0f * deltaTime * moveSpeed);
+                if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+                    camera.ProcessKeyboard(LEFT,-1.0f* deltaTime * moveSpeed);
+                if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+                    camera.ProcessKeyboard(RIGHT,-1.0f* deltaTime * moveSpeed);
+            }
+            else
             camera.Position -= 1.1f * coldepth * colnorm;
         }
         
@@ -68,6 +82,15 @@ void processInput(GLFWwindow* window)
     if (glfwGetKey(window, GLFW_KEY_O) == GLFW_RELEASE)
     {
         noclipKeyPressed = false;
+    }
+    if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS && !camPosKeyPressed)
+    {
+        std::cout << camera.Position.x << " " << camera.Position.y << " " << camera.Position.z << "\n";
+        camPosKeyPressed = true;
+    }
+    if (glfwGetKey(window, GLFW_KEY_P) == GLFW_RELEASE)
+    {
+        camPosKeyPressed = false;
     }
 
 }
