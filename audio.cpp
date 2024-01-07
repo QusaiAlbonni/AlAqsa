@@ -101,7 +101,8 @@ void AudioManager::playFootSteps()
 {
 		stepind++;
 		lastFootstep = glfwGetTime();
-		if ((camera.Position.z < 20 && camera.Position.z > -90) && (camera.Position.x < 25 && camera.Position.x > -85)) {
+		if (((camera.Position.z < 20 && camera.Position.z > -90) && (camera.Position.x < 25 && camera.Position.x > -85)
+			)|| (camera.Position.x > -35.0f && camera.Position.x < -25.0f && camera.Position.z > 20.0f) || camera.Position.z > 55.0f) {
 			int rand = getRandomIntBetween(0, 3);
 			stepsConcreteSounds[rand]->setVolume(20.0f);
 			stepsConcreteSounds[rand]->play();

@@ -13,8 +13,8 @@
 #include <SFML/Audio.hpp>
 #include "Time.h"
 
-extern const unsigned int SCR_WIDTH;
-extern const unsigned int SCR_HEIGHT;
+extern unsigned int SCR_WIDTH;
+extern unsigned int SCR_HEIGHT;
 extern const GLenum DIRECTIONAL_TEXTURE;
 extern const GLenum SPOTLIGHT_TEXTURE;
 extern const glm::vec3 initCameraPos;
@@ -23,6 +23,7 @@ extern const glm::vec3 initCameraPos;
 
 extern glm::vec3 lightPos;
 extern glm::vec3 domePointlightPos;
+extern glm::vec3 mosquePointlightPos;
 extern Camera camera;
 extern bool spotLight;
 extern bool night;

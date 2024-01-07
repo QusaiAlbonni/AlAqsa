@@ -1,5 +1,5 @@
 #include "PreRender.h"
-#include <learnopengl/shader_m.h>
+
 
 
 float lastX = SCR_WIDTH / 2.0f;
@@ -14,15 +14,8 @@ GLFWwindow* setupWindow()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-#ifdef __APPLE__
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-#endif
-#ifdef DEBUG
-    glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
-#else
     glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_FALSE);
-#endif 
+
     // DEBUG
     // glfw window creation
     // --------------------
@@ -69,11 +62,33 @@ bool setupOpengl()
     //glDebugMessageCallback(MessageCallback, 0);
     return true;
 }
+
+void setup_ImGUI(GLFWwindow* window)
+{
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGui::StyleColorsDark();
+    ImGui_ImplGlfw_InitForOpenGL(window, true);
+    ImGui_ImplOpenGL3_Init();
+
+
+}
+
+void shutdown_ImGui()
+{
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
+}
+
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
     // make sure the viewport matches the new window dimensions; note that width and 
     // height will be significantly larger than specified on retina displays.
     glViewport(0, 0, width, height);
+    SCR_WIDTH = width;
+    SCR_HEIGHT = height;
+
 }
 void mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
 {
@@ -105,5 +120,4 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 
 void GLAPIENTRY MessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam) {
     std::cout << "[OpenGL " << severity << " ](" << type << ") " << message << std::endl;
-    std::cout << "ERROR SOURCE " << source << " " << id << "\n";
 }

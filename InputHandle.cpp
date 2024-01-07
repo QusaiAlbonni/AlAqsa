@@ -85,7 +85,7 @@ void processInput(GLFWwindow* window)
     }
     if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS && !camPosKeyPressed)
     {
-        std::cout << camera.Position.x << " " << camera.Position.y << " " << camera.Position.z << "\n";
+
         camPosKeyPressed = true;
     }
     if (glfwGetKey(window, GLFW_KEY_P) == GLFW_RELEASE)

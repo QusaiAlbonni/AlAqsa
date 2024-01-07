@@ -181,6 +181,36 @@ bool Collision::CollisionDetector::checkPlayerCol(glm::vec3& normal, float& dept
     {
         col = true;
     }
+    AABB box13 = { {-12.6f, 0, -32.7f},{-12.0f,2.0f, -32.0f} };
+    if (checkAABBCollision(box13, cam, normal, depth))
+    {
+        col = true;
+    }
+    AABB box15 = { {-12.6f, 0, -34.4f},{-12.0f,2.0f, -34.0f} };
+    if (checkAABBCollision(box15, cam, normal, depth))
+    {
+        col = true;
+    }
+    AABB box16 = { {-12.6f, 0, -37.2f},{-12.0f,2.0f, -36.8f} };
+    if (checkAABBCollision(box16, cam, normal, depth))
+    {
+        col = true;
+    }
+    AABB box17 = { {-12.6f, 0, -43.8f},{-12.0f,2.0f, -43.2f} };
+    if (checkAABBCollision(box17, cam, normal, depth))
+    {
+        col = true;
+    }
+    AABB box18 = { {-12.6f, 0, -45.8f},{-12.0f,2.0f, -45.2f} };
+    if (checkAABBCollision(box18, cam, normal, depth))
+    {
+        col = true;
+    }
+    AABB box19 = { {-12.6f, 0, -47.3f},{-12.0f,2.0f, -46.7f} };
+    if (checkAABBCollision(box19, cam, normal, depth))
+    {
+        col = true;
+    }
     OBB camOBB(camera.Position, glm::vec3(0.2,1.0f,0.2), glm::quat(1.0f, 0.0f, 0.0f, 0.0f));
     OBB nyaOBB(glm::vec3(-23.0f, 1.0f, -23.0f), glm::vec3(10.0f, 0.5f, 1.0f), glm::angleAxis(glm::radians(45.0f), glm::vec3(0.0f, 1.0f, 0.0f)));
     if (camOBB.checkCollision(nyaOBB))

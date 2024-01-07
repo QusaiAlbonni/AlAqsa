@@ -153,6 +153,40 @@ public:
         // Define indices
         indices = { 0, 1, 3, 1, 2, 3 };
     }
+    void static generateRectangle1(float length, float width,
+        std::vector<sVertex>& vertices,
+        std::vector<unsigned int>& indices) {
+
+        // Calculate half-length and half-width
+        float halfLength = length / 2.0f;
+        float halfWidth = width / 2.0f;
+
+        // Define vertices
+        vertices.push_back({ glm::vec3(halfLength, halfWidth, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec2(0.3f, 0.9f) });
+        vertices.push_back({ glm::vec3(halfLength, -halfWidth, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec2(0.3f, 0.0f) });
+        vertices.push_back({ glm::vec3(-halfLength, -halfWidth, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.0f) });
+        vertices.push_back({ glm::vec3(-halfLength, halfWidth, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.9f) });
+
+        // Define indices
+        indices = { 0, 1, 3, 1, 2, 3 };
+    }
+    void static generateRectangle2(float length, float width,
+        std::vector<sVertex>& vertices,
+        std::vector<unsigned int>& indices) {
+
+        // Calculate half-length and half-width
+        float halfLength = length / 2.0f;
+        float halfWidth = width / 2.0f;
+
+        // Define vertices
+        vertices.push_back({ glm::vec3(halfLength, halfWidth, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec2(1.0f, 0.4f) });
+        vertices.push_back({ glm::vec3(halfLength, -halfWidth, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec2(1.0f, 0.0f) });
+        vertices.push_back({ glm::vec3(-halfLength, -halfWidth, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.0f) });
+        vertices.push_back({ glm::vec3(-halfLength, halfWidth, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.4f) });
+
+        // Define indices
+        indices = { 0, 1, 3, 1, 2, 3 };
+    }
     void static generateSphere(vector<sVertex>& vertices, vector<unsigned int>& indices, bool hemisphereFlag = false)
     {
         const unsigned int X_SEGMENTS = 64;
@@ -170,6 +204,8 @@ public:
                 vertices.push_back({ glm::vec3(xPos, yPos, zPos), glm::vec3(xPos, yPos, zPos), glm::vec2(xSegment, ySegment) });
             }
         }
+
+
 
         bool oddRow = false;
         for (unsigned int y = 0; y < Y_SEGMENTS; ++y)

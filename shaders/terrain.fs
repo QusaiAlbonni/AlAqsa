@@ -76,6 +76,7 @@ uniform bool noNor;
 uniform bool noSpec;
 uniform bool noAo;
 uniform bool hasPointLight;
+uniform bool isMosque;
 uniform sampler2D shadowMap1;
 uniform sampler2D shadowMap2;
 
@@ -212,8 +213,9 @@ void main()
 {
 
 
-    if(texture(material.diffuse1, TexCoords).a < 0.1)
+    if(texture(material.diffuse1, TexCoords).a < 0.1){
         discard;
+    }
     //vec3 normalMapValue = texture(material.normal1, TexCoords).rgb ;
     //vec3 norm = normalize(Normal + normalMapValue);
 
@@ -309,6 +311,7 @@ void main()
         result = result * 0.1;
     }
 
+    float alpha = texture(material.diffuse1, TexCoords).a;
     FragColor = vec4(result, 1.0); 
     
 } 

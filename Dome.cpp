@@ -158,7 +158,6 @@ void Dome::init(){
 	for (int i = 0; i < 36; i++) {
 
 		roofWall.indices.push_back(i);
-		cout << roofWall.indices[i] << " ";
 	}
 	roofWall.sVertices = convertToVertexglmVector(roofWall.vertices);
 	roofWallmesh = Simplemesh(roofWall.sVertices, roofWall.indices, wallTexts);

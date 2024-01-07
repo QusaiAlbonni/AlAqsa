@@ -11,19 +11,19 @@
 #include "InputHandle.h"
 #include "customModelTexts.h"
 #include "backpack.h"
+#include "GUI.h"
+#include "mosque.h"
+#include "AyaModel.h"
+#include "outside.h"
+#include "building.h"
 
 
 void startGame(GLFWwindow* window) {
 
  
     Shader dshader("shaders/terrain.vs", "shaders/terrain.fs", "shaders/terrain.gs" );
-    Shader mshader("shaders/model.vs", "shaders/model.fs", "shaders/model.gs");
-    Shader lshader("shaders/default.vs", "shaders/default.fs", "shaders/default.gs");
+    Shader dshaderInstance("shaders/terrain-instance.vs", "shaders/terrain-instance.fs", "shaders/terrain-instance.gs");
     Shader skyboxShader("shaders/skyboxday.vs", "shaders/skyboxday.fs");
-    texture text("res/textures/container.jpg","material.diffuse");
-    texture cubeText("res/textures/Orange.jpg","material.diffuse");
-    vector<sTexture> cubeTexts = { cubeText.info };
-    vector<sTexture> texts = {text.info};
 
     unsigned int skybox = setupSkyBox();
     unsigned int skyboxTex = initSkyBoxTextures();
@@ -34,12 +34,7 @@ void startGame(GLFWwindow* window) {
 
     Simplemesh terrain = terrainSetup(dshader);
 
- 
-    sf::SoundBuffer sb;
-    sb.loadFromFile("res/audio/whoosh.wav");
-    sf::Sound lala(sb);
-
-
+    Model car("res/models/car/covered_car_1k.gltf");
 
     AudioManager::init();
 
@@ -47,11 +42,15 @@ void startGame(GLFWwindow* window) {
     
     square floor(dshader);
 
-   // Model ourModel("res/models/backpack/backpack.obj");
+    mosque Mosque(dshader);
+
+    AyaModel md(dshader);
+
+    outside out(dshader);
+
+    Building bd(dshader);
 
     backpack lili(dshader);
-
-    Model ourModel("C:/Users/Lenovo/Downloads/dsa/source/Stairs.fbx", true);
 
 
     Shader depthShader("shaders/depth.vs", "shaders/depth.fs");
@@ -65,7 +64,9 @@ void startGame(GLFWwindow* window) {
     sTexture depthMapTex = { depthmap.render(
             {
                 dome,
-                lili
+                Mosque,
+                lili,
+                md
 
             }), "shadowMap", "" };
 
@@ -76,11 +77,9 @@ void startGame(GLFWwindow* window) {
         processInput(window);
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-        //Collision::CollisionDetector::check();
         Collision::CollisionDetector::updateCamPos();
-        //AudioManager::stepsSounds[0]->play();
-        //lala.play();
+        GUI::UIupdate();
+
         AudioManager::playBackGround();
         unsigned int depthmapspotTex = depthmapSpot.render({ dome, lili });
         dshader.use();
@@ -89,44 +88,24 @@ void startGame(GLFWwindow* window) {
         dshader.setBool("spotOn", spotLight);
         dshader.setBool("noparallax", true);
         drawTerrain(terrain, dshader, depthMapTex.id, depthmapspotTex);
- 
-
-
-        //xs -= (deltaTime * 0.000001f);
-        //lightPos.x += xs;
-        //lightPos.z += xs;
         
-        
-
-        lshader.use();
-        glm::mat4 cubeTrasform = glm::rotate(glm::mat4(1), glm::radians(45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-         cubeTrasform = glm::translate(cubeTrasform, glm::vec3(-4.0f, 2.0f, 0.0f));
-        addDirectionalLight(lshader);
-        setMVP(lshader, cubeTrasform);
-        lshader.setFloat("material.shininess",  32.0f);
-
-
         dome.Draw();
-
         floor.Draw();
-
-
-
-
-        mshader.setFloat("shininess", 32.0f);
         lili.Draw();
+        Mosque.Draw();
+        out.Draw();
+        md.Draw();
 
-
+        bd.Draw();
 
         if (night) {
             drawSkyBoxNight(skyboxShader, skyboxNight, skyboxTexNight);
         }
         else
             drawSkyBox(skyboxShader, skybox, skyboxTex);
-
-
         //depthmap.renderQuad();
         //depthmapSpot.renderQuad();
+        GUI::UIrender();
         glfwSwapBuffers(window);
         glfwPollEvents();
     }

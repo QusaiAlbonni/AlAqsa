@@ -20,14 +20,27 @@ void addDirectionalLight(Shader shader, glm::vec3 lightDirection) {
 }
 
 void addPointLight(Shader lightingShader, glm::vec3 lightPos) {
-    lightingShader.setVec3("point.position", lightPos);
-    lightingShader.setVec3("viewPos", camera.Position);
-    lightingShader.setVec3("point.ambient", 0.3f, 0.3f, 0.3f);
-    lightingShader.setVec3("point.diffuse", 0.9f, 0.9f, 0.7f);
-    lightingShader.setVec3("point.specular", 0.2f, 0.2f, 0.2f);
-    lightingShader.setFloat("point.constant", 1.0f);
-    lightingShader.setFloat("point.linear", 0.0000014f);
-    lightingShader.setFloat("point.quadratic", 0.014f);
+    if (lightPos == mosquePointlightPos)
+    {
+        lightingShader.setVec3("point.position", lightPos);
+        lightingShader.setVec3("viewPos", camera.Position);
+        lightingShader.setVec3("point.ambient", 0.3f, 0.3f, 0.3f);
+        lightingShader.setVec3("point.diffuse", 0.9f, 0.9f, 0.7f);
+        lightingShader.setVec3("point.specular", 0.2f, 0.2f, 0.2f);
+        lightingShader.setFloat("point.constant", 1.0f);
+        lightingShader.setFloat("point.linear", 0.00000014f);
+        lightingShader.setFloat("point.quadratic", 0.007f);
+    }
+    else {
+        lightingShader.setVec3("point.position", lightPos);
+        lightingShader.setVec3("viewPos", camera.Position);
+        lightingShader.setVec3("point.ambient", 0.3f, 0.3f, 0.3f);
+        lightingShader.setVec3("point.diffuse", 0.9f, 0.9f, 0.7f);
+        lightingShader.setVec3("point.specular", 0.2f, 0.2f, 0.2f);
+        lightingShader.setFloat("point.constant", 1.0f);
+        lightingShader.setFloat("point.linear", 0.0000014f);
+        lightingShader.setFloat("point.quadratic", 0.014f);
+    }
 }
 
 void addSpotLight(Shader lightingShader, glm::vec3 lightPos, glm::vec3 direction) {

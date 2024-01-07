@@ -29,11 +29,12 @@ public:
     vector<Texture> textures_loaded;	// stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
     vector<Mesh>    meshes;
     string directory;
+    int instances;
     bool gammaCorrection;
     bool noTextures;
 
     // constructor, expects a filepath to a 3D model.
-    Model(string const &path,bool noTextures = false, bool gamma = false) : gammaCorrection(gamma), noTextures(noTextures)
+    Model(string const &path,int instances = 0,bool noTextures = false, bool gamma = false) : gammaCorrection(gamma), noTextures(noTextures), instances(instances)
     {
         loadModel(path);
     }
@@ -42,7 +43,7 @@ public:
     void Draw(Shader &shader)
     {
         for(unsigned int i = 0; i < meshes.size(); i++)
-            meshes[i].Draw(shader);
+            meshes[i].Draw(shader, instances);
     }
     
 private:

@@ -12,7 +12,9 @@ public:
 		}
 		if (!setupOpengl())
 			return;
+		setup_ImGUI(window);
 		startGame(window);
+		shutdown_ImGui();
 		glfwTerminate();
 		return;
 	}
