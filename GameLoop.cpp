@@ -16,6 +16,7 @@
 #include "AyaModel.h"
 #include "outside.h"
 #include "building.h"
+#include "Wall.h"
 
 
 void startGame(GLFWwindow* window) {
@@ -34,24 +35,17 @@ void startGame(GLFWwindow* window) {
 
     Simplemesh terrain = terrainSetup(dshader);
 
-    Model car("res/models/car/covered_car_1k.gltf");
-
     AudioManager::init();
 
     Dome dome(dshader);
-    
     square floor(dshader);
-
     mosque Mosque(dshader);
-
     AyaModel md(dshader);
-
     outside out(dshader);
-
-    Building bd(dshader);
-
-    backpack lili(dshader);
-
+    Building building(dshader);
+    std::cout << "wall";
+    Wall fence(dshader);
+    std::cout << "after wall";
 
     Shader depthShader("shaders/depth.vs", "shaders/depth.fs");
     DepthMap depthmap(depthShader, "direc");
@@ -65,8 +59,8 @@ void startGame(GLFWwindow* window) {
             {
                 dome,
                 Mosque,
-                lili,
-                md
+                md,
+                fence
 
             }), "shadowMap", "" };
 
@@ -81,7 +75,7 @@ void startGame(GLFWwindow* window) {
         GUI::UIupdate();
 
         AudioManager::playBackGround();
-        unsigned int depthmapspotTex = depthmapSpot.render({ dome, lili });
+        unsigned int depthmapspotTex = depthmapSpot.render({ dome});
         dshader.use();
         dshader.setBool("isModel", false);
         dshader.setMat4("lightSpaceMatrix2", depthmapSpot.lightSpaceMatrix);
@@ -91,12 +85,13 @@ void startGame(GLFWwindow* window) {
         
         dome.Draw();
         floor.Draw();
-        lili.Draw();
         Mosque.Draw();
         out.Draw();
         md.Draw();
+        fence.Draw();
+        building.Draw();
 
-        bd.Draw();
+        dshader.setMat4("model", glm::translate(glm::mat4(1), glm::vec3(0.0, 0.0, 10.0f)));
 
         if (night) {
             drawSkyBoxNight(skyboxShader, skyboxNight, skyboxTexNight);
