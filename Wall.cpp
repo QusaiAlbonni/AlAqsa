@@ -11,7 +11,7 @@ void Wall::init()
       texture faceDiffuse("res/textures/Wall2/Wall-diff.jpg", "material.diffuse");
       texture faceAmbient("res/textures/Wall2/Wall-ao.jpg", "material.ambient");
       texture faceNormal("res/textures/Wall2/Wall-nor.jpg", "material.normal");
-      texture faceHeight("res/textures/Wall2/Wall-rough.jpg", "material.height");
+      texture faceHeight("res/textures/Wall2/Wall-height.jpg", "material.height");
     vector<sTexture> cubeTextures = {
        faceDiffuse.info,
        faceAmbient.info,

@@ -231,7 +231,7 @@ void main()
 
 
 
-    vec3 viewDirection = normalize(camPos - FragPos);
+    vec3 viewDirection = normalize(viewPos - normalFragPos);
 	
 	// Variables that control parallax occlusion mapping quality
 	float heightScale = 0.05f;

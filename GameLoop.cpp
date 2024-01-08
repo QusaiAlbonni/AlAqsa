@@ -43,9 +43,7 @@ void startGame(GLFWwindow* window) {
     AyaModel md(dshader);
     outside out(dshader);
     Building building(dshader);
-    std::cout << "wall";
     Wall fence(dshader);
-    std::cout << "after wall";
 
     Shader depthShader("shaders/depth.vs", "shaders/depth.fs");
     DepthMap depthmap(depthShader, "direc");
