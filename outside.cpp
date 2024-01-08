@@ -14,7 +14,7 @@ void outside::init() {
    texture floor1("res/textures/floor/ao.jpg", "material.ambient");
     texture floor2("res/textures/floor/nor.jpg", "material.normal");
     texture floor3("res/textures/floor/rough.jpg", "material.specular");
-    texture floor4("res/textures/floor/diff.jpg", "material.diffuse");
+    texture floor4("res/textures/floor/diff.jpg", "material.diffuse",GL_RGB, GL_SRGB);
     texture floor5("res/textures/floor/height.jpg", "material.height");
 
     vector<sTexture> texts = { floor1.info,floor2.info ,floor3.info, floor4.info, floor5.info };

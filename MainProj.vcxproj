@@ -127,7 +127,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -181,6 +181,7 @@
     <ClCompile Include="InputHandle.cpp" />
     <ClCompile Include="lighting.cpp" />
     <ClCompile Include="MainProj.cpp" />
+    <ClCompile Include="mirror.cpp" />
     <ClCompile Include="mosque.cpp" />
     <ClCompile Include="object_.cpp" />
     <ClCompile Include="outside.cpp" />
@@ -216,6 +217,7 @@
     <ClInclude Include="imgui\imstb_truetype.h" />
     <ClInclude Include="InputHandle.h" />
     <ClInclude Include="lighting.h" />
+    <ClInclude Include="mirror.h" />
     <ClInclude Include="mosque.h" />
     <ClInclude Include="object_.h" />
     <ClInclude Include="outside.h" />

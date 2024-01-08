@@ -78,7 +78,7 @@ void Dome::init(){
 	frontFaceMesh = Simplemesh(face.sVertices, face.indices, frontfaceTexts);
 
 	shapeUtils::generateRectangle(0.096f, 1.0f, innerSideWall.sVertices, innerSideWall.indices);
-	texture wallDiff("res/textures/concrete_wall_diff.jpg", "material.diffuse");
+	texture wallDiff("res/textures/concrete_wall_diff.jpg", "material.diffuse", GL_RGB, GL_SRGB);
 	texture wallAo("res/textures/concrete_wall_ao.jpg", "material.ambient");
 	texture wallSpec("res/textures/concrete_wall_rough.jpg", "material.specular");
 	texture wallNorm("res/textures/concrete_wall_nor.jpg", "material.normal");

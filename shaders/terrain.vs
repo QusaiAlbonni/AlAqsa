@@ -2,6 +2,10 @@
 layout (location = 0) in vec3 aPos;
 layout (location = 1) in vec3 aNormal;
 layout (location = 2) in vec2 aTexCoords;
+layout (location = 3) in vec2 aa;
+layout (location = 4) in vec2 bb;
+layout (location = 5) in vec2 cc;
+layout (location = 6) in vec2 dd;
 
 
 

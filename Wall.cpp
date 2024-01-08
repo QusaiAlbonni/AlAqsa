@@ -8,7 +8,7 @@ Wall::Wall(Shader shader) : object_(shader){
 void Wall::init()
 { 
       shapeUtils::generateRectangle(32, 28, wall.sVertices, wall.indices);
-      texture faceDiffuse("res/textures/Wall2/Wall-diff.jpg", "material.diffuse");
+      texture faceDiffuse("res/textures/Wall2/Wall-diff.jpg", "material.diffuse", GL_RGB, GL_SRGB);
       texture faceAmbient("res/textures/Wall2/Wall-ao.jpg", "material.ambient");
       texture faceNormal("res/textures/Wall2/Wall-nor.jpg", "material.normal");
       texture faceHeight("res/textures/Wall2/Wall-height.jpg", "material.height");

@@ -17,6 +17,8 @@
 #include "outside.h"
 #include "building.h"
 #include "Wall.h"
+#include "mirror.h"
+#include "InnerDome.h"
 
 
 void startGame(GLFWwindow* window) {
@@ -44,6 +46,9 @@ void startGame(GLFWwindow* window) {
     outside out(dshader);
     Building building(dshader);
     Wall fence(dshader);
+    Mirror mirror(dshader);
+
+
 
     Shader depthShader("shaders/depth.vs", "shaders/depth.fs");
     DepthMap depthmap(depthShader, "direc");
@@ -78,7 +83,7 @@ void startGame(GLFWwindow* window) {
         dshader.setBool("isModel", false);
         dshader.setMat4("lightSpaceMatrix2", depthmapSpot.lightSpaceMatrix);
         dshader.setBool("spotOn", spotLight);
-        dshader.setBool("noparallax", false);
+        dshader.setBool("noparallax", true);
         drawTerrain(terrain, dshader, depthMapTex.id, depthmapspotTex);
         dshader.setBool("noparallax", true);
 
@@ -93,7 +98,7 @@ void startGame(GLFWwindow* window) {
         fence.Draw();
         dshader.setBool("noparallax", true);
         building.Draw();
-
+        mirror.Draw();
         dshader.setMat4("model", glm::translate(glm::mat4(1), glm::vec3(0.0, 0.0, 10.0f)));
 
         if (night) {

@@ -94,6 +94,8 @@ bool Collision::CollisionDetector::updateCamPos()
         else if (checkAABBCollision(box1, cam, inormal, idepth))
         {
             camera.Position.y = 2.5f;
+        } else if (camera.Position.z > 55.0f) {
+            camera.Position.y = 1.75f;
         }
         else{
             camera.Position.y = 1.5f;

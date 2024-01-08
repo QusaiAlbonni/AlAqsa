@@ -1,4 +1,5 @@
 #include "lighting.h"
+#include "imageloader.h"
 
 void addDirectionalLight(Shader shader, glm::vec3 lightDirection) {
     shader.use();
@@ -55,4 +56,52 @@ void addSpotLight(Shader lightingShader, glm::vec3 lightPos, glm::vec3 direction
     lightingShader.setFloat("spotLight.quadratic", 0.032f);
     lightingShader.setFloat("spotLight.cutOff", glm::cos(glm::radians(12.5f)));
     lightingShader.setFloat("spotLight.outerCutOff", glm::cos(glm::radians(15.0f)));
+}
+
+unsigned int enviromentMap()
+{
+    
+    vector<std::string> faces
+    {
+        "res/textures/envMap/left.jpg",
+        "res/textures/envMap/right.jpg",
+        "res/textures/envMap/top.jpg",
+        "res/textures/envMap/bottom.jpg",
+        "res/textures/envMap/back.jpg",
+        "res/textures/envMap/front.jpg",
+    };
+    unsigned int cubemapTexture = loadEnvCubemap(faces);
+
+    return cubemapTexture;
+}
+
+
+unsigned int loadEnvCubemap(vector<std::string> faces)
+{
+    unsigned int textureID;
+    glGenTextures(1, &textureID);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
+
+    int width, height, nrChannels;
+    for (unsigned int i = 0; i < faces.size(); i++)
+    {
+        unsigned char* data = loadImage(faces[i].c_str(), &width, &height, &nrChannels, false);
+        if (data)
+        {
+            glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_SRGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+            freeImageData(data);
+        }
+        else
+        {
+            std::cout << "Cubemap texture failed to load at path: " << faces[i] << std::endl;
+            freeImageData(data);
+        }
+    }
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+
+    return textureID;
 }
