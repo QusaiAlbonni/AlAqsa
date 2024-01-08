@@ -9,6 +9,7 @@ class Mirror :
 public:
 
     unsigned int envMap;
+    unsigned int envMapDay;
     Shader mirrorShader;
     shape mirrorShape;
     Simplemesh mirrorMesh;

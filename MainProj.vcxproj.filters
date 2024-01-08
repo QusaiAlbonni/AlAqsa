@@ -130,7 +130,7 @@
       <Filter>Source Files\objects</Filter>
     </ClCompile>
     <ClCompile Include="mirror.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

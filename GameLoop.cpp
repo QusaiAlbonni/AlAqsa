@@ -108,7 +108,7 @@ void startGame(GLFWwindow* window) {
             drawSkyBox(skyboxShader, skybox, skyboxTex);
         //depthmap.renderQuad();
         //depthmapSpot.renderQuad();
-        GUI::UIrender();
+        //GUI::UIrender();
         glfwSwapBuffers(window);
         glfwPollEvents();
     }

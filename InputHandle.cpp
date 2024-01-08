@@ -43,7 +43,7 @@ void processInput(GLFWwindow* window)
                     camera.ProcessKeyboard(RIGHT,-1.0f* deltaTime * moveSpeed);
             }
             else
-            camera.Position -= 1.1f * coldepth * colnorm;
+            camera.Position -= coldepth * colnorm;
         }
         
         

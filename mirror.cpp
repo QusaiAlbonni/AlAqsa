@@ -9,6 +9,7 @@ void Mirror::init()
 {
 	vector<sTexture> texts= {};
 	envMap = enviromentMap();
+	envMapDay = enviromentMap(true);
     
 	shapeUtils::generateRectangle(1.0, 2.0f, mirrorShape.sVertices, mirrorShape.indices);
 
@@ -34,7 +35,7 @@ void Mirror::drawMeshes(glm::mat4 transform, glm::mat4 scaleMat)
 	mirrorShader.setMat4("projection", projection);
 	mirrorShader.setVec3("cameraPos", camera.Position);
 	glActiveTexture(GL_TEXTURE31);
-	glBindTexture(GL_TEXTURE_CUBE_MAP, envMap);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, night? envMap : envMapDay);
 	mirrorShader.setInt("skybox", 31);
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_CUBE_MAP, envMap);

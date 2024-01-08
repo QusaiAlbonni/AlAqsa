@@ -235,7 +235,7 @@ void main()
 	// Variables that control parallax occlusion mapping quality
 	float heightScale = 0.05f;
 	const float minLayers = 8.0f;
-    const float maxLayers = 256.0f;
+    const float maxLayers = 512.0f;
     float numLayers = mix(maxLayers, minLayers, abs(dot(vec3(0.0f, 0.0f, 1.0f), viewDirection)));
 	float layerDepth = 1.0f / numLayers;
 	float currentLayerDepth = 0.0f;

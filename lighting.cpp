@@ -58,18 +58,33 @@ void addSpotLight(Shader lightingShader, glm::vec3 lightPos, glm::vec3 direction
     lightingShader.setFloat("spotLight.outerCutOff", glm::cos(glm::radians(15.0f)));
 }
 
-unsigned int enviromentMap()
+unsigned int enviromentMap(bool day)
 {
-    
-    vector<std::string> faces
+    vector<std::string> faces;
+    if (day)
     {
-        "res/textures/envMap/left.jpg",
-        "res/textures/envMap/right.jpg",
-        "res/textures/envMap/top.jpg",
-        "res/textures/envMap/bottom.jpg",
-        "res/textures/envMap/back.jpg",
-        "res/textures/envMap/front.jpg",
-    };
+        faces =
+        {
+            "res/textures/envMapDay/left.jpg",
+            "res/textures/envMapDay/right.jpg",
+            "res/textures/envMapDay/top.jpg",
+            "res/textures/envMapDay/bottom.jpg",
+            "res/textures/envMapDay/back.jpg",
+            "res/textures/envMapDay/front.jpg",
+        };
+
+    }
+    else {
+        faces =
+        {
+            "res/textures/envMap/left.jpg",
+            "res/textures/envMap/right.jpg",
+            "res/textures/envMap/top.jpg",
+            "res/textures/envMap/bottom.jpg",
+            "res/textures/envMap/back.jpg",
+            "res/textures/envMap/front.jpg",
+        };
+    }
     unsigned int cubemapTexture = loadEnvCubemap(faces);
 
     return cubemapTexture;
