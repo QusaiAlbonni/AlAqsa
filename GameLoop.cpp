@@ -78,15 +78,20 @@ void startGame(GLFWwindow* window) {
         dshader.setBool("isModel", false);
         dshader.setMat4("lightSpaceMatrix2", depthmapSpot.lightSpaceMatrix);
         dshader.setBool("spotOn", spotLight);
-        dshader.setBool("noparallax", true);
+        dshader.setBool("noparallax", false);
         drawTerrain(terrain, dshader, depthMapTex.id, depthmapspotTex);
-        
+        dshader.setBool("noparallax", true);
+
         dome.Draw();
         floor.Draw();
         Mosque.Draw();
         out.Draw();
+        dshader.setBool("isModel", true);
         md.Draw();
+        dshader.setBool("isModel", false);
+        dshader.setBool("noparallax", false);
         fence.Draw();
+        dshader.setBool("noparallax", true);
         building.Draw();
 
         dshader.setMat4("model", glm::translate(glm::mat4(1), glm::vec3(0.0, 0.0, 10.0f)));

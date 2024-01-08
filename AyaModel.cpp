@@ -131,7 +131,7 @@ void AyaModel::drawMeshes(glm::mat4 transform, glm::mat4 scaleMat) {
                 tree3 = glm::translate(tree3, glm::vec3(-95.0f + trx, 0.0f, -196.0f+ trz));
                 tree3 = glm::scale(tree3, glm::vec3(2.0f, 2.0f, 2.0f)); // Scale if needed
                 shader.setMat4("model", tree3);
-             // tree.Draw(shader);
+                tree.Draw(shader);
                 trz += 15.0f;
             }
 

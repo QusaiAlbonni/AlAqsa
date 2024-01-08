@@ -222,8 +222,7 @@ void main()
     //vec3 dx = dFdx(FragPos);
     //vec3 dy = dFdy(FragPos);
     //vec3 norm = normalize(cross(dx, dy) + normalMapValue);
-    vec3 norm;
-    norm = normalize(texture(material.normal1, TexCoords).xyz * 2.0f - 1.0f);
+    
     
     vec3 lightDirection = geoDir;
     //lightDirection = vec3(-light.direction.x, light.direction.y, -light.direction.z);
@@ -231,12 +230,12 @@ void main()
 
 
 
-    vec3 viewDirection = normalize(viewPos - normalFragPos);
+    vec3 viewDirection = normalize(camPos - FragPos);
 	
 	// Variables that control parallax occlusion mapping quality
 	float heightScale = 0.05f;
 	const float minLayers = 8.0f;
-    const float maxLayers = 64.0f;
+    const float maxLayers = 256.0f;
     float numLayers = mix(maxLayers, minLayers, abs(dot(vec3(0.0f, 0.0f, 1.0f), viewDirection)));
 	float layerDepth = 1.0f / numLayers;
 	float currentLayerDepth = 0.0f;
@@ -264,19 +263,20 @@ void main()
 	UVs = prevTexCoords * weight + UVs * (1.0f - weight);
 
 	// Get rid of anything outside the normal range
-	if(UVs.x > 1.0 || UVs.y > 1.0 || UVs.x < 0.0 || UVs.y < 0.0)
-		discard;
+	//if(UVs.x > 1.0 || UVs.y > 1.0 || UVs.x < 0.0 || UVs.y < 0.0)
+	//	discard;
     }
 
     //vec3 dx = dFdx(FragPos);
     //vec3 dy = dFdy(FragPos);
     //vec3 norm = normalize(cross(dx, dy));
-
+    vec3 norm;
+    norm = normalize(texture(material.normal1, UVs).xyz * 2.0f - 1.0f);
 
 
     // ambient
-    float aoValue = noAo ? 1.0 : texture(material.ambient1, TexCoords).r;
-    vec3 ambient = aoValue * light.ambient * texture(material.diffuse1, TexCoords).rgb;
+    float aoValue = noAo ? 1.0 : texture(material.ambient1, UVs).r;
+    vec3 ambient = aoValue * light.ambient * texture(material.diffuse1, UVs).rgb;
   	
     // diffuse 
     // vec3 lightDir = normalize(light.position - FragPos);
