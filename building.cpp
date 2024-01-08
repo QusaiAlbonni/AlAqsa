@@ -9,7 +9,8 @@ void Building::init()
 	texture ao("res/textures/building-texts/building_ao.jpg", "material.ambient");
 	texture nor("res/textures/building-texts/building_nor.png", "material.normal");
 	texture spec("res/textures/building-texts/building_spec.jpg", "material.specular");
-	vector<sTexture> texts = { diff.info, ao.info, nor.info, spec.info };
+	texture emis("res/textures/building-texts/building_emissive.jpg", "material.emission");
+	vector<sTexture> texts = { diff.info, ao.info, nor.info, spec.info, emis.info };
 
 	sideMesh = Simplemesh(side.sVertices, side.indices, texts);
 
@@ -17,7 +18,8 @@ void Building::init()
 	texture ao2("res/textures/building-texts/building2_ao.jpg", "material.ambient");
 	texture nor2("res/textures/building-texts/building2_nor.png", "material.normal");
 	texture spec2("res/textures/building-texts/building2_spec.jpg", "material.specular");
-	vector<sTexture> texts2 = { diff2.info, ao2.info, nor2.info, spec2.info };
+	texture emis2("res/textures/building-texts/building2_emissive.jpg", "material.emission");
+	vector<sTexture> texts2 = { diff2.info, ao2.info, nor2.info, spec2.info, emis2.info };
 
 	sideMesh2 = Simplemesh(side.sVertices, side.indices, texts2);
 }
@@ -27,6 +29,8 @@ Building::Building(Shader shader) : object_(shader)
 }
 void Building::Draw()
 {
+	shader.use();
+	shader.setBool("hasEmissive", 1);
 	glm::mat4 transform(1);
 	transform = glm::translate(transform, glm::vec3(110, 12, 200));
 	drawMeshes(sideMesh, transform);
@@ -99,6 +103,8 @@ void Building::Draw()
 	transform = glm::mat4(1);
 	transform = glm::translate(glm::mat4(1), glm::vec3(25, 27, 180));
 	drawMeshes(sideMesh2, transform);
+
+	shader.setBool("hasEmissive", 0);
 }
 
 void Building::drawMeshes(Simplemesh building, glm::mat4 transform, glm::mat4 scaleMat)

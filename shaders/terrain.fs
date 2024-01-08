@@ -8,7 +8,8 @@ struct Material {
     sampler2D specular1;
     sampler2D normal1;  
     sampler2D height1;
-    sampler2D ambient1;  
+    sampler2D ambient1;
+    sampler2D emission1;  
     float shininess;
 }; 
 
@@ -77,6 +78,7 @@ uniform bool noSpec;
 uniform bool noAo;
 uniform bool hasPointLight;
 uniform bool isMosque;
+uniform bool hasEmissive;
 uniform sampler2D shadowMap1;
 uniform sampler2D shadowMap2;
 
@@ -311,6 +313,10 @@ void main()
         result = result * 0.1;
     }
 
+    if(hasEmissive){
+        vec3 emission = texture(material.emission1, UVs).rgb;
+        result += emission;
+    }
     float alpha = texture(material.diffuse1, TexCoords).a;
     FragColor = vec4(result, 1.0); 
     
