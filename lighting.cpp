@@ -32,7 +32,7 @@ void addPointLight(Shader lightingShader, glm::vec3 lightPos) {
         lightingShader.setFloat("point.linear", 0.00000014f);
         lightingShader.setFloat("point.quadratic", 0.007f);
     }
-    else {
+    else if (lightPos == domePointlightPos) {
         lightingShader.setVec3("point.position", lightPos);
         lightingShader.setVec3("viewPos", camera.Position);
         lightingShader.setVec3("point.ambient", 0.3f, 0.3f, 0.3f);
@@ -40,6 +40,27 @@ void addPointLight(Shader lightingShader, glm::vec3 lightPos) {
         lightingShader.setVec3("point.specular", 0.2f, 0.2f, 0.2f);
         lightingShader.setFloat("point.constant", 1.0f);
         lightingShader.setFloat("point.linear", 0.0000014f);
+        lightingShader.setFloat("point.quadratic", 0.014f);
+    }
+    else {
+        lightingShader.setVec3("point.position", lightPos);
+        lightingShader.setVec3("viewPos", camera.Position);
+        lightingShader.setVec3("point.ambient", 0.3f, 0.3f, 0.3f);
+        lightingShader.setVec3("point.diffuse", 0.9f, 0.9f, 0.7f);
+        lightingShader.setVec3("point.specular", 0.2f, 0.2f, 0.2f);
+        lightingShader.setFloat("point.constant", 1.0f);
+        lightingShader.setFloat("point.linear", 0.14f);
+        lightingShader.setFloat("point.quadratic", 0.014f);
+    }
+    if (!night)
+    {
+        lightingShader.setVec3("point.position", lightPos);
+        lightingShader.setVec3("viewPos", camera.Position);
+        lightingShader.setVec3("point.ambient", 0.0f, 0.0f, 0.0f);
+        lightingShader.setVec3("point.diffuse", 0.0f, 0.0f, 0.0f);
+        lightingShader.setVec3("point.specular", 0.0f, 0.0f, 0.0f);
+        lightingShader.setFloat("point.constant", 1.0f);
+        lightingShader.setFloat("point.linear", 0.14f);
         lightingShader.setFloat("point.quadratic", 0.014f);
     }
 }

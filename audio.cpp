@@ -146,10 +146,8 @@ int AudioManager::getRandomIntBetween(int a, int b) {
 	std::random_device rd;
 	std::mt19937 gen(rd());
 
-	// Define the range [a, b]
 	std::uniform_int_distribution<int> distribution(a, b);
 
-	// Generate a random integer
 	int randomInt = distribution(gen);
 
 	return randomInt;

@@ -20,10 +20,10 @@ extern const GLenum SPOTLIGHT_TEXTURE;
 extern const glm::vec3 initCameraPos;
 
 
-
 extern glm::vec3 lightPos;
 extern glm::vec3 domePointlightPos;
 extern glm::vec3 mosquePointlightPos;
+extern const glm::vec3 cornerLight;
 extern Camera camera;
 extern bool spotLight;
 extern bool night;

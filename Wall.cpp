@@ -1,6 +1,7 @@
 #include "Wall.h"
 #include "utils.h"
 #include <learnopengl/model.h>
+#include "lighting.h"
 Wall::Wall(Shader shader) : object_(shader){
     init();
 }
@@ -26,6 +27,7 @@ void Wall::init()
 void Wall::Draw()
 {
     glm::mat4 transform(1);
+    addPointLight(shader, cornerLight);
     drawMeshes(transform);
     setMVP(shader);
 

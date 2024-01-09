@@ -156,7 +156,7 @@ float ShadowCalculation2(vec4 fragPosLightSpace, vec3 norm)
 }
 
 
-vec3 CalcSpotLight(SpotLight spotlight, vec3 normal, vec3 fragPos, vec3 viewDir)
+vec3 CalcSpotLight(SpotLight spotlight, vec3 normal, vec3 fragPos, vec3 viewDir, vec2 UVs)
 {
     vec3 lightDir = normalize(geoSpotPos - fragPos);
     // diffuse shading
@@ -172,10 +172,10 @@ vec3 CalcSpotLight(SpotLight spotlight, vec3 normal, vec3 fragPos, vec3 viewDir)
     float epsilon = spotlight.cutOff - spotlight.outerCutOff;
     float intensity = clamp((theta - spotlight.outerCutOff) / epsilon, 0.0, 1.0);
     // combine results
-    float aoValue = noAo ? 1.0 : texture(material.ambient1, TexCoords).r;;
-    vec3 ambient = aoValue * spotlight.ambient * vec3(texture(material.diffuse1, TexCoords));
-    vec3 diffuse = spotlight.diffuse * diff * vec3(texture(material.diffuse1, TexCoords));
-    vec3 specular = spotlight.specular * spec * vec3(texture(material.specular1, TexCoords).r);
+    float aoValue = noAo ? 1.0 : texture(material.ambient1, UVs).r;;
+    vec3 ambient = aoValue * spotlight.ambient * vec3(texture(material.diffuse1, UVs));
+    vec3 diffuse = spotlight.diffuse * diff * vec3(texture(material.diffuse1, UVs));
+    vec3 specular = spotlight.specular * spec * vec3(texture(material.specular1, UVs).r);
     ambient *= attenuation * intensity;
     diffuse *= attenuation * intensity;
     specular *= attenuation * intensity;
@@ -187,7 +187,7 @@ vec3 CalcSpotLight(SpotLight spotlight, vec3 normal, vec3 fragPos, vec3 viewDir)
 
 
 
-vec3 CalcPointLight(pointLight pointl, vec3 normal, vec3 fragPos, vec3 viewDir, vec3 pointPos)
+vec3 CalcPointLight(pointLight pointl, vec3 normal, vec3 fragPos, vec3 viewDir, vec3 pointPos, vec2 UVs)
 {
     vec3 lightDir = normalize(pointPos - fragPos);
     // diffuse shading
@@ -199,10 +199,10 @@ vec3 CalcPointLight(pointLight pointl, vec3 normal, vec3 fragPos, vec3 viewDir, 
     float distance = length(pointPos - fragPos);
     float attenuation = 1.0 / (pointl.constant + pointl.linear * distance + pointl.quadratic * (distance * distance));    
     // combine results
-    float aoValue = noAo ? 1.0 : texture(material.ambient1, TexCoords).r;;
-    vec3 ambient = aoValue * pointl.ambient * vec3(texture(material.diffuse1, TexCoords));
-    vec3 diffuse = pointl.diffuse * diff * vec3(texture(material.diffuse1, TexCoords));
-    float t = texture(material.specular1, TexCoords).r;
+    float aoValue = noAo ? 1.0 : texture(material.ambient1, UVs).r;;
+    vec3 ambient = aoValue * pointl.ambient * vec3(texture(material.diffuse1, UVs));
+    vec3 diffuse = pointl.diffuse * diff * vec3(texture(material.diffuse1, UVs));
+    float t = texture(material.specular1, UVs).r;
     vec3 specular = pointl.specular * spec * vec3(t, t, t);
     ambient *= attenuation;
     diffuse *= attenuation;
@@ -299,13 +299,13 @@ void main()
     vec3 resultpoint;
     vec3 resultspot;
     if(hasPointLight)
-        resultpoint = CalcPointLight(point, norm, FragPos, viewDir, geoPointPos);
+        resultpoint = CalcPointLight(point, norm, FragPos, viewDir, geoPointPos, UVs);
     else
         resultpoint = vec3(0, 0, 0);
 
 
     if(spotOn)
-        resultspot = CalcSpotLight(spotLight,norm,FragPos,viewDir);
+        resultspot = CalcSpotLight(spotLight,norm,FragPos,viewDir, UVs);
     else
         resultspot = vec3(0);
     vec3 result = resultdir + resultpoint + resultspot;
