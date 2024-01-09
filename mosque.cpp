@@ -10,6 +10,8 @@ mosque::mosque(Shader shader) :object_(shader){
 void mosque::init() {
 
 
+
+
     shapeUtils::generateRectangle(40.0f, 15.0f, rectanglecylinder.sVertices, rectanglecylinder.indices);
     texture rectanglecylinderDiffuse("res/textures/mosque/41.png", "material.diffuse", GL_NONE, GL_SRGB_ALPHA);
     //texture rectanglecylinderSpecular("res/textures/mosque/pavement_03_4k/gh.png", "material.specular");
@@ -17,10 +19,10 @@ void mosque::init() {
     //texture rectanglecylinderNormal("res/textures/mosque/pavement_03_4k/no.png", "material.normal");
     vector<sTexture> frectanglecylinderTexture = {
        rectanglecylinderDiffuse.info,
-      /* rectanglecylinderSpecular.info,
-       rectanglecylinderAmbient.info,
-       rectanglecylinderNormal.info,*/
-      
+       /* rectanglecylinderSpecular.info,
+        rectanglecylinderAmbient.info,
+        rectanglecylinderNormal.info,*/
+
     };
     rectanglecylindermesh = Simplemesh(rectanglecylinder.sVertices, rectanglecylinder.indices, frectanglecylinderTexture);
 
@@ -60,15 +62,8 @@ void mosque::init() {
     rectangleupmesh = Simplemesh(rectangleup.sVertices, rectangleup.indices, rectangleupTexture);
 
     shapeUtils::generateCylinder(7.0f, 5.0f, 100, 50, cylinder.sVertices, cylinder.indices);
-    texture cylinderDiffuse("res/textures/mosque/UP/UP.png", "material.diffuse");
-    vector<sTexture> cylinderTexture = {
-        cylinderDiffuse.info,
-        rectangleupSpecular.info,
-        rectangleupAmbient.info,
-        rectangleupNormal.info,
-        rectangleupHeight.info
-    };
-    cylindermesh = Simplemesh(cylinder.sVertices, cylinder.indices, cylinderTexture);
+
+    cylindermesh = Simplemesh(cylinder.sVertices, cylinder.indices, rectangleupTexture);
 
 
     shapeUtils::generateRectangle(40.0f, 20.0f, rectanglefrontside.sVertices, rectanglefrontside.indices);
@@ -108,11 +103,11 @@ void mosque::init() {
 
     shapeUtils::generateRectangle(76.0f, 12.0f, rectanglesideside.sVertices, rectanglesideside.indices);
 
-    texture rectanglesidesideDiffuse("res/textures/mosque/sideside/sideside.png", "material.diffuse", GL_NONE, GL_SRGB_ALPHA);
-    texture rectanglesidesideSpecular("res/textures/domeWall/domeWall_rough.jpg", "material.specular");
-    texture rectanglesidesideAmbient("res/textures/domeWall/domeWall_ao.jpg", "material.ambient");
-    texture rectanglesidesideNormal("res/textures/domeWall/domeWall_nor.jpg", "material.normal");
-    texture rectanglesidesideHeight("res/textures/domeWall/domeWall_height.jpg", "material.height");
+    texture rectanglesidesideDiffuse("res/textures/mosque/sideside1/sideside.png", "material.diffuse", GL_NONE, GL_SRGB_ALPHA);
+    texture rectanglesidesideSpecular("res/textures/mosque/sideside1/sideside1_Specular.png", "material.specular");
+    texture rectanglesidesideAmbient("res/textures/mosque/sideside1/sideside1_AmbientOcclusion.png", "material.ambient");
+    texture rectanglesidesideNormal("res/textures/mosque/sideside1/sideside1_Normal.png", "material.normal");
+    texture rectanglesidesideHeight("res/textures/mosque/sideside1/sideside1_Height.png", "material.height");
 
     vector<sTexture> rectanglesidesideTexure = {
         rectanglesidesideDiffuse.info,
@@ -129,7 +124,7 @@ void mosque::init() {
     texture rectanglebackSpecular("res/textures/mosque/back/ro.png", "material.specular");
     texture rectanglebackAmbient("res/textures/mosque/back/ao.png", "material.ambient");
     texture rectanglebackNormal("res/textures/mosque/back/no.png", "material.normal");
-  
+
 
     vector<sTexture> rectanglebackTextures = {
         rectanglebackDiffuse.info,
@@ -186,7 +181,7 @@ void mosque::init() {
         rectanglefrontNO.info,
     };
     rectanglefrontmesh = Simplemesh(rectanglefront.sVertices, rectanglefront.indices, rectanglefronttEXTURE);
- 
+
 
     shapeUtils::generateRectangle(54.0f, 12.0f, rectangleupside.sVertices, rectangleupside.indices);
 
@@ -200,7 +195,7 @@ void mosque::init() {
     shapeUtils::generateCylinder(0.3f, 2.3f, 400, 100, halfcylinder.sVertices, halfcylinder.indices, true);
     halfcylindermesh = Simplemesh(halfcylinder.sVertices, halfcylinder.indices, rectanglefronttEXTURE);
 
- 
+
 
 
 
@@ -216,6 +211,52 @@ void mosque::init() {
 
 
 
+    shapeUtils::generateRectangle(2.0f, 4.0f, carpat.sVertices, carpat.indices);//10  //12
+    texture rectanglecarpatDIF("res/textures/mosque/carpat/ca.png", "material.diffuse", GL_NONE, GL_SRGB_ALPHA);
+    texture carpatSpecular("res/textures/mosque/carpat/carpat_Specular.png", "material.specular");
+    texture carpatAmbient("res/textures/mosque/carpat/carpat_AmbientOcclusion.png", "material.ambient");
+    texture carpatNormal("res/textures/mosque/carpat/carpat_Normal.png", "material.normal");
+    texture carpatHeight("res/textures/mosque/carpat/carpat_Height.png", "material.height");
+    vector<sTexture>carpatEXTURE = {
+        rectanglecarpatDIF.info,
+        carpatSpecular.info,
+        carpatAmbient.info,
+        carpatNormal.info,
+        carpatHeight.info
+    };
+    carpatMesh = Simplemesh(carpat.sVertices, carpat.indices, carpatEXTURE);
+
+
+    shapeUtils::generateRectangle2(2.0f, 2.0f, carpat1.sVertices, carpat1.indices);
+    carpatMesh1 = Simplemesh(carpat1.sVertices, carpat1.indices, carpatEXTURE);
+
+
+
+
+    shapeUtils::generateRectangle(2.0f, 8.0f, door.sVertices, door.indices);
+    texture doorDIF("res/textures/mosque/door1.png", "material.diffuse", GL_NONE, GL_SRGB_ALPHA);
+    vector<sTexture>doorEXTURE = {
+    doorDIF.info,
+    };
+    doorMesh = Simplemesh(door.sVertices, door.indices, doorEXTURE);
+
+    tringle = shape(
+        {
+                -7.0f,  25.0f, -0.0f,     0.0f, 0.0f, 0.0f,	0.0f, 0.0f,
+                0.0f,  30.0f, -0.0f,    0.0f, 0.0f, 0.0f,	    0.5f, 1.0f,
+                 7.0f,  25.0f, 0.0f,     0.0f, 0.0f, 0.0f,	    1.0f, 0.0f,
+        },
+    {
+      0, 1, 2,
+    }
+
+    );
+
+
+
+    tringle.sVertices = convertToVertexglmVector(tringle.vertices);
+
+    tringleMesh = Simplemesh(tringle.sVertices, tringle.indices, rectanglefronttEXTURE);
 
 
 
@@ -226,10 +267,16 @@ void mosque::init() {
 
 
 
+    texture RoofDIF("res/textures/mosque/roofside.png", "material.diffuse", GL_NONE, GL_SRGB_ALPHA);
+    vector<sTexture>roofEXTURE = {
+    RoofDIF.info,
+        rectanglefrontSP.info,
+        rectanglefrontMO.info,
+        rectanglefrontNO.info,
+    };
 
-    rectangleroofsidemesh = Simplemesh(rectangleroof.sVertices, rectangleroof.indices, rectanglefronttEXTURE);
+    rectangleroofsidemesh = Simplemesh(rectangleroof.sVertices, rectangleroof.indices, roofEXTURE);
 }
-
 void mosque::Draw() {
     addPointLight(shader, mosquePointlightPos);
     glm::mat4 transform(1);
@@ -253,13 +300,462 @@ void mosque::drawMeshes(glm::mat4 transform, glm::mat4 scalemat) {
     shader.use();
 
 
+    {
+        glm::mat4 door1, door2, doorside, door1side;
+        if (l == false) {
+            door1 = glm::mat4(1.0f) * transform;
+
+            door1 = glm::translate(door1, glm::vec3(50.0f, 3.5f, 53.0f));
+            door1 = glm::rotate(door1, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+            door1 = glm::scale(door1, glm::vec3(3.3f, 1.0f, 1.0f));
+            shader.setMat4("model", door1);
+            doorMesh.Draw(shader);
+
+
+            door2 = glm::mat4(1.0f) * transform;
+
+            door2 = glm::translate(door2, glm::vec3(50.0f, 3.5f, 59.6));
+            door2 = glm::rotate(door2, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+            door2 = glm::scale(door2, glm::vec3(3.3f, 1.0f, 1.0f));
+            shader.setMat4("model", door2);
+            doorMesh.Draw(shader);
+
+        }
+        else {
+            door1 = glm::mat4(1.0f) * transform;
+
+            door1 = glm::translate(door1, glm::vec3(53.3f, 3.5f, 49.7f));
+            door1 = glm::rotate(door1, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+            door1 = glm::scale(door1, glm::vec3(3.3f, 1.0f, 1.0f));
+            shader.setMat4("model", door1);
+            doorMesh.Draw(shader);
+
+
+            door2 = glm::mat4(1.0f) * transform;
+
+            door2 = glm::translate(door2, glm::vec3(53.3f, 3.5f, 62.9f));
+            // door2 = glm::rotate(door2, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+            door2 = glm::scale(door2, glm::vec3(3.3f, 1.0f, 1.0f));
+            shader.setMat4("model", door2);
+            doorMesh.Draw(shader);
+        }
+    }
+
+
+
+
+    {
+        float x = 0.0f, y = 0.0f;
+        for (int i = 0; i < 5; i++) {
+            x = 0.0f;
+            for (int j = 0; j < 25; j++) {
+
+                glm::mat4 carpat = glm::mat4(1.0f) * transform;
+
+                carpat = glm::translate(carpat, glm::vec3(21.0f + x, 0.4f, 3.0f + y));
+                carpat = glm::rotate(carpat, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+                carpat = glm::rotate(carpat, glm::radians(180.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+                carpat = glm::rotate(carpat, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+                shader.setMat4("model", carpat);
+                carpatMesh.Draw(shader);
+
+                x += 2;
+            }
+
+            y += 4;
+        }
+    }
+
+
+
+
+    {
+        float x = 0.0f, y = 0.0f;
+        for (int i = 0; i < 19; i++) {
+            x = 0.0f;
+            if (i == 18) {
+                for (int j = 0; j < 10; j++) {
+                    glm::mat4 carpat = glm::mat4(1.0f) * transform;
+
+                    carpat = glm::translate(carpat, glm::vec3(51.0f + x, 0.4f, 22.0f + y));
+                    carpat = glm::rotate(carpat, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+                    carpat = glm::rotate(carpat, glm::radians(180.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+                    carpat = glm::rotate(carpat, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+                    shader.setMat4("model", carpat);
+                    carpatMesh1.Draw(shader);
+                    x += 2;
+                }
+                continue;
+            }
+            for (int j = 0; j < 10; j++) {
+
+                glm::mat4 carpat = glm::mat4(1.0f) * transform;
+
+                carpat = glm::translate(carpat, glm::vec3(51.0f + x, 0.4f, 23.0f + y));
+                carpat = glm::rotate(carpat, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+                carpat = glm::rotate(carpat, glm::radians(180.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+                carpat = glm::rotate(carpat, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+                shader.setMat4("model", carpat);
+                carpatMesh.Draw(shader);
+
+                x += 2;
+            }
+
+            y += 4;
+        }
+    }
+
+
+
+
+
+
+    {
+        float x = 0.0f, y = 0.0f;
+        for (int i = 0; i < 19; i++) {
+            x = 0.0f;
+            if (i == 18) {
+                for (int j = 0; j < 19; j++) {
+                    glm::mat4 carpat = glm::mat4(1.0f) * transform;
+
+                    carpat = glm::translate(carpat, glm::vec3(-18.0f + x, 0.4f, 74.0f - y));
+                    carpat = glm::rotate(carpat, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+                    carpat = glm::rotate(carpat, glm::radians(180.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+                    carpat = glm::rotate(carpat, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+                    shader.setMat4("model", carpat);
+                    carpatMesh1.Draw(shader);
+                    x += 2;
+                }
+                continue;
+            }
+            for (int j = 0; j < 19; j++) {
+
+                glm::mat4 carpat = glm::mat4(1.0f) * transform;
+
+                carpat = glm::translate(carpat, glm::vec3(-18.0f + x, 0.4f, 73.0f - y));
+                carpat = glm::rotate(carpat, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+                carpat = glm::rotate(carpat, glm::radians(180.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+                carpat = glm::rotate(carpat, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+                shader.setMat4("model", carpat);
+                carpatMesh.Draw(shader);
+
+                x += 2;
+            }
+
+            y += 4;
+        }
+    }
+
+    {
+
+        glm::mat4 door1, door2, doorside, door1side;
+        if (t == false) {
+            door1 = glm::mat4(1.0f) * transform;
+
+            door1 = glm::translate(door1, glm::vec3(-1.05f, 4.0f, 76.0f));
+
+            shader.setMat4("model", door1);
+            doorMesh.Draw(shader);
+
+
+            door2 = glm::mat4(1.0f) * transform;
+
+            door2 = glm::translate(door2, glm::vec3(0.95f, 4.0f, 76.0f));
+
+            shader.setMat4("model", door2);
+            doorMesh.Draw(shader);
+
+
+            doorside = glm::mat4(1.0f) * transform;
+
+            doorside = glm::translate(doorside, glm::vec3(-1.05f, 4.0f, 75.0f));
+            doorside = glm::rotate(doorside, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+            shader.setMat4("model", doorside);
+            doorMesh.Draw(shader);
+
+
+            door1side = glm::mat4(1.0f) * transform;
+
+            door1side = glm::translate(door1side, glm::vec3(0.95f, 4.0f, 75.0f));
+            door1side = glm::rotate(door1side, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+            shader.setMat4("model", door1side);
+            doorMesh.Draw(shader);
+        }
+        else {
+            door1 = glm::mat4(1.0f) * transform;
+
+            door1 = glm::translate(door1, glm::vec3(-1.6f, 4.0f, 73.0f));
+            door1 = glm::rotate(door1, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+            door1 = glm::scale(door1, glm::vec3(3.0f, 1.0f, 1.0f));
+            shader.setMat4("model", door1);
+            doorMesh.Draw(shader);
+
+
+            door2 = glm::mat4(1.0f) * transform;
+
+            door2 = glm::translate(door2, glm::vec3(1.5f, 4.0f, 73.0f));
+            door2 = glm::rotate(door2, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+            door2 = glm::scale(door2, glm::vec3(3.0f, 1.0f, 1.0f));
+            shader.setMat4("model", door2);
+            doorMesh.Draw(shader);
+
+
+            doorside = glm::mat4(1.0f) * transform;
+
+            doorside = glm::translate(doorside, glm::vec3(-2.0f, 4.0f, 73.0f));
+            doorside = glm::rotate(doorside, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+            doorside = glm::scale(doorside, glm::vec3(3.0f, 1.0f, 1.0f));
+            shader.setMat4("model", doorside);
+            doorMesh.Draw(shader);
+
+
+            door1side = glm::mat4(1.0f) * transform;
+
+            door1side = glm::translate(door1side, glm::vec3(1.9f, 4.0f, 73.0f));
+            door1side = glm::rotate(door1side, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+            door1side = glm::scale(door1side, glm::vec3(3.0f, 1.0f, 1.0f));
+            shader.setMat4("model", door1side);
+            doorMesh.Draw(shader);
+
+
+            glm::mat4 model = glm::mat4(1.0f) * transform;
+
+            model = glm::translate(model, glm::vec3(1.75f, 4.0f, 70.0f));
+            model = glm::rotate(model, glm::radians(-180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+            model = glm::scale(model, glm::vec3(0.03636363636363636363636363636364, 0.32432441197957080528940683497482f, 1.0f));
+            shader.setMat4("model", model);
+            rectangleroofmesh.Draw(shader);
+
+
+
+            glm::mat4 model1 = glm::mat4(1.0f) * transform;
+
+            model1 = glm::translate(model1, glm::vec3(1.75f, 4.0f, 76.0f));
+            model1 = glm::rotate(model1, glm::radians(-180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+            model1 = glm::scale(model1, glm::vec3(0.03636363636363636363636363636364, 0.32432441197957080528940683497482f, 1.0f));
+            shader.setMat4("model", model1);
+            rectangleroofmesh.Draw(shader);
+
+            glm::mat4 model0 = glm::mat4(1.0f) * transform;
+
+            model0 = glm::translate(model0, glm::vec3(-1.8f, 4.0f, 70.0f));
+            model0 = glm::rotate(model0, glm::radians(-180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+            model0 = glm::scale(model0, glm::vec3(0.03636363636363636363636363636364, 0.32432441197957080528940683497482f, 1.0f));
+            shader.setMat4("model", model0);
+            rectangleroofmesh.Draw(shader);
+
+
+
+            glm::mat4 model10 = glm::mat4(1.0f) * transform;
+
+            model10 = glm::translate(model10, glm::vec3(-1.8f, 4.0f, 76.0f));
+            model10 = glm::rotate(model10, glm::radians(-180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+            model10 = glm::scale(model10, glm::vec3(0.03636363636363636363636363636364, 0.32432441197957080528940683497482f, 1.0f));
+            shader.setMat4("model", model10);
+            rectangleroofmesh.Draw(shader);
+
+            t = false;
+        }
+
+
+
+
+
+    }
+
+
+    {
+
+        glm::mat4 door1, door2, doorside, door1side;
+        if (l == false) {
+            door1 = glm::mat4(1.0f) * transform;
+
+            door1 = glm::translate(door1, glm::vec3(19.0f, 2.55f, 7.95f));
+            door1 = glm::rotate(door1, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+            door1 = glm::scale(door1, glm::vec3(2.1f, 0.8f, 1.0f));
+            shader.setMat4("model", door1);
+            doorMesh.Draw(shader);
+
+
+            door2 = glm::mat4(1.0f) * transform;
+
+            door2 = glm::translate(door2, glm::vec3(19.0f, 2.55f, 12.15f));
+            door2 = glm::rotate(door2, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+            door2 = glm::scale(door2, glm::vec3(2.1f, 0.8f, 1.0f));
+            shader.setMat4("model", door2);
+            doorMesh.Draw(shader);
+
+
+            doorside = glm::mat4(1.0f) * transform;
+
+            doorside = glm::translate(doorside, glm::vec3(20.0f, 2.55f, 7.95f));
+            doorside = glm::rotate(doorside, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+            doorside = glm::scale(doorside, glm::vec3(2.1f, 0.8f, 1.0f));
+            shader.setMat4("model", doorside);
+            doorMesh.Draw(shader);
+
+
+            door1side = glm::mat4(1.0f) * transform;
+
+            door1side = glm::translate(door1side, glm::vec3(20.0f, 2.55f, 12.15f));
+            door1side = glm::rotate(door1side, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+            door1side = glm::scale(door1side, glm::vec3(2.1f, 0.8f, 1.0f));
+            shader.setMat4("model", door1side);
+            doorMesh.Draw(shader);
+        }
+        else {
+            door1 = glm::mat4(1.0f) * transform;
+
+            door1 = glm::translate(door1, glm::vec3(22.0f, 2.55f, 5.9f));
+            door1 = glm::rotate(door1, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+            door1 = glm::scale(door1, glm::vec3(3.0f, 0.8f, 1.0f));
+            shader.setMat4("model", door1);
+            doorMesh.Draw(shader);
+
+
+            door2 = glm::mat4(1.0f) * transform;
+
+            door2 = glm::translate(door2, glm::vec3(22.0f, 2.55f, 13.75));
+            //door2 = glm::rotate(door2, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+            door2 = glm::scale(door2, glm::vec3(3.0f, 0.8f, 1.0f));
+            shader.setMat4("model", door2);
+            doorMesh.Draw(shader);
+
+
+            doorside = glm::mat4(1.0f) * transform;
+
+            doorside = glm::translate(doorside, glm::vec3(22.0f, 2.55f, 6.3f));
+            doorside = glm::rotate(doorside, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+            doorside = glm::scale(doorside, glm::vec3(3.0f, 0.8f, 1.0f));
+            shader.setMat4("model", doorside);
+            doorMesh.Draw(shader);
+
+
+            door1side = glm::mat4(1.0f) * transform;
+
+            door1side = glm::translate(door1side, glm::vec3(22.0f, 2.55f, 14.15f));
+            //door1side = glm::rotate(door1side, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+            door1side = glm::scale(door1side, glm::vec3(3.0f, 0.8f, 1.0f));
+            shader.setMat4("model", door1side);
+            doorMesh.Draw(shader);
+
+
+            glm::mat4 model = glm::mat4(1.0f) * transform;
+
+            model = glm::translate(model, glm::vec3(19.0f, 2.6f, 6.1f));
+            model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+            model = glm::scale(model, glm::vec3(0.03636363636363636363636363636364, 0.25945952958365664423152546797986f, 1.0f));
+            shader.setMat4("model", model);
+            rectangleroofmesh.Draw(shader);
+
+
+
+            glm::mat4 model1 = glm::mat4(1.0f) * transform;
+
+            model1 = glm::translate(model1, glm::vec3(25.0f, 2.6f, 6.1f));
+            model1 = glm::rotate(model1, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+            model1 = glm::scale(model1, glm::vec3(0.03636363636363636363636363636364, 0.25945952958365664423152546797986f, 1.0f));
+            shader.setMat4("model", model1);
+            rectangleroofmesh.Draw(shader);
+
+            glm::mat4 model0 = glm::mat4(1.0f) * transform;
+
+            model0 = glm::translate(model0, glm::vec3(19.0f, 2.6f, 13.95f));
+            model0 = glm::rotate(model0, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+            model0 = glm::scale(model0, glm::vec3(0.03636363636363636363636363636364, 0.25945952958365664423152546797986f, 1.0f));
+            shader.setMat4("model", model0);
+            rectangleroofmesh.Draw(shader);
+
+
+
+            glm::mat4 model10 = glm::mat4(1.0f) * transform;
+
+            model10 = glm::translate(model10, glm::vec3(25.0f, 2.6f, 13.95));
+            model10 = glm::rotate(model10, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+            model10 = glm::scale(model10, glm::vec3(0.03636363636363636363636363636364, 0.25945952958365664423152546797986f, 1.0f));
+            shader.setMat4("model", model10);
+            rectangleroofmesh.Draw(shader);
+
+            l = false;
+        }
+
+
+
+
+
+    }
     //11  //24.66666
+    {
+        glm::mat4 model = glm::mat4(1.0f) * transform;
+
+        model = glm::translate(model, glm::vec3(45.0f, 12.0f, 0.5f));
+        model = glm::rotate(model, glm::radians(-180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+
+        model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(4.5454545454545454545454545454545f, 0.04054055149744635066117585437185f, 1.0f));
+        shader.setMat4("model", model);
+        rectangleroofmesh.Draw(shader);
+
+
+
+        glm::mat4 model1 = glm::mat4(1.0f) * transform;
+
+        model1 = glm::translate(model1, glm::vec3(35.0f, 12.0f, 20.5f));
+        model1 = glm::rotate(model1, glm::radians(-180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+
+        model1 = glm::rotate(model1, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+        model1 = glm::scale(model1, glm::vec3(2.7272727272727272727272727272727f, 0.04054055149744635066117585437185f, 1.0f));
+        shader.setMat4("model", model1);
+        rectangleroofmesh.Draw(shader);
+
+        glm::mat4 model2 = glm::mat4(1.0f) * transform;
+
+        model2 = glm::translate(model2, glm::vec3(69.5f, 12.0f, 48.5f));
+        model2 = glm::rotate(model2, glm::radians(-180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        model2 = glm::rotate(model2, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        model2 = glm::rotate(model2, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+        model2 = glm::scale(model2, glm::vec3(8.6363636363636363636363636363636f, 0.04054055149744635066117585437185f, 1.0f));
+        shader.setMat4("model", model2);
+        rectangleroofmesh.Draw(shader);
+    }
+
+
+    {
+        glm::mat4 model = glm::mat4(1.0f) * transform;
+
+        model = glm::translate(model, glm::vec3(20.0f, 17.5f, 0.5f));
+        model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.09090909090909090909090909090909f, 0.20270275748723175330587927185926f, 1.0f));
+        shader.setMat4("model", model);
+        rectangleroofmesh.Draw(shader);
+
+
+        glm::mat4 model1 = glm::mat4(1.0f) * transform;
+
+        model1 = glm::translate(model1, glm::vec3(20.0f, 17.5f, 75.5f));
+        model1 = glm::rotate(model1, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        model1 = glm::scale(model1, glm::vec3(0.09090909090909090909090909090909f, 0.20270275748723175330587927185926f, 1.0f));
+        shader.setMat4("model", model1);
+        rectangleroofmesh.Draw(shader);
+
+
+
+        glm::mat4 model2 = glm::mat4(1.0f) * transform;
+
+        model2 = glm::translate(model2, glm::vec3(7.5f, 20.0f, 13.0f));
+        model2 = glm::rotate(model2, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        model2 = glm::rotate(model2, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+        model2 = glm::scale(model2, glm::vec3(2.1818181818181818181818181818182f, 0.04054055149744635066117585437185f, 1.0f));
+        shader.setMat4("model", model2);
+        rectangleroofmesh.Draw(shader);
+    }
+
     {
         glm::mat4 model = glm::mat4(1.0f) * transform;
 
         model = glm::translate(model, glm::vec3(0.0f, 20.0f, 0.5f));
         model = glm::rotate(model, glm::radians(-180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-     
+
         model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
         model = glm::scale(model, glm::vec3(3.6363636363636363636363636363636f, 0.04054055149744635066117585437185f, 1.0f));
         shader.setMat4("model", model);
@@ -281,7 +777,7 @@ void mosque::drawMeshes(glm::mat4 transform, glm::mat4 scalemat) {
 
     {
 
-       glm::mat4 model = glm::mat4(1.0f) * transform;
+        glm::mat4 model = glm::mat4(1.0f) * transform;
 
         model = glm::translate(model, glm::vec3(19.5f, 15.0f, 38.0f));
         model = glm::rotate(model, glm::radians(-180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
@@ -335,7 +831,7 @@ void mosque::drawMeshes(glm::mat4 transform, glm::mat4 scalemat) {
 
 
 
-    int dotx = 0, dotz = 0 ,dot=0,l=0;
+    int dotx = 0, dotz = 0, dot = 0, l = 0;
     for (size_t i = 0; i < 5; i++)
     {
         if (i == 0 || i == 1) {
@@ -442,51 +938,51 @@ void mosque::drawMeshes(glm::mat4 transform, glm::mat4 scalemat) {
             continue;
         }
 
-      {
-        glm::mat4 g = glm::mat4(1.0f) * transform;
+        {
+            glm::mat4 g = glm::mat4(1.0f) * transform;
 
-        g = glm::translate(g, glm::vec3(47.0f, 21.0f, 16.5f));
-        g = glm::rotate(g, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-        g = glm::rotate(g, glm::radians(-180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-        g = glm::scale(g, glm::vec3(0.2727272f, 0.12162165449233905198352756311556f, 1.0f));
-        shader.setMat4("model", g);
-        rectangleroofmesh.Draw(shader);
-
-
-        glm::mat4 g1 = glm::mat4(1.0f) * transform;
-
-        g1 = glm::translate(g1, glm::vec3(45.5f, 15.5f, 16.5f));
-        g1 = glm::rotate(g1, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-        g1 = glm::scale(g1, glm::vec3(0.125f, 0.73333333333333333333333333333333f, 1.0f));
-        shader.setMat4("model", g1);
-        rectanglefrontmesh2.Draw(shader);
-
-        glm::mat4 g2 = glm::mat4(1.0f) * transform;
+            g = glm::translate(g, glm::vec3(47.0f, 21.0f, 16.5f));
+            g = glm::rotate(g, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+            g = glm::rotate(g, glm::radians(-180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+            g = glm::scale(g, glm::vec3(0.2727272f, 0.12162165449233905198352756311556f, 1.0f));
+            shader.setMat4("model", g);
+            rectangleroofmesh.Draw(shader);
 
 
-        g2 = glm::translate(g2, glm::vec3(48.5f, 15.5f, 16.5f));
-        g2 = glm::rotate(g2, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-        g2 = glm::scale(g2, glm::vec3(0.125f, 0.73333333333333333333333333333333f, 1.0f));
-        shader.setMat4("model", g2);
-        rectanglefrontmesh2.Draw(shader);
+            glm::mat4 g1 = glm::mat4(1.0f) * transform;
+
+            g1 = glm::translate(g1, glm::vec3(45.5f, 15.5f, 16.5f));
+            g1 = glm::rotate(g1, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+            g1 = glm::scale(g1, glm::vec3(0.125f, 0.73333333333333333333333333333333f, 1.0f));
+            shader.setMat4("model", g1);
+            rectanglefrontmesh2.Draw(shader);
+
+            glm::mat4 g2 = glm::mat4(1.0f) * transform;
+
+
+            g2 = glm::translate(g2, glm::vec3(48.5f, 15.5f, 16.5f));
+            g2 = glm::rotate(g2, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+            g2 = glm::scale(g2, glm::vec3(0.125f, 0.73333333333333333333333333333333f, 1.0f));
+            shader.setMat4("model", g2);
+            rectanglefrontmesh2.Draw(shader);
 
 
 
-        glm::mat4 g3 = glm::mat4(1.0f) * transform;
+            glm::mat4 g3 = glm::mat4(1.0f) * transform;
 
-        g3 = glm::translate(g3, glm::vec3(47.0f, 15.5f, 15.0f));
-        g3 = glm::rotate(g3, glm::radians(-180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-        g3 = glm::scale(g3, glm::vec3(0.125f, 0.73333333333333333333333333333333f, 1.0f));
-        shader.setMat4("model", g3);
-        rectanglefrontmesh2.Draw(shader);
+            g3 = glm::translate(g3, glm::vec3(47.0f, 15.5f, 15.0f));
+            g3 = glm::rotate(g3, glm::radians(-180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+            g3 = glm::scale(g3, glm::vec3(0.125f, 0.73333333333333333333333333333333f, 1.0f));
+            shader.setMat4("model", g3);
+            rectanglefrontmesh2.Draw(shader);
 
-        glm::mat4 g4 = glm::mat4(1.0f) * transform;
+            glm::mat4 g4 = glm::mat4(1.0f) * transform;
 
-        g4 = glm::translate(g4, glm::vec3(47.0f, 15.5f, 18.0f));
-        g4 = glm::rotate(g4, glm::radians(-180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-        g4 = glm::scale(g4, glm::vec3(0.125f, 0.73333333333333333333333333333333f, 1.0f));
-        shader.setMat4("model", g4);
-        rectanglefrontmesh2.Draw(shader);
+            g4 = glm::translate(g4, glm::vec3(47.0f, 15.5f, 18.0f));
+            g4 = glm::rotate(g4, glm::radians(-180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+            g4 = glm::scale(g4, glm::vec3(0.125f, 0.73333333333333333333333333333333f, 1.0f));
+            shader.setMat4("model", g4);
+            rectanglefrontmesh2.Draw(shader);
         }
 
         {
@@ -498,7 +994,7 @@ void mosque::drawMeshes(glm::mat4 transform, glm::mat4 scalemat) {
             domeMesh.Draw(shader, GL_TRIANGLE_STRIP);
 
 
-           glm::mat4 g = glm::mat4(1.0f) * transform;
+            glm::mat4 g = glm::mat4(1.0f) * transform;
 
             g = glm::translate(g, glm::vec3(47.0f, 26.5f, 16.5f));
             g = glm::rotate(g, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
@@ -527,7 +1023,7 @@ void mosque::drawMeshes(glm::mat4 transform, glm::mat4 scalemat) {
 
 
 
-           glm::mat4 g3 = glm::mat4(1.0f) * transform;
+            glm::mat4 g3 = glm::mat4(1.0f) * transform;
 
             g3 = glm::translate(g3, glm::vec3(47.0f, 23.5f, 15.5f));
             g3 = glm::rotate(g3, glm::radians(-180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
@@ -561,15 +1057,15 @@ void mosque::drawMeshes(glm::mat4 transform, glm::mat4 scalemat) {
         shader.setMat4("model", roofside);
         rectangleroofsidemesh.Draw(shader);
 
-        
+
         glm::mat4 roofy = glm::mat4(1.0f) * transform;
-        roofy = glm::translate(roofy, glm::vec3(55.0f , 10.0f, 29.5f + l));
+        roofy = glm::translate(roofy, glm::vec3(55.0f, 10.0f, 29.5f + l));
         roofy = glm::rotate(roofy, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
         roofy = glm::rotate(roofy, glm::radians(-180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
         roofy = glm::scale(roofy, glm::vec3(0.90909090909090909090909090909091f, 0.7702704784514806625623412330652f, 1.0f));
         shader.setMat4("model", roofy);
         rectangleroofmesh.Draw(shader);
-        
+
         glm::mat4 roofyside = glm::mat4(1.0f) * transform;
         roofyside = glm::translate(roofyside, glm::vec3(55.0f, 9.0f, 29.5f + l));
         roofyside = glm::rotate(roofyside, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
@@ -649,11 +1145,11 @@ void mosque::drawMeshes(glm::mat4 transform, glm::mat4 scalemat) {
         shader.setMat4("model", dome);
         domeMesh.Draw(shader, GL_TRIANGLE_STRIP);
 
-       //
+        //
 
         dotx += 10;
         dotz += 24;
-        l = dotz - (5*(i+1));
+        l = dotz - (5 * (i + 1));
     }
 
 
@@ -734,7 +1230,7 @@ void mosque::drawMeshes(glm::mat4 transform, glm::mat4 scalemat) {
     glm::mat4 left = glm::mat4(1.0f) * transform;
 
     left = glm::translate(left, glm::vec3(-20.0f, 10.0f, 38.0f));
-    left = glm::rotate(left, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    left = glm::rotate(left, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
     shader.setMat4("model", left);
     rectangleleftmesh.Draw(shader);
 
@@ -743,13 +1239,13 @@ void mosque::drawMeshes(glm::mat4 transform, glm::mat4 scalemat) {
 
     leftside = glm::translate(leftside, glm::vec3(-19.0f, 10.0f, 38.0f));
     leftside = glm::rotate(leftside, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-  
+
     shader.setMat4("model", leftside);
     rectangleleftsidemesh.Draw(shader);
 
-    float h = 0, r = 0, f = 0,m=0 ;
+    float h = 0, r = 0, f = 0, m = 0;
     for (size_t i = 0; i < 4; i++)
-    {        
+    {
         if (i == 3) {
             f += 13;
             h = 0;
@@ -771,7 +1267,7 @@ void mosque::drawMeshes(glm::mat4 transform, glm::mat4 scalemat) {
         if (i == 0 || i == 1) {
 
             glm::mat4 form1 = glm::mat4(1.0f) * transform;
-            form1 = glm::translate(form1, glm::vec3(-4.75f, 27.0f, 61.55f -m));
+            form1 = glm::translate(form1, glm::vec3(-4.75f, 27.0f, 61.55f - m));
             form1 = glm::rotate(form1, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
             form1 = glm::rotate(form1, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
@@ -893,7 +1389,7 @@ void mosque::drawMeshes(glm::mat4 transform, glm::mat4 scalemat) {
     glm::mat4 left1 = glm::mat4(1.0f) * transform;
 
     left1 = glm::translate(left1, glm::vec3(-8.0f, 21.8f, 48.0f));
-    left1 = glm::rotate(left1, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    left1 = glm::rotate(left1, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
     left1 = glm::scale(left1, glm::vec3(1.0f, 0.583f, 1.0f));
     shader.setMat4("model", left1);
     rectangleupmesh.Draw(shader);
@@ -927,7 +1423,7 @@ void mosque::drawMeshes(glm::mat4 transform, glm::mat4 scalemat) {
     glm::mat4 leftfront = glm::mat4(1.0f) * transform;
 
     leftfront = glm::translate(leftfront, glm::vec3(-20.0f, 7.5f, 88.0f));
-    leftfront = glm::rotate(leftfront, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    leftfront = glm::rotate(leftfront, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
     shader.setMat4("model", leftfront);
     rectanglefrontmesh.Draw(shader);
 

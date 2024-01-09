@@ -132,6 +132,15 @@
     <ClCompile Include="mirror.cpp">
       <Filter>Source Files\objects</Filter>
     </ClCompile>
+    <ClCompile Include="MosqueCarbet.cpp">
+      <Filter>Source Files\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Albaika.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="outersqure.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="terrain.h">
@@ -238,6 +247,15 @@
     </ClInclude>
     <ClInclude Include="mirror.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MosqueCarbet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Albaika.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="outersquare.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -81,7 +81,7 @@ bool Collision::CollisionDetector::updateCamPos()
         AABB box1 = { {-85.0f, 0, -90.01f},{25.0f,1.0f, 20.0f} };
         AABB cam =
         {
-            glm::vec3(camera.Position.x - 0.4f, 0, camera.Position.z - 0.4f),
+            glm::vec3(camera.Position.x - 0.6f, 0, camera.Position.z - 0.6f),
              glm::vec3(camera.Position.x + 0.4f, 1.8f, camera.Position.z + 0.4f)
         };
         glm::vec3 inormal;

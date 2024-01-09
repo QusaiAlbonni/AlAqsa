@@ -63,34 +63,31 @@ public:
     shape rectangle;
     Simplemesh rectanglemesh;
 
-    shape face;
-    Simplemesh faceMesh;
-    shape base;
-    Simplemesh baseMesh;
-    shape domeBase;
-    Simplemesh domeBaseMesh;
-    shape cone;
-    Simplemesh coneMesh;
-    Simplemesh frontFaceMesh;
-    shape innerSideWall;
-    Simplemesh innerSideWallMesh;
+
     shape halfCylinder;
     Simplemesh halfCylinderMesh;
-    shape halfCircle;
-    Simplemesh halfCircleMesh;
-    shape column;
-    Simplemesh columnMesh;
+
+    shape door;
+    Simplemesh doorMesh;
+
+    shape carpat;
+    Simplemesh carpatMesh;
+    shape carpat1;
+    Simplemesh carpatMesh1;
 
 
+    shape tringle;
+    Simplemesh tringleMesh;
+    
 
-    shape MEM;
-    Simplemesh MEMMesh;
+
+    bool t = false,l=false;
 
     void init() override;
+ 
     mosque(Shader shader);
     void Draw() override;
-    void DrawDepth(Shader depthShader, bool ortho) override;
     void drawMeshes(glm::mat4 transform, glm::mat4 scaleMat = glm::mat4(1)) override;
-   // void drawDepth(Shader depth, bool ortho) override;
+    void DrawDepth(Shader depth, bool ortho) override;
 };
 

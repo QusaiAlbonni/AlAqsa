@@ -30,7 +30,7 @@ Building::Building(Shader shader) : object_(shader)
 void Building::Draw()
 {
 	shader.use();
-	shader.setBool("hasEmissive", 1);
+	shader.setBool("hasEmissive", night ? 1:0);
 	glm::mat4 transform(1);
 	transform = glm::translate(transform, glm::vec3(110, 12, 200));
 	drawMeshes(sideMesh, transform);

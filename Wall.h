@@ -8,7 +8,7 @@ public:
 
     shape wall;
     Simplemesh wallmesh;
-    //Model Gate;
+    Model Gate;
     shape Gaterec;
     Simplemesh Gatemesh;
 

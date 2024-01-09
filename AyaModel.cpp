@@ -55,7 +55,7 @@ void AyaModel::drawMeshes(glm::mat4 transform, glm::mat4 scaleMat) {
                 tree1 = glm::translate(tree1, glm::vec3(-96.0f + trx, 0.0f, -100.0f + trz));
                 tree1 = glm::scale(tree1, glm::vec3(2.0f, 2.0f, 2.0f)); // Scale if needed
                 shader.setMat4("model", tree1);
-                tree.Draw(shader);
+                //tree.Draw(shader);
                 trx += 10.0f;
             }
             // Reset X-axis offset for the next iteration of the outer loop

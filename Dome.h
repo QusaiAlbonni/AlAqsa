@@ -11,6 +11,7 @@ class Dome :
 public:
     shape face;
     Simplemesh faceMesh;
+    Simplemesh faceInnerMesh;
     shape base;
     Simplemesh baseMesh;
     shape sphere;
@@ -20,6 +21,7 @@ public:
     shape cone;
     Simplemesh coneMesh;
     Simplemesh frontFaceMesh;
+    Simplemesh frontFaceInnerMesh;
     shape innerSideWall;
     Simplemesh innerSideWallMesh;
     shape halfCylinder;

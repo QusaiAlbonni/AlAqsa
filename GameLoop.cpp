@@ -19,6 +19,10 @@
 #include "Wall.h"
 #include "mirror.h"
 #include "InnerDome.h"
+#include "MosqueCarbet.h"
+#include "Albaika.h"
+#include "outersquare.h"
+
 
 
 void startGame(GLFWwindow* window) {
@@ -47,6 +51,9 @@ void startGame(GLFWwindow* window) {
     Building building(dshader);
     Wall fence(dshader);
     Mirror mirror(dshader);
+    //MosqueCarbet mc(dshader);
+    //outersquare os(dshader);
+    Albaika albaika(dshader);
 
 
 
@@ -63,7 +70,8 @@ void startGame(GLFWwindow* window) {
                 dome,
                 Mosque,
                 md,
-                fence
+                fence,
+                albaika
 
             }), "shadowMap", "" };
 
@@ -89,6 +97,12 @@ void startGame(GLFWwindow* window) {
 
         dome.Draw();
         floor.Draw();
+        if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS) {
+            if (Mosque.t == false) {
+                Mosque.t = true;
+                Mosque.l = true;
+            }
+        }
         Mosque.Draw();
         out.Draw();
         dshader.setBool("isModel", true);
@@ -99,6 +113,9 @@ void startGame(GLFWwindow* window) {
         dshader.setBool("noparallax", true);
         building.Draw();
         mirror.Draw();
+        //mc.Draw();
+        albaika.Draw();
+        //os.Draw();
         dshader.setMat4("model", glm::translate(glm::mat4(1), glm::vec3(0.0, 0.0, 10.0f)));
 
         if (night) {

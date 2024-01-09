@@ -23,7 +23,23 @@ void Dome::init(){
 	};
 
 	faceMesh = Simplemesh(face.sVertices, face.indices, faceTextures);
-	
+
+	texture faceInnerDiffuse("res/textures/domeWall/innerWall_diffuse.jpg", "material.diffuse", GL_NONE, GL_SRGB_ALPHA);
+	texture faceInnerSpecular("res/textures/domeWall/innerWall_spec.jpg", "material.specular");
+	texture faceInnerAmbient("res/textures/domeWall/innerWall_ao.jpg", "material.ambient");
+	texture faceInnerNormal("res/textures/domeWall/innerWall_nor.jpg", "material.normal");
+	texture faceInnerHeight("res/textures/domeWall/innerWall_height.jpg", "material.height");
+
+	vector<sTexture> faceinnerTextures = {
+	faceInnerDiffuse.info,
+	faceInnerSpecular.info,
+	faceInnerAmbient.info,
+	faceInnerNormal.info,
+	faceInnerHeight.info
+	};
+
+	faceInnerMesh = Simplemesh(face.sVertices, face.indices, faceinnerTextures);
+
 	shapeUtils::generateCircle(base.sVertices, base.indices, 2.613f, 8, glm::vec3(0, 0.0f, -0.5f));
 	texture baseDiffuse("res/textures/domeWall/base_diffuse.jpg", "material.diffuse", GL_RGB, GL_SRGB);
 	texture baseSpecular("res/textures/domeWall/base_rough.jpg", "material.specular");
@@ -76,6 +92,18 @@ void Dome::init(){
 
 	};
 	frontFaceMesh = Simplemesh(face.sVertices, face.indices, frontfaceTexts);
+
+
+	texture frontInnerFacediffuse("res/textures/domeWall/front_face/frontFaceInner.png", "material.diffuse", GL_RGBA, GL_SRGB8_ALPHA8);
+	vector<sTexture> frontInnerfaceTexts = {
+		frontInnerFacediffuse.info,
+		faceInnerAmbient.info,
+		faceInnerHeight.info,
+		faceInnerNormal.info,
+		faceInnerSpecular.info
+
+	};
+	frontFaceInnerMesh = Simplemesh(face.sVertices, face.indices, frontInnerfaceTexts);
 
 	shapeUtils::generateRectangle(0.096f, 1.0f, innerSideWall.sVertices, innerSideWall.indices);
 	texture wallDiff("res/textures/concrete_wall_diff.jpg", "material.diffuse", GL_RGB, GL_SRGB);
@@ -367,15 +395,15 @@ void Dome::drawMeshes(glm::mat4 transform, glm::mat4 scaleMat) {
 		{
 			doorX = x;
 			doorZ = z;
-			frontFaceMesh.Draw(shader);
+			frontFaceInnerMesh.Draw(shader);
 			break;
 		}
 		else if(i == 1)
 		{
-			frontFaceMesh.Draw(shader);
+			frontFaceInnerMesh.Draw(shader);
 		}
 		else
-			faceMesh.Draw(shader);
+			faceInnerMesh.Draw(shader);
 	}
 
 
@@ -481,6 +509,26 @@ void Dome::drawMeshes(glm::mat4 transform, glm::mat4 scaleMat) {
 	hcylinder = glm::scale(hcylinder, glm::vec3(9.0f, 9.0f, 9.0f));
 	shader.setMat4("model", hcylinder);
 	halfcylindermesh.Draw(shader);
+
+	circTransform = glm::mat4(1);
+	circTransform = circTransform * transform;
+	circTransform = glm::scale(circTransform, glm::vec3(9.0f, 9.0f, 9.0f));
+	circTransform = circTransform * scaleMat;
+	circTransform = glm::translate(circTransform, glm::vec3(doorX + 0.735f, 0.5f, doorZ));
+	circTransform = glm::rotate(circTransform, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	circTransform = glm::rotate(circTransform, glm::radians(180.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+	shader.setMat4("model", circTransform);
+	halfCircleMesh.Draw(shader, GL_TRIANGLE_FAN);
+
+	lastTrans = glm::mat4(1);
+	lastTrans = lastTrans * transform;
+	lastTrans = glm::scale(lastTrans, glm::vec3(9.0f, 9.0f, 9.0f));
+	lastTrans = lastTrans * scaleMat;
+	lastTrans = glm::translate(lastTrans, glm::vec3(doorX + 0.48f, 0.5f, doorZ));
+	lastTrans = glm::rotate(lastTrans, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	lastTrans = glm::rotate(lastTrans, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	shader.setMat4("model", lastTrans);
+	cylBaseMesh.Draw(shader);
 
 	//hcylinder = glm::translate(hcylinder, glm::vec3(-12.7f, 4.4f, -39.7f));
 	//hcylinder = glm::rotate(hcylinder, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));

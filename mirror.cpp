@@ -19,17 +19,16 @@ void Mirror::init()
 
 void Mirror::Draw()
 {
-	drawMeshes(glm::translate(glm::mat4(1), glm::vec3(-37.0f, 1.5f, 70.0f)));
+	drawMeshes(glm::translate(glm::mat4(1), glm::vec3(-39.0f, 1.5f, 74.8f)));
 }
 
 void Mirror::drawMeshes(glm::mat4 transform, glm::mat4 scaleMat)
 {
 	glm::mat4 model = glm::mat4(1.0f);
 	glm::mat4 view = camera.GetViewMatrix();
-	glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+	glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 200.0f);
 	model = model * transform;
 	mirrorShader.use();
-	model = glm::rotate(model, glm::radians(-180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	mirrorShader.setMat4("model", model);
 	mirrorShader.setMat4("view", view);
 	mirrorShader.setMat4("projection", projection);
