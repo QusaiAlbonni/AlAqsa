@@ -16,8 +16,10 @@ void outside::init() {
     texture floor3("res/textures/floor/rough.jpg", "material.specular");
     texture floor4("res/textures/floor/diff.jpg", "material.diffuse",GL_RGB, GL_SRGB);
     texture floor5("res/textures/floor/height.jpg", "material.height");
+    texture floor6("res/textures/floor/rough.jpg", "material.rough");
+    texture floor7("res/textures/floor/diff.jpg", "material.metallic");
 
-    vector<sTexture> texts = { floor1.info,floor2.info ,floor3.info, floor4.info, floor5.info };
+    vector<sTexture> texts = { floor1.info,floor2.info ,floor3.info, floor4.info, floor5.info, floor6.info, floor7.info };
     shapeUtils::generateRectangle(27.1f, 100.0f, square.sVertices, square.indices);
     squarem = Simplemesh(square.sVertices, square.indices, texts);
 
@@ -313,268 +315,268 @@ void outside::drawMeshes(glm::mat4 transform, glm::mat4 scaleMat) {
     }
     // Grass square
      //grass top 1
- float  trx = 0.5f;
- float trz = 0.0f;
+ //float  trx = 0.5f;
+ //float trz = 0.0f;
 
- for (int k = 0; k < 2; k++) {
-     for (int i = 0; i < 19; i++) {
-         trz = 0;
-         for (int j = 0; j < 95; j++) {
-             glm::mat4 G1 = glm::mat4(1.0f) * transform;
-             G1 = glm::translate(G1, glm::vec3(-98.0f + trx, 2.0f, -110.0f + trz));
-            // G1 = glm::scale(G1, glm::vec3(2.0f, 2.0f, 2.0f)); // Scale if needed
-             shader.setMat4("model", G1);
-            //  grassm.Draw(shader);
-             trz += 0.2f;
-         }
+ //for (int k = 0; k < 2; k++) {
+ //    for (int i = 0; i < 19; i++) {
+ //        trz = 0;
+ //        for (int j = 0; j < 95; j++) {
+ //            glm::mat4 G1 = glm::mat4(1.0f) * transform;
+ //            G1 = glm::translate(G1, glm::vec3(-98.0f + trx, 2.0f, -110.0f + trz));
+ //           // G1 = glm::scale(G1, glm::vec3(2.0f, 2.0f, 2.0f)); // Scale if needed
+ //            shader.setMat4("model", G1);
+ //           //  grassm.Draw(shader);
+ //            trz += 0.2f;
+ //        }
 
- //        // Adjust x-axis offset for the next iteration
-        trx += 1.5f;
+ ////        // Adjust x-axis offset for the next iteration
+ //       trx += 1.5f;
 
-    }
+ //   }
 
- //    // After completing the double loop, add an offset on Z-axis for the next repetition
-     transform = glm::translate(transform, glm::vec3(5.0f, 0.0f, 0.0f));
- }
- ////grass top 2
-   float trx1 = 0.5f;
-
- for (int k = 0; k < 2; k++) {
-     for (int i = 0; i < 19; i++) {
-         trz1 = 0;
-         for (int j = 0; j < 95; j++) {
-             glm::mat4 G2 = glm::mat4(1.0f) * transform;
-             G2 = glm::translate(G2, glm::vec3(-109.0f + trx1, 2.0f, -140.0f + trz1));
-             // G1 = glm::scale(G1, glm::vec3(2.0f, 2.0f, 2.0f)); // Scale if needed
-             shader.setMat4("model", G2);
-            // grassm.Draw(shader);
-             trz1 += 0.2f;
-         }
-
- //        // Adjust x-axis offset for the next iteration
-        trx1 += 1.5f;
-
-     }
-
-    // After completing the double loop, add an offset on Z-axis for the next repetition
+ ////    // After completing the double loop, add an offset on Z-axis for the next repetition
  //    transform = glm::translate(transform, glm::vec3(5.0f, 0.0f, 0.0f));
- }
- // grass top left2
- float trx2 = 0.5f;
-
- for (int k = 0; k < 4; k++) {
-     for (int i = 0; i < 19; i++) {
-         trz2 = 0;
-         for (int j = 0; j < 95; j++) {
-             glm::mat4 G3 = glm::mat4(1.0f) * transform;
-             G3 = glm::translate(G3, glm::vec3(-43.0f + trx2, 2.0f, -140.0f + trz2));
-             // G1 = glm::scale(G1, glm::vec3(2.0f, 2.0f, 2.0f)); // Scale if needed
-             shader.setMat4("model", G3);
-             //grassm.Draw(shader);
-             trz2 += 0.2f;
-         }
-
- //        // Adjust x-axis offset for the next iteration
-         trx2 += 1.5f;
-
-    }
-
- //    // After completing the double loop, add an offset on Z-axis for the next repetition
-    transform = glm::translate(transform, glm::vec3(7.0f, 0.0f, 0.0f));
  //}
+ //////grass top 2
+ //  float trx1 = 0.5f;
 
- // grass top left2
-    float trx3 = 0.5f;
-    float trz3 = 0.0f;
+ //for (int k = 0; k < 2; k++) {
+ //    for (int i = 0; i < 19; i++) {
+ //        trz1 = 0;
+ //        for (int j = 0; j < 95; j++) {
+ //            glm::mat4 G2 = glm::mat4(1.0f) * transform;
+ //            G2 = glm::translate(G2, glm::vec3(-109.0f + trx1, 2.0f, -140.0f + trz1));
+ //            // G1 = glm::scale(G1, glm::vec3(2.0f, 2.0f, 2.0f)); // Scale if needed
+ //            shader.setMat4("model", G2);
+ //           // grassm.Draw(shader);
+ //            trz1 += 0.2f;
+ //        }
 
-    for (int k = 0; k < 3; k++) {
-        for (int i = 0; i < 15; i++) {
-            trz3 = 0;
-            for (int j = 0; j < 95; j++) {
-                glm::mat4 G4 = glm::mat4(1.0f) * transform;
-                G4 = glm::translate(G4, glm::vec3(-72.0f + trx3, 2.0f, -110.0f + trz3));
-                // G1 = glm::scale(G1, glm::vec3(2.0f, 2.0f, 2.0f)); // Scale if needed
-                shader.setMat4("model", G4);
-                //  grassm.Draw(shader);
-                trz3 += 0.2f;
-            }
+ ////        // Adjust x-axis offset for the next iteration
+ //       trx1 += 1.5f;
 
-            //        // Adjust x-axis offset for the next iteration
-            trx3 += 1.5f;
+ //    }
 
-        }
+ //   // After completing the double loop, add an offset on Z-axis for the next repetition
+ ////    transform = glm::translate(transform, glm::vec3(5.0f, 0.0f, 0.0f));
+ //}
+ //// grass top left2
+ //float trx2 = 0.5f;
 
-        //    // After completing the double loop, add an offset on Z-axis for the next repetition
-        transform = glm::translate(transform, glm::vec3(5, 0.0f, 0.0f));
-    }
-    ////grass bottm left
+ //for (int k = 0; k < 4; k++) {
+ //    for (int i = 0; i < 19; i++) {
+ //        trz2 = 0;
+ //        for (int j = 0; j < 95; j++) {
+ //            glm::mat4 G3 = glm::mat4(1.0f) * transform;
+ //            G3 = glm::translate(G3, glm::vec3(-43.0f + trx2, 2.0f, -140.0f + trz2));
+ //            // G1 = glm::scale(G1, glm::vec3(2.0f, 2.0f, 2.0f)); // Scale if needed
+ //            shader.setMat4("model", G3);
+ //            //grassm.Draw(shader);
+ //            trz2 += 0.2f;
+ //        }
 
-    float trx4 = 0.5f;
-    float trz4 = 0.0f;
+ ////        // Adjust x-axis offset for the next iteration
+ //        trx2 += 1.5f;
 
-    for (int k = 0; k < 2; k++) {
-        for (int i = 0; i < 17; i++) {
-            trz4 = 0;
-            for (int j = 0; j < 120; j++) {
-                glm::mat4 G5 = glm::mat4(1.0f) * transform;
-                G5 = glm::translate(G5, glm::vec3(-96.0f + trx4, 2.0f, 25.0f + trz4));
-                // G1 = glm::scale(G1, glm::vec3(2.0f, 2.0f, 2.0f)); // Scale if needed
-                shader.setMat4("model", G5);
-                //grassm.Draw(shader);
-                trz4 += 0.2f;
-            }
+ //   }
 
-            //        // Adjust x-axis offset for the next iteration
-            trx4 += 1.5f;
+ ////    // After completing the double loop, add an offset on Z-axis for the next repetition
+ //   transform = glm::translate(transform, glm::vec3(7.0f, 0.0f, 0.0f));
+ ////}
 
-        }
+ //// grass top left2
+ //   float trx3 = 0.5f;
+ //   float trz3 = 0.0f;
 
-        //    // After completing the double loop, add an offset on Z-axis for the next repetition
-        transform = glm::translate(transform, glm::vec3(5.0f, 0.0f, 0.0f));
-    }
+ //   for (int k = 0; k < 3; k++) {
+ //       for (int i = 0; i < 15; i++) {
+ //           trz3 = 0;
+ //           for (int j = 0; j < 95; j++) {
+ //               glm::mat4 G4 = glm::mat4(1.0f) * transform;
+ //               G4 = glm::translate(G4, glm::vec3(-72.0f + trx3, 2.0f, -110.0f + trz3));
+ //               // G1 = glm::scale(G1, glm::vec3(2.0f, 2.0f, 2.0f)); // Scale if needed
+ //               shader.setMat4("model", G4);
+ //               //  grassm.Draw(shader);
+ //               trz3 += 0.2f;
+ //           }
 
+ //           //        // Adjust x-axis offset for the next iteration
+ //           trx3 += 1.5f;
 
-    // the right of bottom
-    float trx5 = 0.5f;
-    float trz5 = 0.0f;
+ //       }
 
-    for (int k = 0; k < 2; k++) {
-        for (int i = 0; i < 19; i++) {
-            trz5 = 0;
-            for (int j = 0; j < 120; j++) {
-                glm::mat4 G6 = glm::mat4(1.0f) * transform;
-                G6 = glm::translate(G6, glm::vec3(-27.0f + trx5, 2.0f, 25.0f + trz5));
-                // G1 = glm::scale(G1, glm::vec3(2.0f, 2.0f, 2.0f)); // Scale if needed
-                shader.setMat4("model", G6);
-                // grassm.Draw(shader);
-                trz5 += 0.2f;
-            }
+ //       //    // After completing the double loop, add an offset on Z-axis for the next repetition
+ //       transform = glm::translate(transform, glm::vec3(5, 0.0f, 0.0f));
+ //   }
+ //   ////grass bottm left
 
-            //        // Adjust x-axis offset for the next iteration
-            trx5 += 1.5f;
+ //   float trx4 = 0.5f;
+ //   float trz4 = 0.0f;
 
-        }
+ //   for (int k = 0; k < 2; k++) {
+ //       for (int i = 0; i < 17; i++) {
+ //           trz4 = 0;
+ //           for (int j = 0; j < 120; j++) {
+ //               glm::mat4 G5 = glm::mat4(1.0f) * transform;
+ //               G5 = glm::translate(G5, glm::vec3(-96.0f + trx4, 2.0f, 25.0f + trz4));
+ //               // G1 = glm::scale(G1, glm::vec3(2.0f, 2.0f, 2.0f)); // Scale if needed
+ //               shader.setMat4("model", G5);
+ //               //grassm.Draw(shader);
+ //               trz4 += 0.2f;
+ //           }
 
-        //    // After completing the double loop, add an offset on Z-axis for the next repetition
-        // 
-        transform = glm::translate(transform, glm::vec3(5.0f, 0.0f, 0.0f));
-    }
+ //           //        // Adjust x-axis offset for the next iteration
+ //           trx4 += 1.5f;
 
+ //       }
 
-    //the right top 1 
-    float trx6 = 0.5f;
-    float trz6 = 0.0f;
-
-    for (int k = 0; k < 2; k++) {
-        for (int i = 0; i < 13; i++) {
-            for (int j = 0; j < 100; j++) {
-                glm::mat4 G7 = glm::mat4(1.0f) * transform;
-                G7 = glm::translate(G7, glm::vec3(11.0f + trx6, 2.0f, -87.0f + trz6));
-                G7 = glm::scale(G7, glm::vec3(2.0f, 2.0f, 2.0f)); // Scale if needed
-                G7 = glm::rotate(G7, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-                shader.setMat4("model", G7);
-                // grassm.Draw(shader);
-                trx6 += 0.2f;
-            }
-
-            // Reset X-axis offset for the next iteration of the outer loop
-            trx6 = 0.05f;
-
-            // Adjust Z-axis offset for the next iteration
-            trz6 += 1.5f;
-        }
-
-        // After completing the double loop, add an offset on Z-axis for the next repetition
-        transform = glm::translate(transform, glm::vec3(0.0f, 0.0f, 5.0f));
-
-    }
-
-    //the right bottom1
-    float trx7 = 0.5f;
-    float trz7 = 0.0f;
-
-    for (int k = 0; k < 2; k++) {
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 100; j++) {
-                glm::mat4 G8 = glm::mat4(1.0f) * transform;
-                G8 = glm::translate(G8, glm::vec3(11.0f + trx7, 2.0f, -33.0f + trz7));
-                G8 = glm::scale(G8, glm::vec3(2.0f, 2.0f, 2.0f)); // Scale if needed
-                G8 = glm::rotate(G8, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-                shader.setMat4("model", G8);
-                // grassm.Draw(shader);
-                trx7 += 0.2f;
-            }
-
-            // Reset X-axis offset for the next iteration of the outer loop
-            trx7 = 0.05f;
-
-            // Adjust Z-axis offset for the next iteration
-            trz7 += 1.5f;
-        }
-
-        // After completing the double loop, add an offset on Z-axis for the next repetition
-        transform = glm::translate(transform, glm::vec3(0.0f, 0.0f, 8.0f));
-
-    }
-
-    //the right bottom2
-    float trx8 = 0.5f;
-    float trz8 = 0.0f;
-
-    for (int k = 0; k < 3; k++) {
-        for (int i = 0; i < 12; i++) {
-            for (int j = 0; j < 100; j++) {
-                glm::mat4 G9 = glm::mat4(1.0f) * transform;
-                G9 = glm::translate(G9, glm::vec3(50.0f + trx8, 2.0f, -50.0f + trz8));
-                G9 = glm::scale(G9, glm::vec3(2.0f, 2.0f, 2.0f)); // Scale if needed
-                G9 = glm::rotate(G9, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-                shader.setMat4("model", G9);
-                //grassm.Draw(shader);
-                trx8 += 0.2f;
-            }
-
-            // Reset X-axis offset for the next iteration of the outer loop
-            trx8 = 0.05f;
-
-            // Adjust Z-axis offset for the next iteration
-            trz8 += 1.5f;
-        }
-
-        // After completing the double loop, add an offset on Z-axis for the next repetition
-        transform = glm::translate(transform, glm::vec3(0.0f, 0.0f, 8.0f));
-
-    }
+ //       //    // After completing the double loop, add an offset on Z-axis for the next repetition
+ //       transform = glm::translate(transform, glm::vec3(5.0f, 0.0f, 0.0f));
+ //   }
 
 
-    //the right top2
-    float trx9 = 0.5f;
-    float trz9 = 0.0f;
+ //   // the right of bottom
+ //   float trx5 = 0.5f;
+ //   float trz5 = 0.0f;
 
-    for (int k = 0; k < 3; k++) {
-        for (int i = 0; i < 12; i++) {
-            for (int j = 0; j < 100; j++) {
-                glm::mat4 G10 = glm::mat4(1.0f) * transform;
-                G10 = glm::translate(G10, glm::vec3(50.0f + trx9, 2.0f, -100.0f + trz9));
-                G10 = glm::scale(G10, glm::vec3(2.0f, 2.0f, 2.0f)); // Scale if needed
-                G10 = glm::rotate(G10, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-                shader.setMat4("model", G10);
-                // grassm.Draw(shader);
-                trx9 += 0.2f;
-            }
+ //   for (int k = 0; k < 2; k++) {
+ //       for (int i = 0; i < 19; i++) {
+ //           trz5 = 0;
+ //           for (int j = 0; j < 120; j++) {
+ //               glm::mat4 G6 = glm::mat4(1.0f) * transform;
+ //               G6 = glm::translate(G6, glm::vec3(-27.0f + trx5, 2.0f, 25.0f + trz5));
+ //               // G1 = glm::scale(G1, glm::vec3(2.0f, 2.0f, 2.0f)); // Scale if needed
+ //               shader.setMat4("model", G6);
+ //               // grassm.Draw(shader);
+ //               trz5 += 0.2f;
+ //           }
 
-            // Reset X-axis offset for the next iteration of the outer loop
-            trx9 = 0.05f;
+ //           //        // Adjust x-axis offset for the next iteration
+ //           trx5 += 1.5f;
 
-            // Adjust Z-axis offset for the next iteration
-            trz9 += 1.5f;
-        }
+ //       }
 
-        // After completing the double loop, add an offset on Z-axis for the next repetition
-        transform = glm::translate(transform, glm::vec3(0.0f, 0.0f, 8.0f));
+ //       //    // After completing the double loop, add an offset on Z-axis for the next repetition
+ //       // 
+ //       transform = glm::translate(transform, glm::vec3(5.0f, 0.0f, 0.0f));
+ //   }
 
-    }
+
+ //   //the right top 1 
+ //   float trx6 = 0.5f;
+ //   float trz6 = 0.0f;
+
+ //   for (int k = 0; k < 2; k++) {
+ //       for (int i = 0; i < 13; i++) {
+ //           for (int j = 0; j < 100; j++) {
+ //               glm::mat4 G7 = glm::mat4(1.0f) * transform;
+ //               G7 = glm::translate(G7, glm::vec3(11.0f + trx6, 2.0f, -87.0f + trz6));
+ //               G7 = glm::scale(G7, glm::vec3(2.0f, 2.0f, 2.0f)); // Scale if needed
+ //               G7 = glm::rotate(G7, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+ //               shader.setMat4("model", G7);
+ //               // grassm.Draw(shader);
+ //               trx6 += 0.2f;
+ //           }
+
+ //           // Reset X-axis offset for the next iteration of the outer loop
+ //           trx6 = 0.05f;
+
+ //           // Adjust Z-axis offset for the next iteration
+ //           trz6 += 1.5f;
+ //       }
+
+ //       // After completing the double loop, add an offset on Z-axis for the next repetition
+ //       transform = glm::translate(transform, glm::vec3(0.0f, 0.0f, 5.0f));
+
+ //   }
+
+ //   //the right bottom1
+ //   float trx7 = 0.5f;
+ //   float trz7 = 0.0f;
+
+ //   for (int k = 0; k < 2; k++) {
+ //       for (int i = 0; i < 10; i++) {
+ //           for (int j = 0; j < 100; j++) {
+ //               glm::mat4 G8 = glm::mat4(1.0f) * transform;
+ //               G8 = glm::translate(G8, glm::vec3(11.0f + trx7, 2.0f, -33.0f + trz7));
+ //               G8 = glm::scale(G8, glm::vec3(2.0f, 2.0f, 2.0f)); // Scale if needed
+ //               G8 = glm::rotate(G8, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+ //               shader.setMat4("model", G8);
+ //               // grassm.Draw(shader);
+ //               trx7 += 0.2f;
+ //           }
+
+ //           // Reset X-axis offset for the next iteration of the outer loop
+ //           trx7 = 0.05f;
+
+ //           // Adjust Z-axis offset for the next iteration
+ //           trz7 += 1.5f;
+ //       }
+
+ //       // After completing the double loop, add an offset on Z-axis for the next repetition
+ //       transform = glm::translate(transform, glm::vec3(0.0f, 0.0f, 8.0f));
+
+ //   }
+
+ //   //the right bottom2
+ //   float trx8 = 0.5f;
+ //   float trz8 = 0.0f;
+
+ //   for (int k = 0; k < 3; k++) {
+ //       for (int i = 0; i < 12; i++) {
+ //           for (int j = 0; j < 100; j++) {
+ //               glm::mat4 G9 = glm::mat4(1.0f) * transform;
+ //               G9 = glm::translate(G9, glm::vec3(50.0f + trx8, 2.0f, -50.0f + trz8));
+ //               G9 = glm::scale(G9, glm::vec3(2.0f, 2.0f, 2.0f)); // Scale if needed
+ //               G9 = glm::rotate(G9, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+ //               shader.setMat4("model", G9);
+ //               //grassm.Draw(shader);
+ //               trx8 += 0.2f;
+ //           }
+
+ //           // Reset X-axis offset for the next iteration of the outer loop
+ //           trx8 = 0.05f;
+
+ //           // Adjust Z-axis offset for the next iteration
+ //           trz8 += 1.5f;
+ //       }
+
+ //       // After completing the double loop, add an offset on Z-axis for the next repetition
+ //       transform = glm::translate(transform, glm::vec3(0.0f, 0.0f, 8.0f));
+
+ //   }
+
+
+ //   //the right top2
+ //   float trx9 = 0.5f;
+ //   float trz9 = 0.0f;
+
+ //   for (int k = 0; k < 3; k++) {
+ //       for (int i = 0; i < 12; i++) {
+ //           for (int j = 0; j < 100; j++) {
+ //               glm::mat4 G10 = glm::mat4(1.0f) * transform;
+ //               G10 = glm::translate(G10, glm::vec3(50.0f + trx9, 2.0f, -100.0f + trz9));
+ //               G10 = glm::scale(G10, glm::vec3(2.0f, 2.0f, 2.0f)); // Scale if needed
+ //               G10 = glm::rotate(G10, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+ //               shader.setMat4("model", G10);
+ //               // grassm.Draw(shader);
+ //               trx9 += 0.2f;
+ //           }
+
+ //           // Reset X-axis offset for the next iteration of the outer loop
+ //           trx9 = 0.05f;
+
+ //           // Adjust Z-axis offset for the next iteration
+ //           trz9 += 1.5f;
+ //       }
+
+ //       // After completing the double loop, add an offset on Z-axis for the next repetition
+ //       transform = glm::translate(transform, glm::vec3(0.0f, 0.0f, 8.0f));
+
+ //   }
    
-}
+//}
 }
 
 

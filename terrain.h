@@ -55,10 +55,12 @@ Simplemesh terrainSetup(Shader shader) {
 
     texture Text2("res/textures/rocky_trail_diff.jpg",  "material.diffuse", GL_RGB, GL_SRGB);
     texture Text3("res/textures/rocky_trail_spec.jpg", "material.specular");
+    texture Text7("res/textures/rocky_trail_rough.jpg", "material.rough");
     texture Text4("res/textures/rocky_trail_nor.jpg","material.normal");
     texture Text5("res/textures/rocky_trail_ao.jpg","material.ambient");
+    texture Text8("res/textures/rocky_trail_arm.jpg", "material.metallic");
     texture Text6("res/textures/rocky_trail_disp.jpg", "material.height");
-    vector<sTexture> texts2 = { Text2.info , Text3.info, Text4.info , Text5.info, Text6.info };
+    vector<sTexture> texts2 = { Text2.info , Text3.info, Text4.info , Text5.info, Text6.info, Text7.info , Text8.info};
 
     generateTerrain(terrain.sVertices, terrain.indices, 200, 300, 1.0f);
 

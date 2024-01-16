@@ -27,6 +27,7 @@ extern const glm::vec3 cornerLight;
 extern Camera camera;
 extern bool spotLight;
 extern bool night;
+extern bool pbr;
 
 
 

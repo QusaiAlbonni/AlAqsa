@@ -73,6 +73,8 @@ public:
         unsigned int heightNr = 1;
         unsigned int ambientNr = 1;
         unsigned int emissionNr = 1;
+        unsigned int roughNr = 1;
+        unsigned int metallic = 1;
         for (unsigned int i = 0; i < textures.size(); i++)
         {
             glActiveTexture(GL_TEXTURE0 + i); // active proper texture unit before binding
@@ -91,6 +93,10 @@ public:
                 number = std::to_string(ambientNr++); // transfer unsigned int to string
             else if (name == "material.emission")
                 number = std::to_string(emissionNr++); // transfer unsigned int to string
+            else if (name == "material.rough")
+                number = std::to_string(roughNr++);
+            else if (name == "material.metallic")
+                number = std::to_string(metallic++);
             // now set the sampler to the correct texture unit
             glUniform1i(glGetUniformLocation(shader.ID, (name + number).c_str()), i);
        

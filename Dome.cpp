@@ -12,6 +12,8 @@ void Dome::init(){
 	texture faceSpecular("res/textures/domeWall/domeWall_rough.jpg", "material.specular");
 	texture faceAmbient("res/textures/domeWall/domeWall_ao.jpg", "material.ambient");
 	texture faceNormal("res/textures/domeWall/domeWall_nor.jpg", "material.normal");
+	texture faceRough("res/textures/domeWall/domeWall_rough.jpg", "material.rough");
+	texture faceMet("res/textures/domeWall/domeWall_metallic.jpg", "material.metallic");
 	texture faceHeight("res/textures/domeWall/domeWall_height.jpg", "material.height");
 
 	vector<sTexture> faceTextures= {
@@ -19,7 +21,9 @@ void Dome::init(){
 		faceSpecular.info,
 		faceAmbient.info,
 		faceNormal.info,
-		faceHeight.info
+		faceHeight.info,
+		faceMet.info,
+		faceRough.info
 	};
 
 	faceMesh = Simplemesh(face.sVertices, face.indices, faceTextures);
@@ -62,7 +66,9 @@ void Dome::init(){
 	texture domeAmbient("res/textures/domeWall/dome/dome_ao.jpg", "material.ambient");
 	texture domeNormal("res/textures/domeWall/dome/dome_nor.jpg", "material.normal");
 	texture domeHeight("res/textures/domeWall/dome/dome_height.jpg", "material.height");
-	vector<sTexture> domeTextures = { domeDiffuse.info , domeSpecular.info, domeAmbient.info, domeNormal.info, domeHeight.info };
+	texture domeMet("res/textures/domeWall/dome/dome_metallic.png", "material.metallic");
+	texture domeRough("res/textures/domeWall/dome/dome_rough.png", "material.rough");
+	vector<sTexture> domeTextures = { domeDiffuse.info , domeSpecular.info, domeAmbient.info, domeNormal.info, domeHeight.info, domeMet.info, domeRough.info };
 	sphereMesh = Simplemesh(sphere.sVertices, sphere.indices, domeTextures);
 
 

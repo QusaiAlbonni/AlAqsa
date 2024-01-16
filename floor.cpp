@@ -10,10 +10,12 @@ void square::init() {
     texture floor1("res/textures/floor/ao.jpg", "material.ambient");
     texture floor2("res/textures/floor/nor.jpg", "material.normal");
     texture floor3("res/textures/floor/rough.jpg", "material.specular");
+    texture floor6("res/textures/floor/rough.jpg", "material.rough");
+    texture floor7("res/textures/floor/diff.jpg", "material.metallic");
     texture floor4("res/textures/floor/diff.jpg", "material.diffuse", GL_RGB, GL_SRGB);
     texture floor5("res/textures/floor/height.jpg", "material.height");
 
-    vector<sTexture> texts = { floor1.info,floor2.info ,floor3.info, floor4.info, floor5.info };
+    vector<sTexture> texts = { floor1.info,floor2.info ,floor3.info, floor4.info, floor5.info, floor6.info, floor7.info };
     shapeUtils::generateRectangle(1.0f, 1.0f, squares.sVertices, squares.indices);
     squaremesh = Simplemesh(squares.sVertices, squares.indices, texts);
 }
@@ -25,6 +27,17 @@ void square::Draw() {
     drawMeshes(trans);
 
 }
+
+void square::DrawDepth(Shader depthShader, bool ortho) {
+    Shader temp = shader;
+    shader = depthShader;
+    glm::mat4 trans(1.0f);
+    trans = glm::translate(trans, glm::vec3(20.0f, 1.0f, 0.0f));
+    shader.setMat4("model", trans);
+    drawMeshes(trans);
+    shader = temp;
+}
+
 void square::drawMeshes(glm::mat4 transform, glm::mat4 scaleMat4) {
     float x = 20.0f;
     float z = 15.0f;

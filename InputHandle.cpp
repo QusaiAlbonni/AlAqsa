@@ -7,6 +7,10 @@ bool spotLightKeyPressed = false;
 bool nightKeyPressed = false;
 bool noclipKeyPressed = false;
 bool camPosKeyPressed = false;
+bool lightModeKeyPressed = false;
+bool fullScreenKeyPressed = false;
+bool fullScreenMode = false;
+glm::vec3 lastPos;
 
 void processInput(GLFWwindow* window)
 {
@@ -42,11 +46,12 @@ void processInput(GLFWwindow* window)
                 if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
                     camera.ProcessKeyboard(RIGHT,-1.0f* deltaTime * moveSpeed);
             }
-            else
-            camera.Position -= coldepth * colnorm;
+            else {
+
+                camera.Position -= coldepth * colnorm;
+            }
         }
-        
-        
+        lastPos = camera.Position;
         if ((glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) ||
             (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) ||
             (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) ||
@@ -74,6 +79,7 @@ void processInput(GLFWwindow* window)
     {
         nightKeyPressed = false;
     }
+
     if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS && !noclipKeyPressed)
     {
         camera.fps = !camera.fps;
@@ -83,14 +89,36 @@ void processInput(GLFWwindow* window)
     {
         noclipKeyPressed = false;
     }
-    if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS && !camPosKeyPressed)
-    {
 
-        camPosKeyPressed = true;
+    if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS && !lightModeKeyPressed)
+    {
+        pbr = !pbr;
+        lightModeKeyPressed = true;
     }
     if (glfwGetKey(window, GLFW_KEY_P) == GLFW_RELEASE)
     {
-        camPosKeyPressed = false;
+        lightModeKeyPressed = false;
     }
 
+
+    if (glfwGetKey(window, GLFW_KEY_ENTER) == GLFW_PRESS && !fullScreenKeyPressed)
+    {
+        if (fullScreenMode) {
+            SCR_WIDTH = 1280;
+            SCR_HEIGHT = 720;
+            glfwSetWindowMonitor(window, NULL, 100, 100, 1280, 720, GLFW_DONT_CARE);
+            fullScreenMode = false;
+        }
+        else {
+            GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+            const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+            glfwSetWindowMonitor(window, monitor, 0, 0, mode->width, mode->height, mode->refreshRate);
+            fullScreenMode = true;
+        }
+        fullScreenKeyPressed = true;
+    }
+    if (glfwGetKey(window, GLFW_KEY_ENTER) == GLFW_RELEASE)
+    {
+        fullScreenKeyPressed = false;
+    }
 }

@@ -1,10 +1,12 @@
-#version 330 core
+#version 450 core
+
+precision highp float;  // This line sets single precision for regular float variables
+
 layout (triangles) in;
 layout (triangle_strip, max_vertices = 3) out;
 
 
 struct Light {
-    //vec3 position;
     vec3 direction;
     vec3 ambient;
     vec3 diffuse;

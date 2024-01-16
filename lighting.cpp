@@ -1,5 +1,6 @@
 #include "lighting.h"
 #include "imageloader.h"
+#include <SOIL2/SOIL2.h>
 
 void addDirectionalLight(Shader shader, glm::vec3 lightDirection) {
     shader.use();
@@ -9,13 +10,25 @@ void addDirectionalLight(Shader shader, glm::vec3 lightDirection) {
     // light properties
     if (!night)
     {
-        shader.setVec3("light.ambient", 0.14f, 0.14f, 0.14f);
-        shader.setVec3("light.diffuse", 0.9f, 0.9f, 0.9f);
+        if (pbr) {
+            shader.setVec3("light.ambient", 5, 5, 4);
+            shader.setVec3("light.diffuse", 8, 8, 7);
+        }
+        else{
+            shader.setVec3("light.ambient", 0.14f, 0.14f, 0.14f);
+            shader.setVec3("light.diffuse", 0.9f, 0.9f, 0.9f);
+        }
         shader.setVec3("light.specular", 0.3f, 0.3f, 0.2f);
     }
     else {
-        shader.setVec3("light.ambient", 0.0028f, 0.0028f, 0.028f);
-        shader.setVec3("light.diffuse", 0.04f, 0.04f, 0.1f);
+        if (pbr) {
+            shader.setVec3("light.ambient", 0.1, 0.1, 0.2f);
+            shader.setVec3("light.diffuse", 0.5, 0.5, 0.75);
+        }
+        else {
+            shader.setVec3("light.ambient", 0.0028f, 0.0028f, 0.028f);
+            shader.setVec3("light.diffuse", 0.04f, 0.04f, 0.1f);
+        }
         shader.setVec3("light.specular", 0.06f, 0.06f, 0.06f);
     }
 }
@@ -25,32 +38,72 @@ void addPointLight(Shader lightingShader, glm::vec3 lightPos) {
     {
         lightingShader.setVec3("point.position", lightPos);
         lightingShader.setVec3("viewPos", camera.Position);
-        lightingShader.setVec3("point.ambient", 0.3f, 0.3f, 0.3f);
-        lightingShader.setVec3("point.diffuse", 0.9f, 0.9f, 0.7f);
-        lightingShader.setVec3("point.specular", 0.2f, 0.2f, 0.2f);
-        lightingShader.setFloat("point.constant", 1.0f);
-        lightingShader.setFloat("point.linear", 0.00000014f);
-        lightingShader.setFloat("point.quadratic", 0.007f);
+        if (pbr)
+        {
+            lightingShader.setVec3("point.ambient", 60, 60, 50);
+            lightingShader.setVec3("point.diffuse", 200, 200, 150);
+        }
+        else {
+            lightingShader.setVec3("point.ambient", 0.3, 0.3, 0.2);
+            lightingShader.setVec3("point.diffuse", 0.9, 0.9, 0.7);
+        }
+            lightingShader.setVec3("point.specular", 0.2f, 0.2f, 0.2f);
+            lightingShader.setFloat("point.constant", 1.0f);
+        if(pbr)
+        {
+            lightingShader.setFloat("point.linear", 0.14f);
+            lightingShader.setFloat("point.quadratic", 0.07f);
+        }
+        else 
+        {
+            lightingShader.setFloat("point.linear", 0.00000014f);
+            lightingShader.setFloat("point.quadratic", 0.007f);
+        }
     }
     else if (lightPos == domePointlightPos) {
         lightingShader.setVec3("point.position", lightPos);
         lightingShader.setVec3("viewPos", camera.Position);
-        lightingShader.setVec3("point.ambient", 0.3f, 0.3f, 0.3f);
-        lightingShader.setVec3("point.diffuse", 0.9f, 0.9f, 0.7f);
+        if(pbr)
+        {
+        lightingShader.setVec3("point.ambient", 60, 60, 50);
+        lightingShader.setVec3("point.diffuse", 200, 200, 150);
+        }
+        else {
+            lightingShader.setVec3("point.ambient", 0.3, 0.3, 0.2);
+            lightingShader.setVec3("point.diffuse", 0.9, 0.9, 0.7);
+        }
         lightingShader.setVec3("point.specular", 0.2f, 0.2f, 0.2f);
         lightingShader.setFloat("point.constant", 1.0f);
-        lightingShader.setFloat("point.linear", 0.0000014f);
-        lightingShader.setFloat("point.quadratic", 0.014f);
+        if (pbr) {
+            lightingShader.setFloat("point.linear", 0.14f);
+            lightingShader.setFloat("point.quadratic", 0.014f);
+        }
+        else {
+            lightingShader.setFloat("point.linear", 0.0000014f);
+            lightingShader.setFloat("point.quadratic", 0.014f);
+        }
     }
     else {
         lightingShader.setVec3("point.position", lightPos);
         lightingShader.setVec3("viewPos", camera.Position);
-        lightingShader.setVec3("point.ambient", 0.3f, 0.3f, 0.3f);
-        lightingShader.setVec3("point.diffuse", 0.9f, 0.9f, 0.7f);
+        if (pbr) {
+            lightingShader.setVec3("point.ambient", 50, 50, 40);
+            lightingShader.setVec3("point.diffuse", 150, 150, 110);
+        }
+        else {
+            lightingShader.setVec3("point.ambient", 0.3f, 0.3f, 0.3f);
+            lightingShader.setVec3("point.diffuse", 0.9f, 0.9f, 0.7f);
+        }
         lightingShader.setVec3("point.specular", 0.2f, 0.2f, 0.2f);
         lightingShader.setFloat("point.constant", 1.0f);
-        lightingShader.setFloat("point.linear", 0.14f);
-        lightingShader.setFloat("point.quadratic", 0.014f);
+        if (pbr) {
+            lightingShader.setFloat("point.linear", 0.32f);
+            lightingShader.setFloat("point.quadratic", 0.014f);
+        }
+        else {
+            lightingShader.setFloat("point.linear", 0.14f);
+            lightingShader.setFloat("point.quadratic", 0.014f);
+        }
     }
     if (!night)
     {
@@ -121,16 +174,17 @@ unsigned int loadEnvCubemap(vector<std::string> faces)
     int width, height, nrChannels;
     for (unsigned int i = 0; i < faces.size(); i++)
     {
-        unsigned char* data = loadImage(faces[i].c_str(), &width, &height, &nrChannels, false);
+        stbi_set_flip_vertically_on_load(false);
+        unsigned char* data = SOIL_load_image(faces[i].c_str(), &width, &height, &nrChannels, SOIL_LOAD_AUTO);
         if (data)
         {
             glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_SRGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-            freeImageData(data);
+            SOIL_free_image_data(data);
         }
         else
         {
             std::cout << "Cubemap texture failed to load at path: " << faces[i] << std::endl;
-            freeImageData(data);
+            SOIL_free_image_data(data);
         }
     }
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);

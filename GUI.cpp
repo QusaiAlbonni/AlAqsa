@@ -14,7 +14,7 @@ void GUI::UIupdate()
     ImGui::NewFrame();
 
     ImGui::SetNextWindowPos(ImVec2(0, 0));
-    ImGui::SetNextWindowSize(ImVec2(450, 140));
+    ImGui::SetNextWindowSize(ImVec2(450, 200));
     ImGui::Begin("Info Window", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse);
     
     ImVec4 white = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
@@ -43,6 +43,18 @@ void GUI::UIupdate()
 
     ImGui::SameLine();
     ImGui::TextColored(!camera.fps ? green : red, !camera.fps ? "On" : "Off");
+
+    ImGui::NewLine();
+    ImGui::TextColored(white, "Fps(Frame Time):");
+
+    ImGui::SameLine();
+    ImGui::TextColored(green, (to_string((int)(1.0/deltaTime)) + "(" + to_string(deltaTime * 1000) + "ms" + ")").c_str());
+
+    ImGui::NewLine();
+    ImGui::TextColored(white, "Lighting Mode(Press P to toggle):");
+
+    ImGui::SameLine();
+    ImGui::TextColored(green, pbr ? "PBR(Beta)" : "Phong");
     
     ImGui::End();
 }

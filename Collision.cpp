@@ -22,7 +22,7 @@ bool Collision::CollisionDetector::checkAABBCollision(const AABB box1, const AAB
             collisionNormal = glm::vec3((box1.min.x < box2.min.x) ? -1.0f : 1.0f, 0.0f, 0.0f);
             penetrationDepth = overlapX;
         }
-        else if (overlapY < overlapZ) {
+        else if (overlapY < overlapZ && overlapY < overlapX) {
             collisionNormal = glm::vec3(0.0f, (box1.min.y < box2.min.y) ? -1.0f : 1.0f, 0.0f);
             penetrationDepth = overlapY;
         }
@@ -110,11 +110,11 @@ bool Collision::CollisionDetector::checkPlayerCol(glm::vec3& normal, float& dept
 {
     bool col = false;
 
-    AABB box1 = { {-100.0f, 0, -152.1f},{100.0f,2.0f, -150.0f} };
+    AABB box1 = { {-100.0f, 0, -152.1f},{100.0f,4.0f, -150.0f} };
     AABB cam =
     {
-        glm::vec3(camera.Position.x - 0.4f, 0, camera.Position.z - 0.4f),
-         glm::vec3(camera.Position.x + 0.4f, 1.8f, camera.Position.z + 0.4f)
+        glm::vec3(camera.Position.x - 1, 0, camera.Position.z - 1),
+         glm::vec3(camera.Position.x + 1, 1.8f, camera.Position.z + 1)
     };
 
     if (checkAABBCollision(box1, cam, normal, depth))
@@ -122,93 +122,93 @@ bool Collision::CollisionDetector::checkPlayerCol(glm::vec3& normal, float& dept
         col = true;
     }
     
-    AABB box2 = { {+99.0f, 0, -150.1f},{+102.0f,2.0f, 150.0f} };
+    AABB box2 = { {+99.0f, 0, -150.1f},{+102.0f,4.0f, 150.0f} };
     if (checkAABBCollision(box2, cam, normal, depth))
     {
         col = true;
     }
     
-    AABB box3 = { {-102.0f, 0, -150.0f},{-99.0f,2.0f, 150.0f} };
+    AABB box3 = { {-102.0f, 0, -150.0f},{-99.0f,4.0f, 150.0f} };
     if (checkAABBCollision(box3, cam, normal, depth))
     {
         col = true;
     }
     
-    AABB box4 = { {-100.0f, 0, +149.1f},{100.0f,2.0f, 152.0f} };
+    AABB box4 = { {-100.0f, 0, +149.1f},{100.0f,4.0f, 152.0f} };
     if (checkAABBCollision(box4, cam, normal, depth))
     {
         col = true;
     }
 
 
-    AABB box5 = { {-43.0f, 0, -12.1f},{-42.0f,2.0f, -11.0f} };
+    AABB box5 = { {-43.0f, 0, -12.1f},{-42.0f,4.0f, -11.0f} };
     if (checkAABBCollision(box5, cam, normal, depth))
     {
         col = true;
     }
 
-    AABB box6 = { {-38.0f, 0, -12.1f},{-37.0f,2.0f, -11.0f} };
+    AABB box6 = { {-38.0f, 0, -12.1f},{-37.0f,4.0f, -11.0f} };
     if (checkAABBCollision(box6, cam, normal, depth))
     {
         col = true;
     }
-    AABB box7 = { {-37.0f, 0, -17.1f},{-30.0f,2.0f, -16.0f} };
+    AABB box7 = { {-37.0f, 0, -17.1f},{-30.0f,4.0f, -16.0f} };
     if (checkAABBCollision(box7, cam, normal, depth))
     {
         col = true;
     }
-    AABB box8 = { {-50.0f, 0, -17.1f},{-43.0f,2.0f, -16.0f} };
+    AABB box8 = { {-50.0f, 0, -17.1f},{-43.0f,4.0f, -16.0f} };
     if (checkAABBCollision(box8, cam, normal, depth))
     {
         col = true;
     }
-    AABB box9 = { {-50.0f, 0, -64.1f},{-30.0f,2.0f, -63.0f} };
+    AABB box9 = { {-50.0f, 0, -64.1f},{-30.0f,4.0f, -63.0f} };
     if (checkAABBCollision(box9, cam, normal, depth))
     {
         col = true;
     }
 
-    AABB box10 = { {-64.0f, 0, -50.1f},{-63.0f,2.0f, -30.0f} };
+    AABB box10 = { {-64.0f, 0, -50.1f},{-63.0f,4.0f, -30.0f} };
     if (checkAABBCollision(box10, cam, normal, depth))
     {
         col = true;
     }
-    AABB box11 = { {-17.0f, 0, -50.1f},{-16.0f,2.0f, -43.0f} };
+    AABB box11 = { {-17.0f, 0, -50.1f},{-16.0f,4.0f, -43.0f} };
     if (checkAABBCollision(box11, cam, normal, depth))
     {
         col = true;
     }
-    AABB box12 = { {-17.0f, 0, -37.1f},{-16.0f,2.0f, -30.0f} };
+    AABB box12 = { {-17.0f, 0, -37.1f},{-16.0f,4.0f, -30.0f} };
     if (checkAABBCollision(box12, cam, normal, depth))
     {
         col = true;
     }
-    AABB box13 = { {-12.6f, 0, -32.7f},{-12.0f,2.0f, -32.0f} };
+    AABB box13 = { {-12.6f, 0, -32.7f},{-12.0f,4.0f, -32.0f} };
     if (checkAABBCollision(box13, cam, normal, depth))
     {
         col = true;
     }
-    AABB box15 = { {-12.6f, 0, -34.4f},{-12.0f,2.0f, -34.0f} };
+    AABB box15 = { {-12.6f, 0, -34.4f},{-12.0f,4.0f, -34.0f} };
     if (checkAABBCollision(box15, cam, normal, depth))
     {
         col = true;
     }
-    AABB box16 = { {-12.6f, 0, -37.2f},{-12.0f,2.0f, -36.8f} };
+    AABB box16 = { {-12.6f, 0, -37.2f},{-12.0f,4.0f, -36.8f} };
     if (checkAABBCollision(box16, cam, normal, depth))
     {
         col = true;
     }
-    AABB box17 = { {-12.6f, 0, -43.8f},{-12.0f,2.0f, -43.2f} };
+    AABB box17 = { {-12.6f, 0, -43.8f},{-12.0f,4.0f, -43.2f} };
     if (checkAABBCollision(box17, cam, normal, depth))
     {
         col = true;
     }
-    AABB box18 = { {-12.6f, 0, -45.8f},{-12.0f,2.0f, -45.2f} };
+    AABB box18 = { {-12.6f, 0, -45.8f},{-12.0f,4.0f, -45.2f} };
     if (checkAABBCollision(box18, cam, normal, depth))
     {
         col = true;
     }
-    AABB box19 = { {-12.6f, 0, -47.3f},{-12.0f,2.0f, -46.7f} };
+    AABB box19 = { {-12.6f, 0, -47.3f},{-12.0f,4.0f, -46.7f} };
     if (checkAABBCollision(box19, cam, normal, depth))
     {
         col = true;

@@ -1,5 +1,6 @@
 #include "skybox.h"
 #include "imageloader.h"
+#include <SOIL2/SOIL2.h>
 
 unsigned int setupSkyBox() {
     float skyboxVertices[] = {
@@ -99,16 +100,17 @@ unsigned int loadCubemap(std::vector<std::string> faces)
     int width, height, nrChannels;
     for (unsigned int i = 0; i < faces.size(); i++)
     {
-        unsigned char* data = loadImage(faces[i].c_str(), &width, &height, &nrChannels, false);
+        stbi_set_flip_vertically_on_load(false);
+        unsigned char* data = SOIL_load_image(faces[i].c_str(), &width, &height, &nrChannels, SOIL_LOAD_AUTO);
         if (data)
         {
             glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_SRGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-            freeImageData(data);
+            SOIL_free_image_data(data);
         }
         else
         {
             std::cout << "Cubemap texture failed to load at path: " << faces[i] << std::endl;
-            freeImageData(data);
+            SOIL_free_image_data(data);
         }
     }
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -220,16 +222,17 @@ unsigned int loadCubemapNight(std::vector<std::string> faces)
     int width, height, nrChannels;
     for (unsigned int i = 0; i < faces.size(); i++)
     {
-        unsigned char* data = loadImage(faces[i].c_str(), &width, &height, &nrChannels, false);
+        stbi_set_flip_vertically_on_load(false);
+        unsigned char* data = SOIL_load_image(faces[i].c_str(), &width, &height, &nrChannels, SOIL_LOAD_AUTO );
         if (data)
         {
             glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_SRGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-            freeImageData(data);
+            SOIL_free_image_data(data);
         }
         else
         {
             std::cout << "Cubemap texture failed to load at path: " << faces[i] << std::endl;
-            freeImageData(data);
+            SOIL_free_image_data(data);
         }
     }
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);

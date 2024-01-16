@@ -12,6 +12,7 @@ public:
 	void init() override;
 	square(Shader shader);
 	void Draw() override;
+	void DrawDepth(Shader depthShader, bool ortho) override;
 	void drawMeshes(glm::mat4 transform, glm::mat4 scaleMat = glm::mat4(1)) override;
 
 };

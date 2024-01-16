@@ -25,6 +25,7 @@
 
 
 
+
 void startGame(GLFWwindow* window) {
 
  
@@ -88,13 +89,13 @@ void startGame(GLFWwindow* window) {
         AudioManager::playBackGround();
         unsigned int depthmapspotTex = depthmapSpot.render({ dome});
         dshader.use();
+        dshader.setBool("isPBR", pbr);
         dshader.setBool("isModel", false);
         dshader.setMat4("lightSpaceMatrix2", depthmapSpot.lightSpaceMatrix);
         dshader.setBool("spotOn", spotLight);
         dshader.setBool("noparallax", true);
         drawTerrain(terrain, dshader, depthMapTex.id, depthmapspotTex);
         dshader.setBool("noparallax", true);
-
         dome.Draw();
         floor.Draw();
         if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS) {

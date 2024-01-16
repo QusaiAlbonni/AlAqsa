@@ -1,6 +1,6 @@
 
 #include "texture.h"
-#include "imageloader.h"
+#include <SOIL2/SOIL2.h>
 
 
 texture::texture(std::string path,std::string type, GLenum format, GLenum gamma, bool generatMipMapflag)
@@ -19,7 +19,8 @@ void texture::make() {
 	glGenTextures(1, &info.id);
 	glBindTexture(GL_TEXTURE_2D, info.id);
 	int width, height, nrChannels;
-	unsigned char* data = loadImage(info.path, &width, &height, &nrChannels);
+	stbi_set_flip_vertically_on_load(true);
+	unsigned char* data = SOIL_load_image(info.path.c_str(), &width, &height, &nrChannels, SOIL_LOAD_AUTO);
 	if (format == GL_NONE) {
 		if (nrChannels == 1)
 			format = GL_RED;
@@ -29,6 +30,7 @@ void texture::make() {
 			format = GL_RGBA;
 	}
 	glTexImage2D(GL_TEXTURE_2D, 0, gamma, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+
 	if (generatMipMapflag)
 	{
 		glGenerateMipmap(GL_TEXTURE_2D);
@@ -42,5 +44,5 @@ void texture::make() {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	freeImageData(data);
+	SOIL_free_image_data(data);
 }

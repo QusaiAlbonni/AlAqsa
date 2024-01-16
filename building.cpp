@@ -8,18 +8,20 @@ void Building::init()
 	texture diff("res/textures/building-texts/building_diff.jpg","material.diffuse",GL_RGB, GL_SRGB);
 	texture ao("res/textures/building-texts/building_ao.jpg", "material.ambient");
 	texture nor("res/textures/building-texts/building_nor.png", "material.normal");
+	texture height("res/textures/building-texts/building_height.png", "material.height");
 	texture spec("res/textures/building-texts/building_spec.jpg", "material.specular");
 	texture emis("res/textures/building-texts/building_emissive.jpg", "material.emission");
-	vector<sTexture> texts = { diff.info, ao.info, nor.info, spec.info, emis.info };
+	vector<sTexture> texts = { diff.info, ao.info, nor.info, spec.info, emis.info , height.info};
 
 	sideMesh = Simplemesh(side.sVertices, side.indices, texts);
 
 	texture diff2("res/textures/building-texts/building2_diff.jpg", "material.diffuse", GL_RGB, GL_SRGB);
 	texture ao2("res/textures/building-texts/building2_ao.jpg", "material.ambient");
 	texture nor2("res/textures/building-texts/building2_nor.png", "material.normal");
+	texture height2("res/textures/building-texts/building2_height.png", "material.height");
 	texture spec2("res/textures/building-texts/building2_spec.jpg", "material.specular");
 	texture emis2("res/textures/building-texts/building2_emissive.jpg", "material.emission");
-	vector<sTexture> texts2 = { diff2.info, ao2.info, nor2.info, spec2.info, emis2.info };
+	vector<sTexture> texts2 = { diff2.info, ao2.info, nor2.info, spec2.info, emis2.info, height2.info };
 
 	sideMesh2 = Simplemesh(side.sVertices, side.indices, texts2);
 }
@@ -31,6 +33,7 @@ void Building::Draw()
 {
 	shader.use();
 	shader.setBool("hasEmissive", night ? 1:0);
+	shader.setBool("noparallax", 0);
 	glm::mat4 transform(1);
 	transform = glm::translate(transform, glm::vec3(110, 12, 200));
 	drawMeshes(sideMesh, transform);
@@ -105,6 +108,7 @@ void Building::Draw()
 	drawMeshes(sideMesh2, transform);
 
 	shader.setBool("hasEmissive", 0);
+	shader.setBool("noparallax", 1);
 }
 
 void Building::drawMeshes(Simplemesh building, glm::mat4 transform, glm::mat4 scaleMat)

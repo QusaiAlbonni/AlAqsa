@@ -25,13 +25,17 @@ void Wall::init()
     shapeUtils::generateRectangle(32, 28, wall.sVertices, wall.indices);
     texture faceDiffuse("res/textures/Wall2/Wall-diff.jpg", "material.diffuse", GL_RGB, GL_SRGB);
     texture faceAmbient("res/textures/Wall2/Wall-ao.jpg", "material.ambient");
-    texture faceNormal("res/textures/Wall2/Wall-nor.jpg", "material.normal");
+    texture faceRough("res/textures/Wall2/Wall-nor.jpg", "material.normal");
+    texture faceNormal("res/textures/Wall2/Wall-rough.jpg", "material.rough");
+    texture faceSpec("res/textures/Wall2/Wall-rough.jpg", "material.spec");
     texture faceHeight("res/textures/Wall2/Wall-height.jpg", "material.height");
     vector<sTexture> cubeTextures = {
        faceDiffuse.info,
        faceAmbient.info,
        faceNormal.info,
-       faceHeight.info
+       faceHeight.info,
+       faceRough.info,
+       faceSpec.info
     };
 
     wallmesh = Simplemesh(wall.sVertices, wall.indices, cubeTextures);
@@ -44,7 +48,6 @@ void Wall::Draw()
     addPointLight(shader, cornerLight);
     drawMeshes(transform);
     setMVP(shader);
-
 }
 
 void Wall::DrawDepth(Shader depthShader, bool ortho)

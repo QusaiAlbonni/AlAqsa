@@ -17,8 +17,8 @@ public:
 	string type;
 	glm::mat4 lightSpaceMatrix;
 	float near_plane, far_plane;
-	GLfloat pnear_plane = 0.2f, pfar_plane = 100.0f;
-	float top = 200.0f, bottom = -200.0f, left = -300.0f, right = 300.0f;
+	float pnear_plane = 0.2f, pfar_plane = 100.0f;
+	float top = -300.0f, bottom = 300.0f, left = -300.0f, right = 300.0f;
 	Shader depthShader;
 	Shader debugDepthQuad;
 	DepthMap(Shader shader, string type);
