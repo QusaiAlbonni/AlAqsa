@@ -2,7 +2,7 @@
 
 3D Al-Aqsa Mosque, made with modern OpenGL (4.6)
 
-![Demo](./images/demo.png)
+![Demo](./images/demo.jpg)
 
 
 ## Building From Source
