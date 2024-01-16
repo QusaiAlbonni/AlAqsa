@@ -64,3 +64,5 @@
 
 *.cpp linguist-language=C++
 *.h linguist-language=C++
+*.nb linguist-language=Ignore
+*.wl linguist-language=Ignore
