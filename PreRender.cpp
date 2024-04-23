@@ -54,6 +54,7 @@ bool setupOpengl()
     glEnable(GL_FRAMEBUFFER_SRGB);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     //glCullFace(GL_FRONT);
     //glEnable(GL_CULL_FACE);
     //glFrontFace(GL_CCW);

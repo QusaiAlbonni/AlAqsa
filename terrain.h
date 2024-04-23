@@ -23,7 +23,7 @@ void generateTerrain(std::vector<sVertex>& vertices, std::vector<unsigned int>& 
             float xPos = (static_cast<float>(x) - halfWidth) * scale;
             float zPos = (static_cast<float>(z) - halfHeight) * scale;
             float elevation;
-            elevation = glm::perlin(glm::vec2(xPos * 0.2f, zPos * 0.2f)) * 0.30f;
+            elevation = glm::perlin(glm::vec2(xPos * 0.2f, zPos * 0.2f)) * 0.34f;
             vertices.push_back({{ xPos, elevation, zPos }, { 0.0f, 1.0f, 0.0f }, { xPos / 6 , zPos / 6}
         });
         }
